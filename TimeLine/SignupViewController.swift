@@ -15,8 +15,11 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        signupTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50))
+        signupTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50
+                                                                    ))
         signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
+
     }
     
 

@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var loginTitleLabel: UILabel!
     
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var usernameField: UITextField!  // testing can delete !
     
     @IBOutlet weak var passwordField: UITextField! // testing can delete !
@@ -21,6 +22,17 @@ class LoginViewController: UIViewController {
         
         loginTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50))
         loginTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
+        
+//        var config = UIButton.Configuration.filled()
+//        config.titlePadding = 10 // Adds space around the title
+//        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+//        
+//        loginButton.configuration = config
+//            
+//        // Round the corners
+//        loginButton.layer.cornerRadius = 10
+//        loginButton.clipsToBounds = true
     }
 
     @IBAction func onSignInPressed(_ sender: Any) {
