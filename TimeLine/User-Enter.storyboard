@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="o6r-r1-whY">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -58,6 +58,9 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="onSignInPressed:" destination="o6r-r1-whY" eventType="touchUpInside" id="8e0-Oa-ya0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUo-Sg-drJ">
                                 <rect key="frame" x="48" y="769" width="296" height="35"/>
@@ -87,6 +90,8 @@
                     </view>
                     <connections>
                         <outlet property="loginTitleLabel" destination="Sms-8B-BeZ" id="Tbu-aV-FTT"/>
+                        <outlet property="passwordField" destination="KCj-bT-ahQ" id="lpp-Td-uWy"/>
+                        <outlet property="usernameField" destination="zIB-Dl-J1U" id="KHg-sM-Dzj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="My2-aI-hLk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
