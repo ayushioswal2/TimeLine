@@ -9,10 +9,13 @@ import UIKit
 
 class SignupViewController: UIViewController {
 
+    @IBOutlet weak var signupTitleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        signupTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50))
+        signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
     }
     
 
