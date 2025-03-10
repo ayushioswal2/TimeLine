@@ -11,11 +11,9 @@ import FirebaseAuth
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var loginTitleLabel: UILabel!
-    
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var usernameField: UITextField!  // testing can delete !
-    
-    @IBOutlet weak var passwordField: UITextField! // testing can delete !
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,19 +31,33 @@ class LoginViewController: UIViewController {
 //        // Round the corners
 //        loginButton.layer.cornerRadius = 10
 //        loginButton.clipsToBounds = true
+        
+        // doesn't work for some reason, immediately segues to Home screen on boot up
+//        Auth.auth().addStateDidChangeListener() {
+//            (auth, user) in
+//            if user != nil {
+//                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+//                self.emailField.text = nil
+//                self.passwordField.text = nil
+//            }
+//            
+//        }
     }
 
     @IBAction func onSignInPressed(_ sender: Any) {
         // placeholder for testing purposes, doesn't segue or anything
         Auth.auth().signIn(
-            withEmail: usernameField.text!,
+            withEmail: emailField.text!,
             password: passwordField.text!) {
                 (authResult, error) in
                 if let error = error as NSError? {
                     print(error.localizedDescription)   // if password error, do the red message below it and red box, etc.
                     // or if username badly formatted, display that message and red box also
                 } else {
-                    print("successful sign-in for \(self.usernameField.text!)")
+                    print("successful sign-in for \(self.emailField.text!)")
+                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+                    self.emailField.text = nil
+                    self.passwordField.text = nil
                 }
             }
     }

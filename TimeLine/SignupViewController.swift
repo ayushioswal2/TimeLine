@@ -11,6 +11,11 @@ import FirebaseAuth
 class SignupViewController: UIViewController {
 
     @IBOutlet weak var signupTitleLabel: UILabel!
+    
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var verifyPasswordField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,18 +24,35 @@ class SignupViewController: UIViewController {
                                                                     ))
         signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
+        
+        // doesn't work for some reason same as login
+//        Auth.auth().addStateDidChangeListener() {
+//            (auth,user) in
+//            if user != nil {
+//                self.performSegue(withIdentifier: "SignupSegue", sender:nil)
+//                self.emailField.text = nil
+//                self.passwordField.text = nil
+//            }
+//        }
 
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onSignUpPressed(_ sender: Any) {
+        Auth.auth().createUser(withEmail: emailField.text!,
+                               password: passwordField.text!) {
+            (authResult,error) in
+            if let error = error as NSError? {
+                print(error.localizedDescription)   // if password error, do the red message below it and red box, etc.
+                // or if username badly formatted, display that message and red box also
+            } else {
+                print("successful sign-in for \(self.emailField.text!)")
+                self.performSegue(withIdentifier: "SignupSegue", sender:nil)
+                self.emailField.text = nil
+                self.passwordField.text = nil
+            }
+            
+        }
     }
-    */
-
+    
 }

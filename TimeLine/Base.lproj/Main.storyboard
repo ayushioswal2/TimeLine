@@ -27,7 +27,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="JcS-X5-H7C">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xbe-hu-ZMG" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainNavID" automaticallyAdjustsScrollViewInsets="NO" id="Xbe-hu-ZMG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n3v-Us-GR4">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
