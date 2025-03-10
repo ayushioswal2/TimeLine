@@ -8,13 +8,14 @@
 import UIKit
 
 class TimelineTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var timelineNameLabel: UILabel!
     @IBOutlet weak var timelineCoverImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-var timelines: [String] = ["Personal Timeline", "The FAM", "AAA"]
+var timelines: [String] = ["Personal Timeline", "The FAM"]
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -36,11 +36,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
-//        cell.textLabel?.text = timelines[indexPath.row]
         cell.timelineNameLabel.text = timelines[indexPath.row]
         cell.timelineNameLabel.font = UIFont(name: "Refani", size: CGFloat(20))
         
-//        cell.timelineCoverImageView.image = UIImage(systemName: "")
+//        let imageName = "holyrood_park.jpg"
+//        let image = UIImage(named: imageName)
+//        cell.timelineCoverImageView.image = image
         return cell
     }
     
