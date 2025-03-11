@@ -13,9 +13,11 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var signupTitleLabel: UILabel!
     
     @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var verifyPasswordField: UITextField!
-
+    @IBOutlet weak var errorMessageLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +26,7 @@ class SignupViewController: UIViewController {
                                                                     ))
         signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
+        self.errorMessageLabel.text = ""
         
         // doesn't work for some reason same as login
 //        Auth.auth().addStateDidChangeListener() {
@@ -39,6 +42,41 @@ class SignupViewController: UIViewController {
     
 
     @IBAction func onSignUpPressed(_ sender: Any) {
+        guard isValidEmail(emailField.text!) && isValidPassword(passwordField.text!) && passwordField.text == verifyPasswordField.text else {
+            self.errorMessageLabel.textColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+            
+            var errorMessage = ""
+            // getting weird error messages will fix later
+//            if ((nameField?.text?.isEmpty) != nil) {
+//                errorMessage += "\nName is required"
+//                self.nameField.layer.borderWidth = 2
+//                self.nameField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+//                self.nameField.layer.cornerRadius = 10
+//            }
+            if !isValidEmail(emailField.text!) {
+                errorMessage += "\nInvalid email format"
+                self.emailField.layer.borderWidth = 2
+                self.emailField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+                self.emailField.layer.cornerRadius = 10
+            }
+            if !isValidPassword(passwordField.text!) {
+                errorMessage += "\nPassword must be at least 6 characters long"
+                self.passwordField.layer.borderWidth = 2
+                self.passwordField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+                self.passwordField.layer.cornerRadius = 10
+            }
+            if passwordField.text != verifyPasswordField.text {
+                errorMessage += "\nPasswords do not match"
+                self.verifyPasswordField.layer.borderWidth = 2
+                self.verifyPasswordField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+                self.verifyPasswordField.layer.cornerRadius = 10
+            }
+            
+            self.errorMessageLabel.text = errorMessage
+
+            return
+        }
+        
         Auth.auth().createUser(withEmail: emailField.text!,
                                password: passwordField.text!) {
             (authResult,error) in
@@ -53,6 +91,20 @@ class SignupViewController: UIViewController {
             }
             
         }
+    }
+    
+    // Code from CS371L Code Library
+    func isValidEmail(_ email: String) -> Bool {
+       let emailRegEx =
+           "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+       let emailPred = NSPredicate(format:"SELF MATCHES %@",
+           emailRegEx)
+       return emailPred.evaluate(with: email)
+    }
+      
+    func isValidPassword(_ password: String) -> Bool {
+       let minPasswordLength = 6
+       return password.count >= minPasswordLength
     }
     
 }

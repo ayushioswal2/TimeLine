@@ -84,6 +84,12 @@
                                     <action selector="onSignInPressed:" destination="o6r-r1-whY" eventType="touchUpInside" id="8e0-Oa-ya0"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsd-11-I2I">
+                                <rect key="frame" x="175.66666666666666" y="519" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="S1w-Wp-39q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -92,8 +98,10 @@
                             <constraint firstItem="KCj-bT-ahQ" firstAttribute="leading" secondItem="XkS-Y7-48x" secondAttribute="trailing" constant="25" id="8ye-v2-D2i"/>
                             <constraint firstItem="nxF-P9-Ydw" firstAttribute="top" secondItem="KCj-bT-ahQ" secondAttribute="bottom" constant="45" id="FZc-ws-o1S"/>
                             <constraint firstItem="S1w-Wp-39q" firstAttribute="trailing" secondItem="zIB-Dl-J1U" secondAttribute="trailing" constant="30" id="HBF-1W-8cb"/>
+                            <constraint firstItem="zsd-11-I2I" firstAttribute="centerX" secondItem="Wx5-w4-vp8" secondAttribute="centerX" id="I7b-gh-RSs"/>
                             <constraint firstItem="DUo-Sg-drJ" firstAttribute="centerX" secondItem="Wx5-w4-vp8" secondAttribute="centerX" id="JPv-Lu-9cH"/>
                             <constraint firstItem="KCj-bT-ahQ" firstAttribute="top" secondItem="zIB-Dl-J1U" secondAttribute="bottom" constant="19" id="LCU-pI-VU3"/>
+                            <constraint firstItem="zsd-11-I2I" firstAttribute="top" secondItem="nxF-P9-Ydw" secondAttribute="bottom" constant="25" id="Lf3-mB-GUy"/>
                             <constraint firstItem="Sms-8B-BeZ" firstAttribute="leading" secondItem="S1w-Wp-39q" secondAttribute="leading" constant="40" id="Mu4-li-XJ3"/>
                             <constraint firstItem="S1w-Wp-39q" firstAttribute="trailing" secondItem="KCj-bT-ahQ" secondAttribute="trailing" constant="30" id="NUi-je-xHI"/>
                             <constraint firstItem="nhI-Oo-2a1" firstAttribute="top" secondItem="Sms-8B-BeZ" secondAttribute="bottom" constant="26" id="gWF-yL-xc0"/>
@@ -109,6 +117,7 @@
                     <navigationItem key="navigationItem" id="IFc-aR-Xnz"/>
                     <connections>
                         <outlet property="emailField" destination="zIB-Dl-J1U" id="5qM-be-D3S"/>
+                        <outlet property="errorMessageLabel" destination="zsd-11-I2I" id="6L8-zW-aaH"/>
                         <outlet property="loginButton" destination="nxF-P9-Ydw" id="tcj-zq-5Zo"/>
                         <outlet property="loginTitleLabel" destination="Sms-8B-BeZ" id="Tbu-aV-FTT"/>
                         <outlet property="passwordField" destination="KCj-bT-ahQ" id="lpp-Td-uWy"/>
@@ -186,7 +195,7 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Already have an account? Sign in!"/>
                                 <connections>
-                                    <segue destination="o6r-r1-whY" kind="presentation" modalPresentationStyle="fullScreen" id="Uju-Et-nug"/>
+                                    <segue destination="o6r-r1-whY" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Uju-Et-nug"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eB9-5i-NMD">
@@ -218,12 +227,19 @@
                                     <action selector="onSignUpPressed:" destination="0Dd-J2-tqM" eventType="touchUpInside" id="83V-kf-jKK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zW-VG-8cJ">
+                                <rect key="frame" x="50" y="558" width="293" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SIk-8h-53U"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RVL-Aa-Bkv" firstAttribute="leading" secondItem="mim-4o-7Lc" secondAttribute="trailing" constant="20" id="31H-tP-yAy"/>
                             <constraint firstItem="mim-4o-7Lc" firstAttribute="top" secondItem="f2m-xm-7Mb" secondAttribute="bottom" constant="32" id="57k-fm-d0M"/>
+                            <constraint firstItem="2zW-VG-8cJ" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="50" id="6qz-U6-WQW"/>
                             <constraint firstItem="SIk-8h-53U" firstAttribute="bottom" secondItem="Nam-lU-Ab2" secondAttribute="bottom" constant="45" id="97B-Hq-70R"/>
                             <constraint firstItem="mim-4o-7Lc" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="BF5-ag-ddo"/>
                             <constraint firstItem="Nam-lU-Ab2" firstAttribute="centerX" secondItem="HT1-Lv-l7X" secondAttribute="centerX" id="BtI-8m-4lL"/>
@@ -231,7 +247,9 @@
                             <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="HO6-yT-Wa7" secondAttribute="trailing" constant="30" id="FUC-2g-tHJ"/>
                             <constraint firstItem="CbA-yV-AHD" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="FWn-A8-QlK"/>
                             <constraint firstItem="yvP-Kw-9JR" firstAttribute="top" secondItem="SIk-8h-53U" secondAttribute="top" constant="256.33333333333331" id="Fxx-M0-Hbq"/>
+                            <constraint firstItem="2zW-VG-8cJ" firstAttribute="top" secondItem="eB9-5i-NMD" secondAttribute="bottom" constant="25" id="JzY-V6-GAK"/>
                             <constraint firstItem="Dq2-cC-oBu" firstAttribute="leading" secondItem="f2m-xm-7Mb" secondAttribute="trailing" constant="53" id="OJu-6I-FuO"/>
+                            <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="2zW-VG-8cJ" secondAttribute="trailing" constant="50" id="Qcu-g2-wW7"/>
                             <constraint firstItem="HO6-yT-Wa7" firstAttribute="top" secondItem="SIk-8h-53U" secondAttribute="top" constant="250" id="UOg-vo-bBZ"/>
                             <constraint firstItem="UtU-jX-6A8" firstAttribute="top" secondItem="RVL-Aa-Bkv" secondAttribute="bottom" constant="19" id="XeN-N1-lBN"/>
                             <constraint firstItem="suU-jt-Zrg" firstAttribute="top" secondItem="mim-4o-7Lc" secondAttribute="bottom" constant="14" id="YNZ-wG-lAO"/>
@@ -245,6 +263,7 @@
                             <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="CbA-yV-AHD" secondAttribute="trailing" constant="53.333333333333314" id="mQT-Vg-Kvi"/>
                             <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="UtU-jX-6A8" secondAttribute="trailing" constant="30" id="mmf-K3-ZoO"/>
                             <constraint firstItem="HO6-yT-Wa7" firstAttribute="leading" secondItem="yvP-Kw-9JR" secondAttribute="trailing" constant="49" id="oTI-5b-P9x"/>
+                            <constraint firstItem="2zW-VG-8cJ" firstAttribute="centerX" secondItem="HT1-Lv-l7X" secondAttribute="centerX" id="pi0-mt-6qk"/>
                             <constraint firstItem="f2m-xm-7Mb" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="qCy-dd-zMB"/>
                             <constraint firstItem="RVL-Aa-Bkv" firstAttribute="top" secondItem="Dq2-cC-oBu" secondAttribute="bottom" constant="19" id="tnN-Bv-U54"/>
                             <constraint firstItem="suU-jt-Zrg" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="ujL-6t-HZI"/>
@@ -253,7 +272,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="aeL-HT-4ud"/>
                     <connections>
-                        <outlet property="emailField" destination="HO6-yT-Wa7" id="8ej-XL-YYr"/>
+                        <outlet property="emailField" destination="Dq2-cC-oBu" id="LNj-jm-Tuz"/>
+                        <outlet property="errorMessageLabel" destination="2zW-VG-8cJ" id="Vcf-uN-Q3C"/>
+                        <outlet property="nameField" destination="HO6-yT-Wa7" id="uw8-CQ-2k3"/>
                         <outlet property="passwordField" destination="RVL-Aa-Bkv" id="Vhm-Uo-C5I"/>
                         <outlet property="signupTitleLabel" destination="CbA-yV-AHD" id="ZNH-EU-Wot"/>
                         <outlet property="verifyPasswordField" destination="UtU-jX-6A8" id="CTW-zy-l1c"/>
@@ -276,7 +297,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XTR-Pg-iPQ"/>
+        <segue reference="esr-Fu-1XK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
