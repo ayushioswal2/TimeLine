@@ -347,8 +347,69 @@
                     <view key="view" contentMode="scaleToFill" id="WK2-3o-wdd">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qs-Cb-Rmb">
+                                <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Settings" id="vDh-w8-fyb"/>
+                                </items>
+                            </navigationBar>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doH-Tw-coj">
+                                <rect key="frame" x="318" y="202" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toggle Navigation Bar " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjf-vP-Lln">
+                                <rect key="frame" x="63" y="207" width="171" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tef-7M-91k">
+                                <rect key="frame" x="63" y="446" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEJ-hA-btV">
+                                <rect key="frame" x="63" y="328" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YS7-ee-hlp">
+                                <rect key="frame" x="63" y="543" width="302" height="32"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                    <segment title=""/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Rq-i8K">
+                                <rect key="frame" x="292" y="314" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Zp0-vH-CKH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="vEJ-hA-btV" secondAttribute="leading" id="7vU-f7-1zQ"/>
+                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="trailing" secondItem="YS7-ee-hlp" secondAttribute="trailing" id="98y-MZ-0Ui"/>
+                            <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YS7-ee-hlp" secondAttribute="trailing" symbolic="YES" id="H4p-nV-Mo3"/>
+                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="bottom" secondItem="vEJ-hA-btV" secondAttribute="bottom" id="J6x-MV-Gsl"/>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="Rjf-vP-Lln" secondAttribute="leading" id="KDW-Cd-HFa"/>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="top" secondItem="vEJ-hA-btV" secondAttribute="bottom" constant="97" id="OpO-ns-dTD"/>
+                            <constraint firstItem="Rjf-vP-Lln" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="207" id="QZY-b3-IdD"/>
+                            <constraint firstItem="Rjf-vP-Lln" firstAttribute="centerY" secondItem="doH-Tw-coj" secondAttribute="centerY" id="Ym6-aD-LlI"/>
+                            <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" secondItem="HDC-Rq-i8K" secondAttribute="trailing" constant="75" id="h7g-gd-dPS"/>
+                            <constraint firstItem="YS7-ee-hlp" firstAttribute="top" secondItem="Tef-7M-91k" secondAttribute="bottom" constant="76" id="j31-kU-uAS"/>
+                            <constraint firstItem="doH-Tw-coj" firstAttribute="leading" secondItem="Rjf-vP-Lln" secondAttribute="trailing" constant="84" id="nhA-Pl-j1l"/>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="Zp0-vH-CKH" secondAttribute="leading" constant="63" id="uDa-gu-hb6"/>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="446" id="uUp-YW-foH"/>
+                            <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tef-7M-91k" secondAttribute="trailing" symbolic="YES" id="wcF-7C-ZWq"/>
+                            <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="YS7-ee-hlp" secondAttribute="leading" id="xHi-n7-OGY"/>
+                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vEJ-hA-btV" secondAttribute="trailing" constant="8" symbolic="YES" id="yFk-eG-fxM"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="Yix-lJ-CHJ">
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -356,7 +417,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plB-Ba-ipd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1237" y="1099"/>
+            <point key="canvasLocation" x="1236.818181818182" y="1098.9539748953976"/>
         </scene>
     </scenes>
     <resources>
