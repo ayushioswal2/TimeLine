@@ -387,12 +387,12 @@
                                     <action selector="colorSelectionSegControl:" destination="avY-S3-lEO" eventType="valueChanged" id="ddG-Yx-wv6"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Rq-i8K">
-                                <rect key="frame" x="292" y="314" width="75" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Rq-i8K">
+                                <rect key="frame" x="290" y="314" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Button"/>
                                 <connections>
-                                    <action selector="FontSelectionButton:" destination="avY-S3-lEO" eventType="touchUpInside" id="QH9-lo-kbj"/>
+                                    <action selector="fontSelectionPressed:" destination="avY-S3-lEO" eventType="touchUpInside" id="DQH-7g-89h"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -420,6 +420,9 @@
                     <tabBarItem key="tabBarItem" title="" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="Yix-lJ-CHJ">
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="colorSegControl" destination="YS7-ee-hlp" id="Kxg-Y7-6WF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plB-Ba-ipd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
