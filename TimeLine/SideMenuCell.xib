@@ -16,27 +16,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bv-Au-rYP">
-                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="9bv-Au-rYP" secondAttribute="height" multiplier="1:1" id="wwe-oe-X0h"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jai-sw-SZR">
-                        <rect key="frame" x="49" y="0.0" width="271" height="44"/>
+                        <rect key="frame" x="54" y="11.999999999999998" width="266" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bv-Au-rYP">
+                        <rect key="frame" x="10" y="5" width="34" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="9bv-Au-rYP" secondAttribute="height" multiplier="1:1" id="wwe-oe-X0h"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jai-sw-SZR" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" id="4PM-rn-hLc"/>
-                    <constraint firstItem="9bv-Au-rYP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AnD-bK-HmP"/>
-                    <constraint firstItem="jai-sw-SZR" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="K3i-u1-y84"/>
-                    <constraint firstItem="jai-sw-SZR" firstAttribute="leading" secondItem="9bv-Au-rYP" secondAttribute="trailing" constant="5" id="NWE-zJ-TiK"/>
-                    <constraint firstItem="9bv-Au-rYP" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="PFh-4s-9Xp"/>
-                    <constraint firstItem="9bv-Au-rYP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="oAx-8w-IsL"/>
-                    <constraint firstItem="jai-sw-SZR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pZs-MH-TgK"/>
+                    <constraint firstItem="9bv-Au-rYP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KaT-Fj-bn1"/>
+                    <constraint firstItem="jai-sw-SZR" firstAttribute="leading" secondItem="9bv-Au-rYP" secondAttribute="trailing" constant="10" id="NWE-zJ-TiK"/>
+                    <constraint firstItem="9bv-Au-rYP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="iJg-R9-fel"/>
+                    <constraint firstItem="9bv-Au-rYP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ykq-mJ-1Er"/>
+                    <constraint firstItem="jai-sw-SZR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zo6-cQ-ORV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

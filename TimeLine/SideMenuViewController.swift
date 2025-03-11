@@ -15,15 +15,15 @@ class SideMenuViewController: UIViewController {
 
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var sideMenuTableView: UITableView!
-    @IBOutlet weak var footerLabel: UILabel!
+    @IBOutlet weak var logOutButton: UIButton!
     
     var defaultHighlightedCell: Int = 0
 
     var menu: [SideMenuModel] = [
-        SideMenuModel(icon: UIImage(systemName: "house.fill")!, title: "Home"),
-        SideMenuModel(icon: UIImage(systemName: "person.fill")!, title: "Account"),
-        SideMenuModel(icon: UIImage(systemName: "envelope.fill")!, title: "Inbox"),
-        SideMenuModel(icon: UIImage(systemName: "slider.horizontal.3")!, title: "Settings"),
+        SideMenuModel(icon: UIImage(systemName: "house")!, title: "Home"),
+        SideMenuModel(icon: UIImage(systemName: "person")!, title: "Account"),
+        SideMenuModel(icon: UIImage(systemName: "envelope")!, title: "Inbox"),
+        SideMenuModel(icon: UIImage(systemName: "gearshape")!, title: "Settings"),
     ]
     
     var delegate: SideMenuViewControllerDelegate?
@@ -34,7 +34,7 @@ class SideMenuViewController: UIViewController {
         // TableView
         self.sideMenuTableView.delegate = self
         self.sideMenuTableView.dataSource = self
-        self.sideMenuTableView.backgroundColor = #colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)
+        self.sideMenuTableView.backgroundColor = UIColor.red
         self.sideMenuTableView.separatorStyle = .none
 
         // Set Highlighted Cell
@@ -42,11 +42,6 @@ class SideMenuViewController: UIViewController {
             let defaultRow = IndexPath(row: self.defaultHighlightedCell, section: 0)
             self.sideMenuTableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
         }
-
-        // Footer
-        self.footerLabel.textColor = UIColor.white
-        self.footerLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        self.footerLabel.text = "Log Out"
 
         // Register TableView Cell
         self.sideMenuTableView.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
@@ -60,7 +55,7 @@ class SideMenuViewController: UIViewController {
 
 extension SideMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 45
     }
 }
 
@@ -74,7 +69,7 @@ extension SideMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier, for: indexPath) as? SideMenuCell else { fatalError("xib doesn't exist") }
 
-        cell.iconImageView.image = self.menu[indexPath.row].icon
+        cell.iconImageView.image = self.menu[indexPath.row].icon.withTintColor(.systemFill)
         cell.titleLabel.text = self.menu[indexPath.row].title
 
         // Highlighted color
@@ -90,9 +85,9 @@ extension SideMenuViewController: UITableViewDataSource {
         
         // ...
         
-        // Remove highlighted color when you press the 'Profile' and 'Like us on facebook' cell
-        if indexPath.row == 4 || indexPath.row == 6 {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+//        // Remove highlighted color when you press the 'Profile' and 'Like us on facebook' cell
+//        if indexPath.row == 4 || indexPath.row == 6 {
+//            tableView.deselectRow(at: indexPath, animated: true)
+//        }
     }
 }

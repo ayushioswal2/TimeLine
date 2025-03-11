@@ -55,7 +55,7 @@
         <!--Account-->
         <scene sceneID="JMm-U7-da5">
             <objects>
-                <viewController title="Account" id="K9v-0Z-NZg" sceneMemberID="viewController">
+                <viewController title="Account" id="K9v-0Z-NZg" customClass="AccountViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UfK-nO-FK2">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,6 +67,9 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="menuIcon" id="IMy-HY-UhE"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="sideMenuButton" destination="IMy-HY-UhE" id="d2F-Ig-gqK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V19-qs-LeT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,7 +96,7 @@
         <!--Inbox-->
         <scene sceneID="pfX-CU-8dG">
             <objects>
-                <viewController title="Inbox" id="GOi-gI-P4L" sceneMemberID="viewController">
+                <viewController title="Inbox" id="GOi-gI-P4L" customClass="InboxViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hTE-Tr-x8Z">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,6 +106,9 @@
                     <navigationItem key="navigationItem" id="9hK-h9-M9e">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="9eb-1v-Eka"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sideMenuButton" destination="9eb-1v-Eka" id="T7D-u5-Hap"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pzn-9x-5yb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,7 +135,7 @@
         <!--Settings-->
         <scene sceneID="jKF-mF-OWg">
             <objects>
-                <viewController title="Settings" id="eAb-og-Rwj" sceneMemberID="viewController">
+                <viewController title="Settings" id="eAb-og-Rwj" customClass="SettingsViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KcO-K8-OGg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,6 +145,9 @@
                     <navigationItem key="navigationItem" id="QX0-pK-G74">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="yFN-Bo-UM2"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sideMenuButton" destination="yFN-Bo-UM2" id="vpw-BJ-W1v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n92-Xi-eKH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -167,43 +176,42 @@
             <objects>
                 <viewController storyboardIdentifier="SideMenuID" title="SideMenuID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jj1-wu-HG4" customClass="SideMenuViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4wk-ag-IAa">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1vp-FA-RtY">
-                                <rect key="frame" x="0.0" y="88" width="200" height="701"/>
+                                <rect key="frame" x="0.0" y="90" width="150" height="688"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsr-U5-EGb">
-                                <rect key="frame" x="60.666666666666657" y="59" width="79" height="21"/>
+                                <rect key="frame" x="35.666666666666657" y="59" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GZ-In-jxW">
-                                <rect key="frame" x="69.666666666666671" y="797" width="61.000000000000014" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYq-rn-dhf">
+                                <rect key="frame" x="32.666666666666664" y="783" width="84.666666666666686" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mYM-Uo-wjI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0GZ-In-jxW" firstAttribute="centerX" secondItem="4wk-ag-IAa" secondAttribute="centerX" id="FWo-ky-20J"/>
-                            <constraint firstItem="0GZ-In-jxW" firstAttribute="bottom" secondItem="mYM-Uo-wjI" secondAttribute="bottom" id="L9r-9B-dJs"/>
-                            <constraint firstItem="1vp-FA-RtY" firstAttribute="top" secondItem="mYM-Uo-wjI" secondAttribute="top" constant="29" id="SXT-Jq-7BH"/>
-                            <constraint firstItem="1vp-FA-RtY" firstAttribute="bottom" secondItem="mYM-Uo-wjI" secondAttribute="bottom" constant="-29" id="bMZ-C5-gnt"/>
+                            <constraint firstItem="bYq-rn-dhf" firstAttribute="top" secondItem="1vp-FA-RtY" secondAttribute="bottom" constant="5" id="1lC-fg-ND4"/>
+                            <constraint firstItem="1vp-FA-RtY" firstAttribute="top" secondItem="hsr-U5-EGb" secondAttribute="bottom" constant="10" id="SXT-Jq-7BH"/>
                             <constraint firstItem="1vp-FA-RtY" firstAttribute="trailing" secondItem="mYM-Uo-wjI" secondAttribute="trailing" id="jDF-b1-IfG"/>
                             <constraint firstItem="1vp-FA-RtY" firstAttribute="leading" secondItem="mYM-Uo-wjI" secondAttribute="leading" id="jIm-s1-dxK"/>
                             <constraint firstItem="hsr-U5-EGb" firstAttribute="top" secondItem="mYM-Uo-wjI" secondAttribute="top" id="jSU-6Z-n2l"/>
-                            <constraint firstItem="hsr-U5-EGb" firstAttribute="centerX" secondItem="4wk-ag-IAa" secondAttribute="centerX" id="oRc-7e-XQC"/>
+                            <constraint firstItem="bYq-rn-dhf" firstAttribute="centerX" secondItem="mYM-Uo-wjI" secondAttribute="centerX" id="mCG-Ec-mYf"/>
+                            <constraint firstItem="hsr-U5-EGb" firstAttribute="centerX" secondItem="mYM-Uo-wjI" secondAttribute="centerX" id="oRc-7e-XQC"/>
+                            <constraint firstItem="bYq-rn-dhf" firstAttribute="bottom" secondItem="mYM-Uo-wjI" secondAttribute="bottom" id="wuO-2N-yv9"/>
                         </constraints>
                     </view>
-                    <size key="freeformSize" width="200" height="852"/>
+                    <size key="freeformSize" width="150" height="852"/>
                     <connections>
-                        <outlet property="footerLabel" destination="0GZ-In-jxW" id="7vr-WZ-zs3"/>
                         <outlet property="headerLabel" destination="hsr-U5-EGb" id="Avg-Bv-839"/>
+                        <outlet property="logOutButton" destination="bYq-rn-dhf" id="ZNf-B1-JXi"/>
                         <outlet property="sideMenuTableView" destination="1vp-FA-RtY" id="MTL-i0-Fzr"/>
                     </connections>
                 </viewController>

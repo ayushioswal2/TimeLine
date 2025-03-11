@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     private var sideMenuViewController: SideMenuViewController!
-    private var sideMenuRevealWidth: CGFloat = 260
+    private var sideMenuRevealWidth: CGFloat = 250
     private let paddingForRotation: CGFloat = 150
     private var isExpanded: Bool = false
 
@@ -17,12 +17,26 @@ class MainViewController: UIViewController {
     private var sideMenuTrailingConstraint: NSLayoutConstraint!
 
     private var revealSideMenuOnTop: Bool = true
+    
+    private var sideMenuShadowView: UIView!
+
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)
+//        self.view.backgroundColor = #colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)	
 
-        // ...
+        // Shadow Background View
+        self.sideMenuShadowView = UIView(frame: self.view.bounds)
+        self.sideMenuShadowView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.sideMenuShadowView.backgroundColor = .black
+        self.sideMenuShadowView.alpha = 0.0
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TapGestureRecognizer))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.delegate = self
+        self.sideMenuShadowView.addGestureRecognizer(tapGestureRecognizer)
+        if self.revealSideMenuOnTop {
+            view.insertSubview(self.sideMenuShadowView, at: 1)
+        }
 
         // Side Menu
         let storyboard = UIStoryboard(name: "SideNavigation", bundle: Bundle.main)
@@ -53,6 +67,21 @@ class MainViewController: UIViewController {
        // Default Main View Controller
        showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
      
+    }
+    
+    // called when user clicks on the view outside to close the menu :))))
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.sideMenuState(expanded: self.isExpanded ? false : true)
+    }
+    
+    // Keep the state of the side menu (expanded or collapse) in rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate { _ in
+            if self.revealSideMenuOnTop {
+                self.sideMenuTrailingConstraint.constant = self.isExpanded ? 0 : (-self.sideMenuRevealWidth - self.paddingForRotation)
+            }
+        }
     }
     
     // Call this Button Action from the View Controller you want to Expand/Collapse when you tap a button
@@ -144,6 +173,26 @@ extension MainViewController: SideMenuViewControllerDelegate {
             }
         }, completion: completion)
     }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    @objc func TapGestureRecognizer(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            if self.isExpanded {
+                self.sideMenuState(expanded: false)
+            }
+        }
+    }
+
+    // Close side menu when you tap on the shadow background view
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if (touch.view?.isDescendant(of: self.sideMenuViewController.view))! {
+            return false
+        }
+        return true
+    }
+    
+    // ...
 }
 
 extension UIViewController {
