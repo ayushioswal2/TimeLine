@@ -22,16 +22,6 @@ class LoginViewController: UIViewController {
         loginTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         
-//        var config = UIButton.Configuration.filled()
-//        config.titlePadding = 10 // Adds space around the title
-//        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-//        
-//        loginButton.configuration = config
-//            
-//        // Round the corners
-//        loginButton.layer.cornerRadius = 10
-//        loginButton.clipsToBounds = true
-        
         // doesn't work for some reason, immediately segues to Home screen on boot up
 //        Auth.auth().addStateDidChangeListener() {
 //            (auth, user) in
@@ -52,6 +42,10 @@ class LoginViewController: UIViewController {
                 (authResult, error) in
                 if let error = error as NSError? {
                     print(error.localizedDescription)   // if password error, do the red message below it and red box, etc.
+                    self.passwordField.layer.borderWidth = 2
+                    self.passwordField.layer.borderColor = .init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
+                    self.passwordField.layer.cornerRadius = 10
+
                     // or if username badly formatted, display that message and red box also
                 } else {
                     print("successful sign-in for \(self.emailField.text!)")

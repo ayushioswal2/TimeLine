@@ -22,8 +22,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhI-Oo-2a1">
-                                <rect key="frame" x="40" y="324" width="79" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhI-Oo-2a1">
+                                <rect key="frame" x="40" y="324" width="74" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="f3M-I1-coc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,7 +99,7 @@
                             <constraint firstItem="nhI-Oo-2a1" firstAttribute="top" secondItem="Sms-8B-BeZ" secondAttribute="bottom" constant="26" id="gWF-yL-xc0"/>
                             <constraint firstItem="nhI-Oo-2a1" firstAttribute="leading" secondItem="S1w-Wp-39q" secondAttribute="leading" constant="40" id="gWm-qa-9Dh"/>
                             <constraint firstItem="S1w-Wp-39q" firstAttribute="bottom" secondItem="DUo-Sg-drJ" secondAttribute="bottom" constant="45" id="hW2-qx-3Uu"/>
-                            <constraint firstItem="zIB-Dl-J1U" firstAttribute="leading" secondItem="nhI-Oo-2a1" secondAttribute="trailing" constant="20" id="mL9-jd-Qyd"/>
+                            <constraint firstItem="zIB-Dl-J1U" firstAttribute="leading" secondItem="nhI-Oo-2a1" secondAttribute="trailing" constant="25" id="mL9-jd-Qyd"/>
                             <constraint firstItem="XkS-Y7-48x" firstAttribute="top" secondItem="nhI-Oo-2a1" secondAttribute="bottom" constant="32" id="mb7-kd-6nO"/>
                             <constraint firstItem="Sms-8B-BeZ" firstAttribute="top" secondItem="S1w-Wp-39q" secondAttribute="top" constant="247" id="nZT-dd-NR7"/>
                             <constraint firstItem="XkS-Y7-48x" firstAttribute="leading" secondItem="S1w-Wp-39q" secondAttribute="leading" constant="40" id="tb5-jy-Qr5"/>
@@ -130,8 +133,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvP-Kw-9JR">
-                                <rect key="frame" x="40" y="256.33333333333331" width="79" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvP-Kw-9JR">
+                                <rect key="frame" x="40" y="256.33333333333331" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -241,7 +244,7 @@
                             <constraint firstItem="Dq2-cC-oBu" firstAttribute="top" secondItem="HO6-yT-Wa7" secondAttribute="bottom" constant="19" id="mOw-Kb-0tc"/>
                             <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="CbA-yV-AHD" secondAttribute="trailing" constant="53.333333333333314" id="mQT-Vg-Kvi"/>
                             <constraint firstItem="SIk-8h-53U" firstAttribute="trailing" secondItem="UtU-jX-6A8" secondAttribute="trailing" constant="30" id="mmf-K3-ZoO"/>
-                            <constraint firstItem="HO6-yT-Wa7" firstAttribute="leading" secondItem="yvP-Kw-9JR" secondAttribute="trailing" constant="15" id="oTI-5b-P9x"/>
+                            <constraint firstItem="HO6-yT-Wa7" firstAttribute="leading" secondItem="yvP-Kw-9JR" secondAttribute="trailing" constant="49" id="oTI-5b-P9x"/>
                             <constraint firstItem="f2m-xm-7Mb" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="qCy-dd-zMB"/>
                             <constraint firstItem="RVL-Aa-Bkv" firstAttribute="top" secondItem="Dq2-cC-oBu" secondAttribute="bottom" constant="19" id="tnN-Bv-U54"/>
                             <constraint firstItem="suU-jt-Zrg" firstAttribute="leading" secondItem="SIk-8h-53U" secondAttribute="leading" constant="40" id="ujL-6t-HZI"/>
@@ -259,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hdr-d9-kcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1454" y="175"/>
+            <point key="canvasLocation" x="1451.1450381679388" y="174.64788732394368"/>
         </scene>
         <!--MainNavID-->
         <scene sceneID="E4v-K9-ZIx">
