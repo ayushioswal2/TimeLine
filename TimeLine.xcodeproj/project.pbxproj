@@ -17,10 +17,12 @@
 		601FC52E2D7F7E5A003DB659 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 601FC52D2D7F7E5A003DB659 /* FirebaseMessaging */; };
 		601FC5302D7F7E5A003DB659 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 601FC52F2D7F7E5A003DB659 /* FirebaseStorage */; };
 		601FC5322D7F7E5A003DB659 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 601FC5312D7F7E5A003DB659 /* FirebaseStorageCombine-Community */; };
+		609B2DDB2D80E61E00EE86E1 /* refani-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 609B2DDA2D80E61E00EE86E1 /* refani-regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		138109E42D7E4580003D50CD /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		609B2DDA2D80E61E00EE86E1 /* refani-regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "refani-regular.otf"; path = "TimeLine/Assets.xcassets/refani-regular.dataset/refani-regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -68,6 +70,7 @@
 		138109DB2D7E4580003D50CD = {
 			isa = PBXGroup;
 			children = (
+				609B2DDA2D80E61E00EE86E1 /* refani-regular.otf */,
 				138109E62D7E4580003D50CD /* TimeLine */,
 				138109E52D7E4580003D50CD /* Products */,
 			);
@@ -158,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609B2DDB2D80E61E00EE86E1 /* refani-regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

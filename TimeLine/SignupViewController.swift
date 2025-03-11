@@ -81,15 +81,20 @@ class SignupViewController: UIViewController {
                                password: passwordField.text!) {
             (authResult,error) in
             if let error = error as NSError? {
-                print(error.localizedDescription)   // if password error, do the red message below it and red box, etc.
-                // or if username badly formatted, display that message and red box also
+                print(error.localizedDescription)
             } else {
-                print("successful sign-in for \(self.emailField.text!)")
-                self.performSegue(withIdentifier: "SignupSegue", sender:nil)
-                self.emailField.text = nil
-                self.passwordField.text = nil
+                Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!) {
+                    (authResult,error) in
+                    if let error = error as NSError? {
+                        print(error.localizedDescription)
+                    } else {
+                        print("successful sign-in for \(self.emailField.text!)")
+                        self.performSegue(withIdentifier: "SignupSegue", sender:nil)
+                        self.emailField.text = nil
+                        self.passwordField.text = nil
+                    }
+                }
             }
-            
         }
     }
     
