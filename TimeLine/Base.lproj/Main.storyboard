@@ -343,7 +343,7 @@
         <!--Settings-->
         <scene sceneID="9X8-P8-W2F">
             <objects>
-                <viewController title="Settings" id="avY-S3-lEO" sceneMemberID="viewController">
+                <viewController title="Settings" id="avY-S3-lEO" customClass="SettingsViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WK2-3o-wdd">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -383,11 +383,17 @@
                                     <segment title="Second"/>
                                     <segment title=""/>
                                 </segments>
+                                <connections>
+                                    <action selector="colorSelectionSegControl:" destination="avY-S3-lEO" eventType="valueChanged" id="ddG-Yx-wv6"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Rq-i8K">
                                 <rect key="frame" x="292" y="314" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                                <connections>
+                                    <action selector="FontSelectionButton:" destination="avY-S3-lEO" eventType="touchUpInside" id="QH9-lo-kbj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zp0-vH-CKH"/>
