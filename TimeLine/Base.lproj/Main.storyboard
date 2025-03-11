@@ -288,20 +288,57 @@
         <!--Inbox-->
         <scene sceneID="Px6-uF-Vpj">
             <objects>
-                <viewController title="Inbox" id="Khy-jR-Cp1" sceneMemberID="viewController">
+                <viewController title="Inbox" id="Khy-jR-Cp1" customClass="InboxViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tAI-RU-ri6">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXM-jZ-FVn">
+                                <rect key="frame" x="95" y="118" width="250" height="21"/>
+                                <color key="tintColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="a1l-h6-9sk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wch-7M-EZd">
+                                <rect key="frame" x="0.0" y="154" width="440" height="709"/>
+                                <color key="backgroundColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="MjJ-ag-pxE">
+                                        <rect key="frame" x="0.0" y="50" width="440" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MjJ-ag-pxE" id="HCs-Za-rrl">
+                                            <rect key="frame" x="0.0" y="0.0" width="440" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="lYg-om-Oku"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lYg-om-Oku" firstAttribute="trailing" secondItem="wch-7M-EZd" secondAttribute="trailing" id="9mv-RV-GV3"/>
+                            <constraint firstItem="wch-7M-EZd" firstAttribute="leading" secondItem="lYg-om-Oku" secondAttribute="leading" id="E3C-Hk-3st"/>
+                            <constraint firstItem="MXM-jZ-FVn" firstAttribute="centerX" secondItem="tAI-RU-ri6" secondAttribute="centerX" id="QSP-1R-yn4"/>
+                            <constraint firstItem="lYg-om-Oku" firstAttribute="bottom" secondItem="wch-7M-EZd" secondAttribute="bottom" constant="10" id="Yje-tM-O4B"/>
+                            <constraint firstItem="MXM-jZ-FVn" firstAttribute="top" secondItem="lYg-om-Oku" secondAttribute="top" constant="56" id="qyO-Sz-ZEX"/>
+                            <constraint firstItem="wch-7M-EZd" firstAttribute="top" secondItem="MXM-jZ-FVn" secondAttribute="bottom" constant="15" id="un9-m1-VBX"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="envelope" catalog="system" selectedImage="envelope.fill" id="n6x-vM-YO7">
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="inboxTitleLabel" destination="MXM-jZ-FVn" id="q6X-Rg-my4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="quc-jF-5yn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1237" y="385"/>
+            <point key="canvasLocation" x="1236.818181818182" y="384.72803347280336"/>
         </scene>
         <!--Settings-->
         <scene sceneID="9X8-P8-W2F">
