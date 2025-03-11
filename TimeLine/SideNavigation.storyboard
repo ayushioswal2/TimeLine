@@ -11,23 +11,33 @@
         <!--Home-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController title="Home" id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController title="Home" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vgl-Au-C7u"/>
+                    <navigationItem key="navigationItem" id="vgl-Au-C7u">
+                        <barButtonItem key="leftBarButtonItem" image="menuIcon" id="0Nj-vK-JIn">
+                            <connections>
+                                <action selector="revealSideMenu:" destination="DKd-TY-JN2" id="yy1-GA-tU0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sideMenuButton" destination="0Nj-vK-JIn" id="szQ-4G-fcc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="DKd-TY-JN2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="131" y="680"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Home-->
         <scene sceneID="cdq-I1-qx3">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavID" automaticallyAdjustsScrollViewInsets="NO" id="mnm-Jx-Iyw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavID" title="Home" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mnm-Jx-Iyw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HPM-Za-M9i">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -54,7 +64,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Jzv-mm-YPj">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="figure.bowling" catalog="system" id="IMy-HY-UhE"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menuIcon" id="IMy-HY-UhE"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
@@ -65,7 +75,7 @@
         <!--Navigation Controller-->
         <scene sceneID="RFE-fG-9Ub">
             <objects>
-                <navigationController storyboardIdentifier="AccountNavID" automaticallyAdjustsScrollViewInsets="NO" id="tWe-k2-Av9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AccountNavID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tWe-k2-Av9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ehK-2a-CMm">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -90,7 +100,9 @@
                         <viewLayoutGuide key="safeArea" id="fdB-h2-9Di"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9hK-h9-M9e"/>
+                    <navigationItem key="navigationItem" id="9hK-h9-M9e">
+                        <barButtonItem key="leftBarButtonItem" image="menuIcon" id="9eb-1v-Eka"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pzn-9x-5yb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -99,7 +111,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Qvc-qf-vy8">
             <objects>
-                <navigationController storyboardIdentifier="InboxNavID" automaticallyAdjustsScrollViewInsets="NO" id="9pk-Yh-Ux2" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InboxNavID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pk-Yh-Ux2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zdd-B7-wgj">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -124,7 +136,9 @@
                         <viewLayoutGuide key="safeArea" id="gzp-2V-3Le"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QX0-pK-G74"/>
+                    <navigationItem key="navigationItem" id="QX0-pK-G74">
+                        <barButtonItem key="leftBarButtonItem" image="menuIcon" id="yFN-Bo-UM2"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n92-Xi-eKH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -133,7 +147,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oCc-5V-JfM">
             <objects>
-                <navigationController storyboardIdentifier="SettingsNavID" automaticallyAdjustsScrollViewInsets="NO" id="cfP-b9-myO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SettingsNavID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cfP-b9-myO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="k7K-4c-pCq">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -148,10 +162,10 @@
             </objects>
             <point key="canvasLocation" x="2403.8167938931297" y="-35.211267605633807"/>
         </scene>
-        <!--Side Menu View Controller-->
+        <!--SideMenuID-->
         <scene sceneID="Mzm-Dh-oVq">
             <objects>
-                <viewController storyboardIdentifier="SideMenuID" id="jj1-wu-HG4" customClass="SideMenuViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SideMenuID" title="SideMenuID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jj1-wu-HG4" customClass="SideMenuViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4wk-ag-IAa">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -214,7 +228,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="figure.bowling" catalog="system" width="126" height="128"/>
+        <image name="menuIcon" width="50" height="50"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

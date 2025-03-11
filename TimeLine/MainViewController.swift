@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
         // ...
 
         // Side Menu
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let storyboard = UIStoryboard(name: "SideNavigation", bundle: Bundle.main)
         self.sideMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenuID") as? SideMenuViewController
         self.sideMenuViewController.defaultHighlightedCell = 0 // Default Highlighted Cell
         self.sideMenuViewController.delegate = self
@@ -55,7 +55,8 @@ class MainViewController: UIViewController {
      
     }
     
-    @IBAction open func revealSideMenu() {
+    // Call this Button Action from the View Controller you want to Expand/Collapse when you tap a button
+    @IBAction func revealSideMenu(_ sender: Any) {
         self.sideMenuState(expanded: self.isExpanded ? false : true)
     }
 }
@@ -90,7 +91,7 @@ extension MainViewController: SideMenuViewControllerDelegate {
                 subview.removeFromSuperview()
             }
         }
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "SideNavigation", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: storyboardId) as! T
         vc.view.tag = 99
         view.insertSubview(vc.view, at: self.revealSideMenuOnTop ? 0 : 1)
@@ -163,4 +164,7 @@ extension UIViewController {
         return nil
     }
     
+    
 }
+
+
