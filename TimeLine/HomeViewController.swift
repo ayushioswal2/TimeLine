@@ -11,7 +11,8 @@ var timelines: [String] = ["Personal Timeline", "The FAM"]
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var homeTitleBar: UINavigationItem!
+    @IBOutlet weak var homeTitle: UILabel!
+    @IBOutlet weak var createTimelineButton: UIButton!
     @IBOutlet weak var timelinesTableView: UITableView!
     
     let timelineTitle = UILabel()
@@ -21,13 +22,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+        
         timelinesTableView.delegate = self
         timelinesTableView.dataSource = self
-
-        timelineTitle.text = "My Timelines"
-        timelineTitle.font = UIFont(name: "Refani", size: CGFloat(25))
-        timelineTitle.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
-        homeTitleBar.titleView = timelineTitle
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,13 +37,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
         cell.timelineNameLabel.text = timelines[indexPath.row]
-        cell.timelineNameLabel.font = UIFont(name: "Refani", size: CGFloat(20))
-        
+                
 //        let imageName = "holyrood_park.jpg"
 //        let image = UIImage(named: imageName)
 //        cell.timelineCoverImageView.image = image
         return cell
     }
+    
     
     @IBAction func createTimelinePressed(_ sender: Any) {
         let controller = UIAlertController(
@@ -65,5 +65,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
         
         present(controller, animated: true)
+    }
+    
+    func setupUI() {
+        homeTitle.text = "My Timelines"
+        homeTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        homeTitle.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+    }
+    
+    @objc func updateFont() {
+        homeTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
 }
