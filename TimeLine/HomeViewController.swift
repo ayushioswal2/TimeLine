@@ -25,9 +25,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         timelinesTableView.dataSource = self
 
         timelineTitle.text = "My Timelines"
-        timelineTitle.font = UIFont(name: "Refani", size: CGFloat(25))
+        timelineTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         timelineTitle.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         homeTitleBar.titleView = timelineTitle
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,8 +39,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
         cell.timelineNameLabel.text = timelines[indexPath.row]
-        cell.timelineNameLabel.font = UIFont(name: "Refani", size: CGFloat(20))
-        
+                
 //        let imageName = "holyrood_park.jpg"
 //        let image = UIImage(named: imageName)
 //        cell.timelineCoverImageView.image = image
@@ -65,5 +66,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
         
         present(controller, animated: true)
+    }
+    
+    @objc func updateFont() {
+        timelineTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
 }
