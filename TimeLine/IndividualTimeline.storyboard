@@ -155,7 +155,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eZa-Du-lPv">
                                 <rect key="frame" x="27" y="169" width="339" height="107"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="photo.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LiW-fM-dO4">
+                                        <rect key="frame" x="132" y="17.666666666666664" width="77.666666666666686" height="74.666666666666686"/>
+                                        <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="bRd-FG-BEI"/>
+                                            <constraint firstAttribute="width" constant="75" id="boi-qZ-H7C"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="LiW-fM-dO4" firstAttribute="centerX" secondItem="eZa-Du-lPv" secondAttribute="centerX" id="CRQ-eN-t5R"/>
+                                    <constraint firstItem="LiW-fM-dO4" firstAttribute="centerY" secondItem="eZa-Du-lPv" secondAttribute="centerY" id="Kbi-T8-d4M"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -288,7 +302,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="emailOfUserToInvite" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-0k-00g">
-                                <rect key="frame" x="30" y="679" width="157.66666666666669" height="34"/>
+                                <rect key="frame" x="30" y="679" width="157.66666666666666" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -379,6 +393,7 @@
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="photo.badge.plus" catalog="system" width="128" height="97"/>
         <image name="photo.badge.plus.fill" catalog="system" width="128" height="97"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="systemBackgroundColor">
