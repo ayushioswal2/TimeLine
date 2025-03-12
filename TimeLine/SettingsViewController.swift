@@ -9,51 +9,58 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var settingsTitleLabel: UILabel!
     @IBOutlet weak var colorSegControl: UISegmentedControl!
 
-    let button = UIButton(primaryAction: nil)
+    let fontChangeButton = UIButton(primaryAction: nil)
     let fontList = ["Refani", "System"]
     
     let settingTitle = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fontButton()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         
-        settingTitle.text = "User Settings"
-        settingTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        settingTitle.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
-        settingTitle.frame = CGRect(x: 100, y: 100, width: 300, height: 100)
-        self.view.addSubview(settingTitle)
+        settingsTitleLabel.text = "User Settings"
+        settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        settingsTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
     }
     
     func fontButton() {
         let actionClosure = { (action: UIAction) in
-            print(action.title)
-            let selectedFont = action.title.isEmpty ? "Refani" : action.title
-
-            FontManager.shared.setFont(fontName: selectedFont)
+            FontManager.shared.setFont(fontName: action.title)
         }
 
         var menuChildren: [UIMenuElement] = []
         for font in fontList {
-            menuChildren.append(
-                UIAction(title: font, handler: actionClosure))
+            let action = UIAction(title: font, handler: actionClosure)
+            
+            // If the font matches the current font, mark it as selected
+            if let currentFont = FontManager.shared.getFont() {
+                if (font == currentFont) {
+                    action.state = .on // Mark this action as selected
+                }
+            }
+            
+            menuChildren.append(action)
         }
+        
+        fontChangeButton.menu = UIMenu(options: .displayInline, children: menuChildren)
+        fontChangeButton.showsMenuAsPrimaryAction = true
+        fontChangeButton.changesSelectionAsPrimaryAction = true
 
-        button.menu = UIMenu(options: .displayInline, children: menuChildren)
-        button.showsMenuAsPrimaryAction = true
-        button.changesSelectionAsPrimaryAction = true
-
-        button.frame = CGRect(x: 200, y: 250, width: 100, height: 40)
-        self.view.addSubview(button)
+        if let currentFont = FontManager.shared.getFont() {
+           self.fontChangeButton.setTitle(currentFont, for: .normal)
+       }
+        
+        fontChangeButton.frame = CGRect(x: 290, y: 325, width: 100, height: 40)
+        self.view.addSubview(fontChangeButton)
     }
     
     @objc func updateFont() {
-            self.settingTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
 
 //    @IBAction func colorSelectionSegControl(_ sender: Any) {
