@@ -12,10 +12,12 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var settingsTitleLabel: UILabel!
     @IBOutlet weak var colorSegControl: UISegmentedControl!
 
+    @IBOutlet weak var navBarToggleLabel: UILabel!
+    @IBOutlet weak var selectFontLabel: UILabel!
+    @IBOutlet weak var selectColorThemeLabel: UILabel!
+    
     let fontChangeButton = UIButton(primaryAction: nil)
     let fontList = ["Refani", "System"]
-    
-    let settingTitle = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,10 @@ class SettingsViewController: UIViewController {
         settingsTitleLabel.text = "User Settings"
         settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         settingsTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        
+        navBarToggleLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        selectFontLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        selectColorThemeLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
     func fontButton() {
@@ -55,11 +61,15 @@ class SettingsViewController: UIViewController {
            self.fontChangeButton.setTitle(currentFont, for: .normal)
        }
         
-        fontChangeButton.frame = CGRect(x: 290, y: 325, width: 100, height: 40)
+        fontChangeButton.frame = CGRect(x: 290, y: 320, width: 100, height: 40)
         self.view.addSubview(fontChangeButton)
     }
     
     @objc func updateFont() {
         settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        
+        navBarToggleLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        selectFontLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        selectColorThemeLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
 }

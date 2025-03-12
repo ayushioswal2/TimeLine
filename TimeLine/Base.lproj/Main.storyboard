@@ -430,7 +430,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YS7-ee-hlp">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YS7-ee-hlp">
                                 <rect key="frame" x="68" y="521" width="304" height="32"/>
                                 <segments>
                                     <segment title="Red"/>
@@ -453,13 +453,16 @@
                             <constraint firstItem="Rjf-vP-Lln" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="207" id="QZY-b3-IdD"/>
                             <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" secondItem="YS7-ee-hlp" secondAttribute="trailing" constant="68" id="TR7-HB-gc7"/>
                             <constraint firstItem="Rjf-vP-Lln" firstAttribute="centerY" secondItem="doH-Tw-coj" secondAttribute="centerY" id="Ym6-aD-LlI"/>
+                            <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vEJ-hA-btV" secondAttribute="trailing" symbolic="YES" id="bHf-0P-Na5"/>
                             <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" secondItem="doH-Tw-coj" secondAttribute="trailing" constant="73" id="bW6-EQ-2E4"/>
+                            <constraint firstItem="doH-Tw-coj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rjf-vP-Lln" secondAttribute="trailing" constant="8" symbolic="YES" id="dNL-97-PVi"/>
                             <constraint firstItem="vEJ-hA-btV" firstAttribute="leading" secondItem="Zp0-vH-CKH" secondAttribute="leading" constant="63" id="exS-lt-wmk"/>
                             <constraint firstItem="YS7-ee-hlp" firstAttribute="leading" secondItem="Zp0-vH-CKH" secondAttribute="leading" constant="68" id="fiM-Hj-H0N"/>
                             <constraint firstItem="fbz-zh-qXs" firstAttribute="top" secondItem="Zp0-vH-CKH" secondAttribute="top" constant="48" id="p2a-Re-5cw"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="Zp0-vH-CKH" secondAttribute="leading" constant="63" id="uDa-gu-hb6"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="446" id="uUp-YW-foH"/>
                             <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tef-7M-91k" secondAttribute="trailing" symbolic="YES" id="wcF-7C-ZWq"/>
+                            <constraint firstItem="YS7-ee-hlp" firstAttribute="top" secondItem="Tef-7M-91k" secondAttribute="bottom" constant="54" id="yhg-xh-Zdc"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="Yix-lJ-CHJ">
@@ -467,6 +470,10 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="colorSegControl" destination="YS7-ee-hlp" id="Kxg-Y7-6WF"/>
+                        <outlet property="navBarToggleLabel" destination="Rjf-vP-Lln" id="bmi-xw-cAz"/>
+                        <outlet property="selectColorThemeLabel" destination="Tef-7M-91k" id="cpe-lW-4KY"/>
+                        <outlet property="selectFontLabel" destination="vEJ-hA-btV" id="8Iq-mw-kqi"/>
+                        <outlet property="settingsTitleLabel" destination="fbz-zh-qXs" id="9ZB-Fo-YUI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plB-Ba-ipd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
