@@ -16,31 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ve-Ja-1b1">
-                                <rect key="frame" x="0.0" y="62" width="440" height="44"/>
-                                <color key="barTintColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <items>
-                                    <navigationItem title="My Timelines" id="xvd-Lw-Bfp"/>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BCW-BL-h21">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCW-BL-h21">
                                 <rect key="frame" x="95" y="793" width="250" height="50"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.6784313917" blue="0.60784316059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="vGy-21-VfO"/>
                                     <constraint firstAttribute="height" constant="50" id="y3d-9h-csS"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Button">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Create New Timeline">
-                                            <attributes>
-                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="18" name="Refani"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Create New Timeline">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -51,19 +37,19 @@
                                     <action selector="createTimelinePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K3a-bg-LpM"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="223" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-l0-Tpn">
-                                <rect key="frame" x="0.0" y="106" width="440" height="667"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="172" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-l0-Tpn">
+                                <rect key="frame" x="0.0" y="188" width="440" height="585"/>
                                 <color key="backgroundColor" red="1" green="0.95686274509803915" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timelineCellIdentifier" rowHeight="223" id="oq5-jV-fbf" customClass="TimelineTableViewCell" customModule="TimeLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="440" height="223"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timelineCellIdentifier" rowHeight="172" id="oq5-jV-fbf" customClass="TimelineTableViewCell" customModule="TimeLine" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="440" height="172"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oq5-jV-fbf" id="fLB-3c-hOj">
-                                            <rect key="frame" x="0.0" y="0.0" width="440" height="223"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="440" height="172"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.on.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-2n-zpm">
-                                                    <rect key="frame" x="60" y="31.666666666666671" width="320" height="131.33333333333331"/>
+                                                    <rect key="frame" x="60" y="31.666666666666671" width="320" height="80.333333333333343"/>
                                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -72,7 +58,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqe-q0-5O0">
-                                                    <rect key="frame" x="61" y="182" width="42" height="21"/>
+                                                    <rect key="frame" x="61" y="131" width="42" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="7bw-Kb-c8F"/>
                                                     </constraints>
@@ -99,26 +85,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Timelines" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx8-fw-rXX">
+                                <rect key="frame" x="169.66666666666666" y="118" width="100.99999999999997" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="4Ve-Ja-1b1" firstAttribute="leading" secondItem="uUi-l0-Tpn" secondAttribute="leading" id="7Fm-4g-FOn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uUi-l0-Tpn" secondAttribute="trailing" id="D9o-Ds-Wcv"/>
-                            <constraint firstItem="4Ve-Ja-1b1" firstAttribute="trailing" secondItem="uUi-l0-Tpn" secondAttribute="trailing" id="PIb-i9-vjG"/>
+                            <constraint firstItem="uUi-l0-Tpn" firstAttribute="top" secondItem="yx8-fw-rXX" secondAttribute="bottom" constant="49" id="R3V-nb-UoP"/>
+                            <constraint firstItem="yx8-fw-rXX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="S8q-5i-Wkl"/>
                             <constraint firstItem="BCW-BL-h21" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xjf-Ud-V0c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BCW-BL-h21" secondAttribute="bottom" constant="30" id="bfF-ju-mV7"/>
                             <constraint firstItem="uUi-l0-Tpn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fiw-6B-e0v"/>
-                            <constraint firstItem="4Ve-Ja-1b1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hWE-It-tfK"/>
                             <constraint firstItem="BCW-BL-h21" firstAttribute="top" secondItem="uUi-l0-Tpn" secondAttribute="bottom" constant="20" id="mlJ-gS-2Ny"/>
-                            <constraint firstItem="uUi-l0-Tpn" firstAttribute="top" secondItem="4Ve-Ja-1b1" secondAttribute="bottom" id="vC0-Wq-hOl"/>
+                            <constraint firstItem="yx8-fw-rXX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zpP-io-JI6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house" catalog="system" selectedImage="house.fill" id="SmK-qe-lKe">
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="homeTitleBar" destination="xvd-Lw-Bfp" id="Veq-sV-QLM"/>
+                        <outlet property="createTimelineButton" destination="BCW-BL-h21" id="jWq-zv-xhC"/>
+                        <outlet property="homeTitle" destination="yx8-fw-rXX" id="urQ-qp-zJ0"/>
                         <outlet property="timelinesTableView" destination="uUi-l0-Tpn" id="wzI-b4-FPT"/>
                     </connections>
                 </viewController>
@@ -395,13 +387,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qs-Cb-Rmb">
-                                <rect key="frame" x="0.0" y="62" width="440" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Settings" id="vDh-w8-fyb"/>
-                                </items>
-                            </navigationBar>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doH-Tw-coj">
                                 <rect key="frame" x="318" y="202" width="51" height="31"/>
                             </switch>
@@ -424,44 +409,40 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YS7-ee-hlp">
-                                <rect key="frame" x="63" y="543" width="302" height="32"/>
+                                <rect key="frame" x="63" y="543" width="170" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                    <segment title=""/>
+                                    <segment title="Red"/>
+                                    <segment title="Green"/>
+                                    <segment title="Blue"/>
                                 </segments>
                                 <connections>
                                     <action selector="colorSelectionSegControl:" destination="avY-S3-lEO" eventType="valueChanged" id="ddG-Yx-wv6"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Rq-i8K">
-                                <rect key="frame" x="290" y="314" width="75" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
-                                <connections>
-                                    <action selector="fontSelectionPressed:" destination="avY-S3-lEO" eventType="touchUpInside" id="DQH-7g-89h"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbz-zh-qXs">
+                                <rect key="frame" x="168" y="110" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zp0-vH-CKH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="vEJ-hA-btV" secondAttribute="leading" id="7vU-f7-1zQ"/>
-                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="trailing" secondItem="YS7-ee-hlp" secondAttribute="trailing" id="98y-MZ-0Ui"/>
                             <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YS7-ee-hlp" secondAttribute="trailing" symbolic="YES" id="H4p-nV-Mo3"/>
-                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="bottom" secondItem="vEJ-hA-btV" secondAttribute="bottom" id="J6x-MV-Gsl"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="Rjf-vP-Lln" secondAttribute="leading" id="KDW-Cd-HFa"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="top" secondItem="vEJ-hA-btV" secondAttribute="bottom" constant="97" id="OpO-ns-dTD"/>
+                            <constraint firstItem="fbz-zh-qXs" firstAttribute="centerX" secondItem="WK2-3o-wdd" secondAttribute="centerX" id="PPF-Hw-qos"/>
                             <constraint firstItem="Rjf-vP-Lln" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="207" id="QZY-b3-IdD"/>
                             <constraint firstItem="Rjf-vP-Lln" firstAttribute="centerY" secondItem="doH-Tw-coj" secondAttribute="centerY" id="Ym6-aD-LlI"/>
-                            <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" secondItem="HDC-Rq-i8K" secondAttribute="trailing" constant="75" id="h7g-gd-dPS"/>
                             <constraint firstItem="YS7-ee-hlp" firstAttribute="top" secondItem="Tef-7M-91k" secondAttribute="bottom" constant="76" id="j31-kU-uAS"/>
                             <constraint firstItem="doH-Tw-coj" firstAttribute="leading" secondItem="Rjf-vP-Lln" secondAttribute="trailing" constant="84" id="nhA-Pl-j1l"/>
+                            <constraint firstItem="fbz-zh-qXs" firstAttribute="top" secondItem="Zp0-vH-CKH" secondAttribute="top" constant="48" id="p2a-Re-5cw"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="Zp0-vH-CKH" secondAttribute="leading" constant="63" id="uDa-gu-hb6"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="top" secondItem="WK2-3o-wdd" secondAttribute="top" constant="446" id="uUp-YW-foH"/>
                             <constraint firstItem="Zp0-vH-CKH" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tef-7M-91k" secondAttribute="trailing" symbolic="YES" id="wcF-7C-ZWq"/>
                             <constraint firstItem="Tef-7M-91k" firstAttribute="leading" secondItem="YS7-ee-hlp" secondAttribute="leading" id="xHi-n7-OGY"/>
-                            <constraint firstItem="HDC-Rq-i8K" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vEJ-hA-btV" secondAttribute="trailing" constant="8" symbolic="YES" id="yFk-eG-fxM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="Yix-lJ-CHJ">
@@ -469,6 +450,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="colorSegControl" destination="YS7-ee-hlp" id="Kxg-Y7-6WF"/>
+                        <outlet property="settingsTitleLabel" destination="fbz-zh-qXs" id="suG-cr-CNE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plB-Ba-ipd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
