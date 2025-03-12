@@ -106,6 +106,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="2bg-cq-2Gy" id="Qre-4x-5lx"/>
+                                            <segue destination="bGd-ta-yBV" kind="show" id="587-tt-VXT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -368,6 +369,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLc-Tb-Bxv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2067.93893129771" y="19.718309859154932"/>
+        </scene>
+        <!--DayPagesNavID-->
+        <scene sceneID="VLX-hO-yc3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DayPages" referencedIdentifier="DayPagesNavID" id="bGd-ta-yBV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ba4-NP-OFQ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="26e-Pz-jO5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="468"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e2B-5A-7xK">

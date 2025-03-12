@@ -11,7 +11,7 @@
         <!--Day Page Slideshow-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController title="Day Page Slideshow" id="Y6W-OH-hqX" customClass="DaySlideshowViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DayPageID" title="Day Page Slideshow" id="Y6W-OH-hqX" customClass="DaySlideshowViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgB-Mb-ylu">
-                                <rect key="frame" x="64" y="159" width="265" height="33.666666666666657"/>
+                                <rect key="frame" x="64.333333333333343" y="159" width="264.33333333333326" height="33.666666666666657"/>
                                 <attributedString key="attributedText">
                                     <fragment content="March 6th, 2024">
                                         <attributes>
@@ -522,7 +522,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
