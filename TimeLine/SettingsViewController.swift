@@ -10,8 +10,6 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var settingsTitleLabel: UILabel!
-    @IBOutlet weak var colorSegControl: UISegmentedControl!
-
     @IBOutlet weak var navBarToggleLabel: UILabel!
     @IBOutlet weak var selectFontLabel: UILabel!
     @IBOutlet weak var selectColorThemeLabel: UILabel!
@@ -22,7 +20,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fontButton()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         
         settingsTitleLabel.text = "User Settings"
@@ -43,7 +40,7 @@ class SettingsViewController: UIViewController {
         for font in fontList {
             let action = UIAction(title: font, handler: actionClosure)
             
-            // If the font matches the current font, mark it as selected
+//             If the font matches the current font, mark it as selected
             if let currentFont = FontManager.shared.getFont() {
                 if (font == currentFont) {
                     action.state = .on // Mark this action as selected
