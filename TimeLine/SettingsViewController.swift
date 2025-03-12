@@ -62,17 +62,4 @@ class SettingsViewController: UIViewController {
     @objc func updateFont() {
         settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
-
-//    @IBAction func colorSelectionSegControl(_ sender: Any) {
-//        switch colorSegControl.selectedSegmentIndex {
-//            case 0:
-//            print("Red")
-//        case 1:
-//            print("Blue")
-//        case 2:
-//            print("Green")
-//        default:
-//            print("Default")
-//        }
-//    }
 }
