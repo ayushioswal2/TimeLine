@@ -20,7 +20,7 @@ class FontManager {
     }
     
     func getFont() -> String? {
-        return UserDefaults.standard.string(forKey: fontKey)!
+        return UserDefaults.standard.string(forKey: fontKey) ?? "Refani"
     }
 }
 

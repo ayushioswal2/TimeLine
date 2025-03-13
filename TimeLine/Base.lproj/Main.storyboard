@@ -39,7 +39,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="createTimelinePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K3a-bg-LpM"/>
+                                    <segue destination="7sJ-iX-zbA" kind="show" id="XQf-jv-aCV"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="172" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-l0-Tpn">
@@ -115,7 +115,7 @@
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="createTimelineButton" destination="BCW-BL-h21" id="jWq-zv-xhC"/>
+                        <outlet property="createTimelineButton" destination="BCW-BL-h21" id="Dxf-vc-BZt"/>
                         <outlet property="homeTitle" destination="yx8-fw-rXX" id="urQ-qp-zJ0"/>
                         <outlet property="timelinesTableView" destination="uUi-l0-Tpn" id="wzI-b4-FPT"/>
                     </connections>
@@ -133,6 +133,183 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufq-Qd-vPk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1802" y="-1122"/>
+        </scene>
+        <!--Timeline Creation View Controller-->
+        <scene sceneID="NG8-Mc-UCg">
+            <objects>
+                <viewController id="7sJ-iX-zbA" customClass="TimelineCreationViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pfX-ia-MN3">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srT-Bb-cJw">
+                                <rect key="frame" x="160.66666666666666" y="60" width="118.99999999999997" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5b-Pr-uFu">
+                                <rect key="frame" x="30" y="95" width="380" height="214"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="photo.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Baw-l2-feL">
+                                        <rect key="frame" x="140" y="58.666666666666664" width="102.66666666666669" height="99.666666666666657"/>
+                                        <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="1Ye-KY-Akz"/>
+                                            <constraint firstAttribute="width" constant="100" id="wi6-Eo-8cm"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Baw-l2-feL" firstAttribute="centerY" secondItem="A5b-Pr-uFu" secondAttribute="centerY" id="K9l-jS-GCg"/>
+                                    <constraint firstItem="Baw-l2-feL" firstAttribute="centerX" secondItem="A5b-Pr-uFu" secondAttribute="centerX" id="jw2-Eg-uXH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeLine Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DL6-9B-Zig">
+                                <rect key="frame" x="30" y="356" width="152" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Creators" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUt-7n-edM">
+                                <rect key="frame" x="30" y="443" width="139" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Timeline Name Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uyt-dI-IwT">
+                                <rect key="frame" x="30" y="388" width="380" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email of users to invite" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nHr-5k-zrV">
+                                <rect key="frame" x="30" y="475" width="211" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nW-Zk-tcS">
+                                <rect key="frame" x="346.66666666666669" y="475" width="63.333333333333314" height="34"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bilbo Baggins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFE-h0-8RM">
+                                <rect key="frame" x="30" y="536" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bil.bags@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbq-w7-ExE">
+                                <rect key="frame" x="257" y="536" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lego.lassie@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQm-dZ-2Ng">
+                                <rect key="frame" x="236" y="575" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Legolas Greenleaf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kY8-wN-PpV">
+                                <rect key="frame" x="30" y="574" width="138" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Samwise Gamgee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05Y-Yd-RCb">
+                                <rect key="frame" x="30" y="612" width="136" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ilovefrodo@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qys-oZ-TQD">
+                                <rect key="frame" x="241" y="612" width="169" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoG-Jy-zfx">
+                                <rect key="frame" x="148.66666666666666" y="771" width="142.99999999999997" height="35"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Create Timeline"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="jvp-QU-8kG" kind="show" id="vbY-pb-chs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bX-Ng-fT4">
+                                <rect key="frame" x="181.33333333333334" y="825" width="77.333333333333343" height="35"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xkB-Eg-3xF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bQm-dZ-2Ng" firstAttribute="top" secondItem="tbq-w7-ExE" secondAttribute="bottom" constant="18" id="2is-Ae-pdz"/>
+                            <constraint firstItem="05Y-Yd-RCb" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="3Tg-4K-pp0"/>
+                            <constraint firstItem="QoG-Jy-zfx" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="4fZ-Da-1HX"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="QoG-Jy-zfx" secondAttribute="bottom" constant="140" id="8Sd-Oj-mXu"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="Qys-oZ-TQD" secondAttribute="trailing" constant="30" id="D7s-xW-INi"/>
+                            <constraint firstItem="kY8-wN-PpV" firstAttribute="top" secondItem="wFE-h0-8RM" secondAttribute="bottom" constant="17" id="E7H-6n-pH0"/>
+                            <constraint firstItem="mUt-7n-edM" firstAttribute="top" secondItem="Uyt-dI-IwT" secondAttribute="bottom" constant="21" id="FmC-HW-1Fv"/>
+                            <constraint firstItem="A5b-Pr-uFu" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="GiS-Td-sFk"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="3bX-Ng-fT4" secondAttribute="bottom" constant="86" id="K5W-5P-PnW"/>
+                            <constraint firstItem="DL6-9B-Zig" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="Kfi-0y-hxd"/>
+                            <constraint firstItem="srT-Bb-cJw" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="LTu-nM-Yaf"/>
+                            <constraint firstItem="wFE-h0-8RM" firstAttribute="top" secondItem="nHr-5k-zrV" secondAttribute="bottom" constant="27" id="LUY-FM-GrC"/>
+                            <constraint firstItem="3bX-Ng-fT4" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="Nyo-Uo-aKB"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="bQm-dZ-2Ng" secondAttribute="trailing" constant="30" id="Pcl-gf-ytj"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="A5b-Pr-uFu" secondAttribute="bottom" constant="637" id="Q4f-Fl-Kr4"/>
+                            <constraint firstItem="Uyt-dI-IwT" firstAttribute="top" secondItem="DL6-9B-Zig" secondAttribute="bottom" constant="8" symbolic="YES" id="USX-TP-Jxl"/>
+                            <constraint firstItem="Qys-oZ-TQD" firstAttribute="top" secondItem="bQm-dZ-2Ng" secondAttribute="bottom" constant="16" id="Z8F-Yq-pL6"/>
+                            <constraint firstItem="nHr-5k-zrV" firstAttribute="top" secondItem="mUt-7n-edM" secondAttribute="bottom" constant="8" symbolic="YES" id="bXG-Ea-3xF"/>
+                            <constraint firstItem="wFE-h0-8RM" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="dS1-Qb-gTa"/>
+                            <constraint firstItem="tbq-w7-ExE" firstAttribute="top" secondItem="6nW-Zk-tcS" secondAttribute="bottom" constant="27" id="fCH-D9-pr4"/>
+                            <constraint firstItem="mUt-7n-edM" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="glG-fe-MWa"/>
+                            <constraint firstItem="DL6-9B-Zig" firstAttribute="top" secondItem="A5b-Pr-uFu" secondAttribute="bottom" constant="47" id="jVH-x1-Rk5"/>
+                            <constraint firstItem="kY8-wN-PpV" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="l1t-5h-1oL"/>
+                            <constraint firstItem="Uyt-dI-IwT" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="mRi-oq-nwH"/>
+                            <constraint firstItem="A5b-Pr-uFu" firstAttribute="top" secondItem="srT-Bb-cJw" secondAttribute="bottom" constant="14" id="mk0-7c-ADh"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="Uyt-dI-IwT" secondAttribute="trailing" constant="30" id="nNL-Uc-02b"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="A5b-Pr-uFu" secondAttribute="trailing" constant="30" id="oIe-r4-zga"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="6nW-Zk-tcS" secondAttribute="trailing" constant="30" id="oXa-NH-K9y"/>
+                            <constraint firstItem="6nW-Zk-tcS" firstAttribute="top" secondItem="Uyt-dI-IwT" secondAttribute="bottom" constant="53" id="p4a-4C-w1g"/>
+                            <constraint firstItem="nHr-5k-zrV" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="tec-7W-F6a"/>
+                            <constraint firstItem="05Y-Yd-RCb" firstAttribute="top" secondItem="kY8-wN-PpV" secondAttribute="bottom" constant="17" id="uFG-PO-M5i"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="tbq-w7-ExE" secondAttribute="trailing" constant="30" id="vqX-N4-jD7"/>
+                            <constraint firstItem="srT-Bb-cJw" firstAttribute="top" secondItem="xkB-Eg-3xF" secondAttribute="top" constant="60" id="xPk-MG-ink"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Ng-Xl-EaY"/>
+                    <connections>
+                        <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="00j-cr-xQb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2305.909090909091" y="-962.13389121338912"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JcS-X5-H7C">
@@ -476,6 +653,16 @@
             </objects>
             <point key="canvasLocation" x="1236.818181818182" y="1098.9539748953976"/>
         </scene>
+        <!--DateNavID-->
+        <scene sceneID="qzF-Dt-Nzw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="IndividualTimeline" referencedIdentifier="DateNavID" id="jvp-QU-8kG" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="SgR-AU-6VF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="53n-Wi-uuc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2899" y="-1061"/>
+        </scene>
     </scenes>
     <resources>
         <image name="camera.on.rectangle.fill" catalog="system" width="128" height="103"/>
@@ -490,6 +677,7 @@
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="photo.badge.plus" catalog="system" width="128" height="97"/>
         <image name="xmark.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

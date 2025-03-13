@@ -303,7 +303,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="emailOfUserToInvite" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-0k-00g">
-                                <rect key="frame" x="30" y="679" width="157.66666666666666" height="34"/>
+                                <rect key="frame" x="30" y="679" width="333" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -354,6 +354,7 @@
                             <constraint firstItem="lFL-rr-vNQ" firstAttribute="top" secondItem="1XZ-Ff-FF8" secondAttribute="bottom" constant="44.999999999999773" id="rEF-Rs-4cr"/>
                             <constraint firstItem="NcZ-vJ-ZCR" firstAttribute="leading" secondItem="I8k-hB-BRZ" secondAttribute="trailing" constant="19" id="rpM-Fn-h7r"/>
                             <constraint firstItem="bDC-Lt-ZKv" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="tu8-v8-pov"/>
+                            <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="jBR-0k-00g" secondAttribute="trailing" constant="30" id="uHk-Da-q1z"/>
                             <constraint firstItem="FDb-Ss-p35" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="ubC-8X-w5f"/>
                             <constraint firstItem="cwX-vG-eM9" firstAttribute="leading" secondItem="bDC-Lt-ZKv" secondAttribute="trailing" constant="5" id="uie-nn-oRw"/>
                             <constraint firstItem="ude-KL-MyA" firstAttribute="top" secondItem="S0k-cT-IQK" secondAttribute="bottom" constant="27" id="uxP-xC-c9w"/>

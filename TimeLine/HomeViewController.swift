@@ -37,34 +37,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
         cell.timelineNameLabel.text = timelines[indexPath.row]
-                
-//        let imageName = "holyrood_park.jpg"
-//        let image = UIImage(named: imageName)
-//        cell.timelineCoverImageView.image = image
+
         return cell
-    }
-    
-    
-    @IBAction func createTimelinePressed(_ sender: Any) {
-        let controller = UIAlertController(
-            title: "Create timeline",
-            message: "Enter timeline name",
-            preferredStyle: .alert)
-        
-        controller.addTextField { (textField) in
-            textField.placeholder = "name"
-        }
-        
-        controller.addAction(UIAlertAction(
-            title: "OK",
-            style: .default)
-                {(action) in
-            let enteredName = controller.textFields![0].text
-            timelines.append(enteredName!)
-            self.timelinesTableView.reloadData()
-        })
-        
-        present(controller, animated: true)
     }
     
     func setupUI() {
