@@ -375,6 +375,10 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onLogOutPressed:" destination="CrR-8F-XtM" eventType="touchUpInside" id="p8U-vc-phL"/>
+                                    <segue destination="lNP-CM-S2a" kind="presentation" identifier="LogoutSegue" modalPresentationStyle="fullScreen" id="hz0-44-3VL"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-1H-Wxb">
                                 <rect key="frame" x="149.66666666666669" y="806" width="140.66666666666669" height="35"/>
@@ -662,6 +666,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="53n-Wi-uuc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2899" y="-1061"/>
+        </scene>
+        <!--LoginID-->
+        <scene sceneID="ZR6-Cn-qQY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="User-Enter" referencedIdentifier="LoginID" id="lNP-CM-S2a" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cXC-0P-hQL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1868" y="-139"/>
         </scene>
     </scenes>
     <resources>
