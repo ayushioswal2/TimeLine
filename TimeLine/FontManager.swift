@@ -16,6 +16,7 @@ class FontManager {
         UserDefaults.standard.setValue(fontName, forKey: fontKey)
         UserDefaults.standard.synchronize()
         
+        // notifies view controllers that font has been changed
         NotificationCenter.default.post(name: NSNotification.Name("FontChanged"), object: nil)
     }
     
@@ -24,8 +25,7 @@ class FontManager {
     }
 }
 
-
-// ** MOVE TO NEW FILE??? **
+// extension on UIFont that allows for customizing app fonts
 extension UIFont {
     static func appFont(forTextStyle style: UIFont.TextStyle, weight: UIFont.Weight = .regular) -> UIFont {
         let fontName = FontManager.shared.getFont()!

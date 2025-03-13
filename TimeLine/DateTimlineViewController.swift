@@ -16,7 +16,6 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         timelineTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
 
@@ -36,5 +35,4 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
         cell.dateLabel.text = dates[indexPath.row]
         return cell
     }
-
 }

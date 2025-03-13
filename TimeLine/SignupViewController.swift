@@ -27,32 +27,14 @@ class SignupViewController: UIViewController {
         signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         self.errorMessageLabel.text = ""
-        
-        // doesn't work for some reason same as login
-//        Auth.auth().addStateDidChangeListener() {
-//            (auth,user) in
-//            if user != nil {
-//                self.performSegue(withIdentifier: "SignupSegue", sender:nil)
-//                self.emailField.text = nil
-//                self.passwordField.text = nil
-//            }
-//        }
-
     }
     
-
     @IBAction func onSignUpPressed(_ sender: Any) {
         guard isValidEmail(emailField.text!) && isValidPassword(passwordField.text!) && passwordField.text == verifyPasswordField.text else {
             self.errorMessageLabel.textColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
             
             var errorMessage = ""
-            // getting weird error messages will fix later
-//            if ((nameField?.text?.isEmpty) != nil) {
-//                errorMessage += "\nName is required"
-//                self.nameField.layer.borderWidth = 2
-//                self.nameField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
-//                self.nameField.layer.cornerRadius = 10
-//            }
+
             if !isValidEmail(emailField.text!) {
                 errorMessage += "\nInvalid email format"
                 self.emailField.layer.borderWidth = 2
@@ -107,6 +89,7 @@ class SignupViewController: UIViewController {
        return emailPred.evaluate(with: email)
     }
       
+    // Code from CS371L Code Library
     func isValidPassword(_ password: String) -> Bool {
        let minPasswordLength = 6
        return password.count >= minPasswordLength
