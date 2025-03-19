@@ -55,25 +55,17 @@
                                     <segue destination="0Dd-J2-tqM" kind="presentation" modalPresentationStyle="fullScreen" id="cE3-6e-aO2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxF-P9-Ydw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxF-P9-Ydw">
                                 <rect key="frame" x="146.66666666666666" y="449" width="100" height="45"/>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="1bg-eK-enI"/>
                                     <constraint firstAttribute="height" constant="45" id="AH4-vt-i8a"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="15"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Login">
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="0.29411764705882354" green="0.10196078431372549" blue="0.14509803921568626" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="15" name="Refani"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -117,10 +109,12 @@
                     <navigationItem key="navigationItem" id="IFc-aR-Xnz"/>
                     <connections>
                         <outlet property="emailField" destination="zIB-Dl-J1U" id="5qM-be-D3S"/>
+                        <outlet property="emailFieldLabel" destination="nhI-Oo-2a1" id="OQK-Me-upN"/>
                         <outlet property="errorMessageLabel" destination="zsd-11-I2I" id="aVv-ou-h01"/>
                         <outlet property="loginButton" destination="nxF-P9-Ydw" id="tcj-zq-5Zo"/>
                         <outlet property="loginTitleLabel" destination="Sms-8B-BeZ" id="Tbu-aV-FTT"/>
                         <outlet property="passwordField" destination="KCj-bT-ahQ" id="lpp-Td-uWy"/>
+                        <outlet property="passwordFieldLabel" destination="XkS-Y7-48x" id="BfW-bJ-2px"/>
                         <segue destination="KbA-g2-spY" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="XTR-Pg-iPQ"/>
                     </connections>
                 </viewController>
@@ -198,25 +192,17 @@
                                     <segue destination="o6r-r1-whY" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Uju-Et-nug"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eB9-5i-NMD">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eB9-5i-NMD">
                                 <rect key="frame" x="146.66666666666666" y="488" width="100" height="45"/>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Uej-zy-4Ed"/>
                                     <constraint firstAttribute="height" constant="45" id="c8v-Sw-HWX"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="15"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Sign up">
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="0.29411764705882354" green="0.10196078431372549" blue="0.14509803921568626" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="15" name="Refani"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Sign up">
+                                    <color key="titleColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -272,10 +258,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="aeL-HT-4ud"/>
                     <connections>
+                        <outlet property="confirmPasswordLabel" destination="suU-jt-Zrg" id="292-Qa-43d"/>
                         <outlet property="emailField" destination="Dq2-cC-oBu" id="LNj-jm-Tuz"/>
+                        <outlet property="emailFieldLabel" destination="f2m-xm-7Mb" id="Vgt-0P-uHX"/>
                         <outlet property="errorMessageLabel" destination="2zW-VG-8cJ" id="Vcf-uN-Q3C"/>
                         <outlet property="nameField" destination="HO6-yT-Wa7" id="uw8-CQ-2k3"/>
+                        <outlet property="nameFieldLabel" destination="yvP-Kw-9JR" id="6Zk-Rb-W7A"/>
                         <outlet property="passwordField" destination="RVL-Aa-Bkv" id="Vhm-Uo-C5I"/>
+                        <outlet property="passwordFieldLabel" destination="mim-4o-7Lc" id="TwY-51-YQE"/>
+                        <outlet property="signupButton" destination="eB9-5i-NMD" id="RdN-Iv-C03"/>
                         <outlet property="signupTitleLabel" destination="CbA-yV-AHD" id="ZNH-EU-Wot"/>
                         <outlet property="verifyPasswordField" destination="UtU-jX-6A8" id="CTW-zy-l1c"/>
                         <segue destination="KbA-g2-spY" kind="presentation" identifier="SignupSegue" modalPresentationStyle="fullScreen" id="esr-Fu-1XK"/>
@@ -297,7 +288,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XTR-Pg-iPQ"/>
+        <segue reference="esr-Fu-1XK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
