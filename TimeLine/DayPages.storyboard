@@ -7,6 +7,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="refani-regular.otf">
+            <string>Refani</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Day Page Slideshow-->
         <scene sceneID="s0d-6b-0kx">
@@ -46,7 +51,6 @@
                                     <fragment content="March 6th, 2024">
                                         <attributes>
                                             <font key="NSFont" size="32" name="Refani"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -92,6 +96,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YK2-sy-m7P"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="ZD0-DC-xQ3" id="a0Z-Tf-TkK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,16 +122,10 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-5m-GIy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 6th, 2024" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-5m-GIy">
                                 <rect key="frame" x="16" y="159" width="264.33333333333331" height="33.666666666666657"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="March 6th, 2024">
-                                        <attributes>
-                                            <font key="NSFont" size="32" name="Refani"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="32"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FEd-j2-6BY">
@@ -202,6 +203,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GsX-2Y-JKW"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="vGZ-5m-GIy" id="Jn7-Bw-lnR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FBe-c0-w0K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,16 +219,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgB-Mb-ylu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 6th, 2024" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgB-Mb-ylu">
                                 <rect key="frame" x="64.333333333333343" y="159" width="264.33333333333326" height="33.666666666666657"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="March 6th, 2024">
-                                        <attributes>
-                                            <font key="NSFont" size="32" name="Refani"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="32"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yie-Id-Lza">
@@ -367,7 +365,7 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="textbox" catalog="system" title=""/>
+                                        <buttonConfiguration key="configuration" style="plain" image="character.textbox" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beV-5N-ozv">
                                         <rect key="frame" x="107.00000000000001" y="-2.3333333333333712" width="49.666666666666671" height="49.666666666666664"/>
@@ -413,25 +411,18 @@
                                     <constraint firstItem="sgb-CQ-fIj" firstAttribute="centerY" secondItem="gus-TK-NQl" secondAttribute="centerY" id="tma-oe-EEN"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VKK-rF-qkE">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKK-rF-qkE">
                                 <rect key="frame" x="297" y="733" width="80" height="35"/>
                                 <color key="backgroundColor" red="0.29803921568627451" green="0.13725490196078433" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Fcr-zh-5Xf"/>
                                     <constraint firstAttribute="height" constant="35" id="sLy-Ad-6uF"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="15"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Save">
-                                            <attributes>
-                                                <color key="NSColor" red="0.9734327197" green="0.95973402259999996" blue="0.90799975399999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="15" name="Refani"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.9734327197" green="0.95973402259999996" blue="0.90799975399999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -470,6 +461,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZHr-Fd-bmD"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="sgB-Mb-ylu" id="xPi-F8-GkK"/>
+                        <outlet property="saveButton" destination="VKK-rF-qkE" id="Q4o-ui-4YV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0OP-w2-Gts" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -498,6 +493,7 @@
         <image name="arrow.down.left.and.arrow.up.right" catalog="system" width="128" height="115"/>
         <image name="arrow.up.and.down.and.arrow.left.and.right" catalog="system" width="128" height="122"/>
         <image name="capsule.on.rectangle" catalog="system" width="128" height="96"/>
+        <image name="character.textbox" catalog="system" width="128" height="89"/>
         <image name="crop.rotate" catalog="system" width="114" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
@@ -513,7 +509,6 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.dashed" catalog="system" width="128" height="114"/>
         <image name="square.stack.3d.up" catalog="system" width="120" height="128"/>
-        <image name="textbox" catalog="system" width="128" height="89"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

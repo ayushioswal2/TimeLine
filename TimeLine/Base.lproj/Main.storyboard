@@ -194,11 +194,15 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nW-Zk-tcS">
-                                <rect key="frame" x="346.66666666666669" y="475" width="63.333333333333314" height="34"/>
+                                <rect key="frame" x="325" y="475" width="85" height="29"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="vgS-1g-i3E"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="16"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Send"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Send"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bilbo Baggins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFE-h0-8RM">
                                 <rect key="frame" x="30" y="536" width="104" height="21"/>
@@ -207,13 +211,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bil.bags@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbq-w7-ExE">
-                                <rect key="frame" x="257" y="536" width="153" height="21"/>
+                                <rect key="frame" x="257" y="531" width="153" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lego.lassie@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQm-dZ-2Ng">
-                                <rect key="frame" x="236" y="575" width="174" height="21"/>
+                                <rect key="frame" x="236" y="570" width="174" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -231,17 +235,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ilovefrodo@gmail.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qys-oZ-TQD">
-                                <rect key="frame" x="241" y="612" width="169" height="21"/>
+                                <rect key="frame" x="241" y="607" width="169" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoG-Jy-zfx">
-                                <rect key="frame" x="148.66666666666666" y="771" width="142.99999999999997" height="35"/>
+                                <rect key="frame" x="132.66666666666666" y="768" width="174.99999999999997" height="29"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="175" id="BN1-Oy-tm5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="16"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Create Timeline"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Create Timeline"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -252,11 +260,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bX-Ng-fT4">
-                                <rect key="frame" x="181.33333333333334" y="825" width="77.333333333333343" height="35"/>
+                                <rect key="frame" x="180" y="834" width="80" height="25"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="lsZ-Es-Sdj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="12"/>
                                 <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Cancel"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -269,24 +281,25 @@
                         <constraints>
                             <constraint firstItem="bQm-dZ-2Ng" firstAttribute="top" secondItem="tbq-w7-ExE" secondAttribute="bottom" constant="18" id="2is-Ae-pdz"/>
                             <constraint firstItem="05Y-Yd-RCb" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="3Tg-4K-pp0"/>
-                            <constraint firstItem="QoG-Jy-zfx" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="4fZ-Da-1HX"/>
-                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="QoG-Jy-zfx" secondAttribute="bottom" constant="140" id="8Sd-Oj-mXu"/>
                             <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="Qys-oZ-TQD" secondAttribute="trailing" constant="30" id="D7s-xW-INi"/>
                             <constraint firstItem="kY8-wN-PpV" firstAttribute="top" secondItem="wFE-h0-8RM" secondAttribute="bottom" constant="17" id="E7H-6n-pH0"/>
                             <constraint firstItem="mUt-7n-edM" firstAttribute="top" secondItem="Uyt-dI-IwT" secondAttribute="bottom" constant="21" id="FmC-HW-1Fv"/>
                             <constraint firstItem="A5b-Pr-uFu" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="GiS-Td-sFk"/>
-                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="3bX-Ng-fT4" secondAttribute="bottom" constant="86" id="K5W-5P-PnW"/>
                             <constraint firstItem="DL6-9B-Zig" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="Kfi-0y-hxd"/>
                             <constraint firstItem="srT-Bb-cJw" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="LTu-nM-Yaf"/>
                             <constraint firstItem="wFE-h0-8RM" firstAttribute="top" secondItem="nHr-5k-zrV" secondAttribute="bottom" constant="27" id="LUY-FM-GrC"/>
-                            <constraint firstItem="3bX-Ng-fT4" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="Nyo-Uo-aKB"/>
                             <constraint firstItem="xkB-Eg-3xF" firstAttribute="trailing" secondItem="bQm-dZ-2Ng" secondAttribute="trailing" constant="30" id="Pcl-gf-ytj"/>
                             <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="A5b-Pr-uFu" secondAttribute="bottom" constant="637" id="Q4f-Fl-Kr4"/>
                             <constraint firstItem="Uyt-dI-IwT" firstAttribute="top" secondItem="DL6-9B-Zig" secondAttribute="bottom" constant="8" symbolic="YES" id="USX-TP-Jxl"/>
+                            <constraint firstItem="3bX-Ng-fT4" firstAttribute="top" secondItem="QoG-Jy-zfx" secondAttribute="bottom" constant="37" id="XZP-Fa-HxP"/>
+                            <constraint firstItem="QoG-Jy-zfx" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="XhS-gW-hzy"/>
+                            <constraint firstItem="QoG-Jy-zfx" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="YHU-hf-gBB"/>
+                            <constraint firstItem="xkB-Eg-3xF" firstAttribute="bottom" secondItem="3bX-Ng-fT4" secondAttribute="bottom" constant="87" id="YrA-21-IGQ"/>
                             <constraint firstItem="Qys-oZ-TQD" firstAttribute="top" secondItem="bQm-dZ-2Ng" secondAttribute="bottom" constant="16" id="Z8F-Yq-pL6"/>
                             <constraint firstItem="nHr-5k-zrV" firstAttribute="top" secondItem="mUt-7n-edM" secondAttribute="bottom" constant="8" symbolic="YES" id="bXG-Ea-3xF"/>
                             <constraint firstItem="wFE-h0-8RM" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="dS1-Qb-gTa"/>
                             <constraint firstItem="tbq-w7-ExE" firstAttribute="top" secondItem="6nW-Zk-tcS" secondAttribute="bottom" constant="27" id="fCH-D9-pr4"/>
+                            <constraint firstItem="3bX-Ng-fT4" firstAttribute="centerX" secondItem="pfX-ia-MN3" secondAttribute="centerX" id="gVh-dP-6NZ"/>
                             <constraint firstItem="mUt-7n-edM" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="glG-fe-MWa"/>
                             <constraint firstItem="DL6-9B-Zig" firstAttribute="top" secondItem="A5b-Pr-uFu" secondAttribute="bottom" constant="47" id="jVH-x1-Rk5"/>
                             <constraint firstItem="kY8-wN-PpV" firstAttribute="leading" secondItem="xkB-Eg-3xF" secondAttribute="leading" constant="30" id="l1t-5h-1oL"/>
@@ -304,12 +317,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="0Ng-Xl-EaY"/>
                     <connections>
+                        <outlet property="cancelButton" destination="3bX-Ng-fT4" id="Se7-8B-cBA"/>
+                        <outlet property="createTimelineButton" destination="QoG-Jy-zfx" id="llK-5F-m1m"/>
+                        <outlet property="inviteCreatorsLabel" destination="mUt-7n-edM" id="w8g-W6-cx4"/>
+                        <outlet property="sendButton" destination="6nW-Zk-tcS" id="iqt-Rv-hIG"/>
                         <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
+                        <outlet property="timelineNameLabel" destination="DL6-9B-Zig" id="EsT-0u-5HB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00j-cr-xQb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2305.909090909091" y="-962.13389121338912"/>
+            <point key="canvasLocation" x="2237.727272727273" y="-994.14225941422603"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JcS-X5-H7C">
@@ -361,15 +379,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Av9-g5-ylc">
-                                <rect key="frame" x="170" y="735" width="100" height="45"/>
+                                <rect key="frame" x="170" y="741" width="100" height="45"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="kIj-yN-IWh"/>
                                     <constraint firstAttribute="width" constant="100" id="lXJ-xH-ciS"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="15"/>
                                 <color key="tintColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Log Out"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -381,10 +400,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-1H-Wxb">
-                                <rect key="frame" x="149.66666666666669" y="806" width="140.66666666666669" height="35"/>
+                                <rect key="frame" x="160" y="812" width="120" height="29"/>
+                                <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="16"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Delete Account"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Delete Account"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cja-kb-cpM">
                                 <rect key="frame" x="50" y="430" width="60" height="21"/>
@@ -467,6 +487,10 @@
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="accountEmailLabel" destination="vaY-hl-zWK" id="2Gp-CX-kq6"/>
+                        <outlet property="accountNameLabel" destination="cja-kb-cpM" id="JJT-4L-Nee"/>
+                        <outlet property="deleteAccountButton" destination="IjT-1H-Wxb" id="ZEg-Cc-PVm"/>
+                        <outlet property="logOutButton" destination="Av9-g5-ylc" id="s4c-Jy-RzR"/>
                         <outlet property="myAccountTitleLabel" destination="qkk-Mm-xPm" id="CM2-gc-ZzU"/>
                     </connections>
                 </viewController>

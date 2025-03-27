@@ -11,11 +11,22 @@ import FirebaseAuth
 class AccountViewController: UIViewController {
 
     @IBOutlet weak var myAccountTitleLabel: UILabel!
+    @IBOutlet weak var accountNameLabel: UILabel!
+    @IBOutlet weak var accountEmailLabel: UILabel!
+    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var deleteAccountButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
 
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
-        myAccountTitleLabel.font = UIFont(name: "Refani", size: CGFloat(30))
+        myAccountTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        accountNameLabel.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        accountEmailLabel.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        logOutButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        deleteAccountButton.titleLabel?.font = UIFont.appFont(forTextStyle: .caption2, weight: .regular)
     }
     
     @IBAction func onLogOutPressed(_ sender: Any) {
@@ -26,5 +37,13 @@ class AccountViewController: UIViewController {
         } catch {
             print("An error has occurred")
         }
+    }
+    
+    @objc func updateFont() {
+        myAccountTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        accountNameLabel.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        accountEmailLabel.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        logOutButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        deleteAccountButton.titleLabel?.font = UIFont.appFont(forTextStyle: .caption2, weight: .regular)
     }
 }

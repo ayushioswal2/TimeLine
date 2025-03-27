@@ -19,6 +19,11 @@ class InviteCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        
+        // Initially set the font
+        updateFont()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,4 +39,8 @@ class InviteCell: UITableViewCell {
         rejectAction?()
     }
     
+    @objc func updateFont() {
+        timelineNameLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        inviterNameLabel.font = UIFont.appFont(forTextStyle: .caption1, weight: .regular)
+    }
 }

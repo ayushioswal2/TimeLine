@@ -28,9 +28,6 @@ class SettingsViewController: UIViewController {
         settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         settingsTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         
-        navBarToggleLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        selectFontLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        selectColorThemeLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
     func fontButton() {
