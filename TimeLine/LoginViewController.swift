@@ -16,13 +16,22 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var errorMessageLabel: UILabel!
     
+    @IBOutlet weak var emailFieldLabel: UILabel!
+    @IBOutlet weak var passwordFieldLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50))
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        
+        loginTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         loginTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         errorMessageLabel.text = ""
+        
+        loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
     @IBAction func onSignInPressed(_ sender: Any) {
@@ -79,4 +88,10 @@ class LoginViewController: UIViewController {
        return password.count >= minPasswordLength
     }
     
+    @objc func updateFont() {
+        loginTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+    }
 }

@@ -11,6 +11,10 @@ import FirebaseAuth
 class SignupViewController: UIViewController {
 
     @IBOutlet weak var signupTitleLabel: UILabel!
+    @IBOutlet weak var nameFieldLabel: UILabel!
+    @IBOutlet weak var emailFieldLabel: UILabel!
+    @IBOutlet weak var passwordFieldLabel: UILabel!
+    @IBOutlet weak var confirmPasswordLabel: UILabel!
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var nameField: UITextField!
@@ -18,15 +22,24 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var verifyPasswordField: UITextField!
     @IBOutlet weak var errorMessageLabel: UILabel!
     
+    @IBOutlet weak var signupButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+
         // Do any additional setup after loading the view.
-        signupTitleLabel.font = UIFont(name: "Refani", size: CGFloat(50
-                                                                    ))
+        signupTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         self.errorMessageLabel.text = ""
+        
+        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
     }
     
     @IBAction func onSignUpPressed(_ sender: Any) {
@@ -95,4 +108,12 @@ class SignupViewController: UIViewController {
        return password.count >= minPasswordLength
     }
     
+    @objc func updateFont() {
+        signupTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
+    }
 }
