@@ -365,7 +365,7 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="textbox" catalog="system" title=""/>
+                                        <buttonConfiguration key="configuration" style="plain" image="character.textbox" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beV-5N-ozv">
                                         <rect key="frame" x="107.00000000000001" y="-2.3333333333333712" width="49.666666666666671" height="49.666666666666664"/>
@@ -493,6 +493,7 @@
         <image name="arrow.down.left.and.arrow.up.right" catalog="system" width="128" height="115"/>
         <image name="arrow.up.and.down.and.arrow.left.and.right" catalog="system" width="128" height="122"/>
         <image name="capsule.on.rectangle" catalog="system" width="128" height="96"/>
+        <image name="character.textbox" catalog="system" width="128" height="89"/>
         <image name="crop.rotate" catalog="system" width="114" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
@@ -508,7 +509,6 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.dashed" catalog="system" width="128" height="114"/>
         <image name="square.stack.3d.up" catalog="system" width="120" height="128"/>
-        <image name="textbox" catalog="system" width="128" height="89"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
