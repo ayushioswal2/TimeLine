@@ -30,6 +30,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        timelinesTableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timelines.count
     }
@@ -52,4 +57,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         homeTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
+    
+    @IBAction func createNewTimelinePressed(_ sender: Any) {
+//        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
+    }
+    
 }

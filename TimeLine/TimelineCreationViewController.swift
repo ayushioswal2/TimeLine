@@ -11,11 +11,13 @@ class TimelineCreationViewController: UIViewController {
 
     @IBOutlet weak var inviteCreatorsLabel: UILabel!
     @IBOutlet weak var timelineNameLabel: UILabel!
+    
     @IBOutlet weak var timelineCreationTitleLabel: UILabel!
     
     @IBOutlet weak var createTimelineButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var sendButton: UIButton!
+    
+    @IBOutlet weak var timelineNameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +28,26 @@ class TimelineCreationViewController: UIViewController {
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         timelineCreationTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         timelineNameLabel.font = UIFont.appFont(forTextStyle: .title3, weight: .medium)
-        inviteCreatorsLabel.font = UIFont.appFont(forTextStyle: .title3, weight: .medium)
         
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
         cancelButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
-        sendButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
     }
     
     @objc func updateFont() {
         timelineCreationTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         timelineNameLabel.font = UIFont.appFont(forTextStyle: .title3, weight: .medium)
-        inviteCreatorsLabel.font = UIFont.appFont(forTextStyle: .title3, weight: .medium)
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
         cancelButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
-        sendButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
+    }
+    
+    @IBAction func createTimelinePressed(_ sender: Any) {
+        // To-Do: Add check for empty name field
+        let name = timelineNameField.text!
+        
+        timelines.append(name)
+    }
+    
+    @IBAction func cancelBtnClicked(_ sender: Any) {
+
     }
 }
