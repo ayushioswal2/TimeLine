@@ -16,6 +16,8 @@ class SettingsDateTimelineViewController: UIViewController, UITableViewDataSourc
     @IBOutlet weak var creatorsLabel: UILabel!
     @IBOutlet weak var inviteCreatorsLabel: UILabel!
     
+    @IBOutlet weak var emailForInviteField: UITextField!
+    
     @IBOutlet weak var creatorListTable: UITableView!
     var creatorList: [String] = ["Tester1", "Tester2"]
     
@@ -65,6 +67,15 @@ class SettingsDateTimelineViewController: UIViewController, UITableViewDataSourc
 
         return cell
     }
+    
+    @IBAction func sendInviteButtonPressed(_ sender: Any) {
+        if emailForInviteField.text != "" {
+            creatorList.append(emailForInviteField.text!)
+        }
+        emailForInviteField.text = ""
+        creatorListTable.reloadData()
+    }
+    
     
     
 }

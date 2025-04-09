@@ -242,7 +242,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="emailOfUserToInvite" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-0k-00g">
-                                <rect key="frame" x="30" y="730" width="380" height="34"/>
+                                <rect key="frame" x="30" y="730" width="285" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -264,12 +264,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="pencil.line" catalog="system"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0k-cT-IQK">
-                                <rect key="frame" x="184" y="416" width="133" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Eyz-zW-164">
                                 <rect key="frame" x="30" y="487" width="380" height="175"/>
                                 <color key="backgroundColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -325,6 +319,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSE-dx-wM8">
+                                <rect key="frame" x="335" y="730" width="70" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send"/>
+                                <connections>
+                                    <action selector="sendInviteButtonPressed:" destination="geY-eW-jgn" eventType="touchUpInside" id="1EQ-B4-VLk"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0k-cT-IQK">
+                                <rect key="frame" x="184" y="414" width="133" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nJK-gy-sJQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -339,6 +347,7 @@
                             <constraint firstItem="ude-KL-MyA" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="Dwf-1p-y5W"/>
                             <constraint firstItem="1WJ-t9-J9U" firstAttribute="centerX" secondItem="DTr-3p-6po" secondAttribute="centerX" id="Fgy-ve-ElW"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="eZa-Du-lPv" secondAttribute="trailing" constant="27" id="IYy-o5-WEA"/>
+                            <constraint firstItem="S0k-cT-IQK" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="68" id="J2F-Rf-uC0"/>
                             <constraint firstItem="bDC-Lt-ZKv" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="68" id="Kj8-1B-wm4"/>
                             <constraint firstItem="cwX-vG-eM9" firstAttribute="leading" secondItem="S0k-cT-IQK" secondAttribute="trailing" constant="32" id="LDI-oh-I7m"/>
                             <constraint firstItem="T3E-pb-O5V" firstAttribute="top" secondItem="Eyz-zW-164" secondAttribute="bottom" constant="30" id="Nmx-7i-iiK"/>
@@ -348,16 +357,17 @@
                             <constraint firstItem="1WJ-t9-J9U" firstAttribute="top" secondItem="jBR-0k-00g" secondAttribute="bottom" constant="26" id="Rhk-ge-1zg"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="bottom" secondItem="T3E-pb-O5V" secondAttribute="bottom" constant="172" id="Si6-7q-yFB"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="ady-oi-NTE" secondAttribute="trailing" constant="14" id="a1a-xh-MuV"/>
-                            <constraint firstItem="S0k-cT-IQK" firstAttribute="top" secondItem="ady-oi-NTE" secondAttribute="bottom" constant="38" id="dK5-wM-60F"/>
+                            <constraint firstItem="XSE-dx-wM8" firstAttribute="top" secondItem="T3E-pb-O5V" secondAttribute="bottom" constant="14" id="eWu-xf-aaa"/>
                             <constraint firstItem="gQw-wk-HfP" firstAttribute="centerX" secondItem="DTr-3p-6po" secondAttribute="centerX" id="jYY-4O-7Hc"/>
+                            <constraint firstItem="XSE-dx-wM8" firstAttribute="leading" secondItem="jBR-0k-00g" secondAttribute="trailing" constant="20" id="lvH-Hs-NUP"/>
                             <constraint firstItem="Eyz-zW-164" firstAttribute="top" secondItem="ude-KL-MyA" secondAttribute="bottom" constant="8" symbolic="YES" id="mmo-Jv-Ij1"/>
                             <constraint firstItem="eZa-Du-lPv" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="27" id="nhW-zw-7S4"/>
                             <constraint firstItem="Eyz-zW-164" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="oa8-lv-aGU"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="Eyz-zW-164" secondAttribute="trailing" constant="30" id="raS-qy-BCE"/>
                             <constraint firstItem="bDC-Lt-ZKv" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="tu8-v8-pov"/>
-                            <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="jBR-0k-00g" secondAttribute="trailing" constant="30" id="uHk-Da-q1z"/>
-                            <constraint firstItem="ude-KL-MyA" firstAttribute="top" secondItem="S0k-cT-IQK" secondAttribute="bottom" constant="18" id="uxP-xC-c9w"/>
+                            <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="jBR-0k-00g" secondAttribute="trailing" constant="125" id="uHk-Da-q1z"/>
                             <constraint firstItem="O5x-9Q-nHq" firstAttribute="top" secondItem="Eyz-zW-164" secondAttribute="bottom" constant="37" id="wdl-4I-ZGM"/>
+                            <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="XSE-dx-wM8" secondAttribute="trailing" constant="35" id="ztk-Kp-sh3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rc1-pB-ndB"/>
@@ -365,6 +375,7 @@
                         <outlet property="creatorListTable" destination="Eyz-zW-164" id="X63-LF-rGv"/>
                         <outlet property="creatorsLabel" destination="ude-KL-MyA" id="r5w-pc-rKL"/>
                         <outlet property="dummyCoverPhotoView" destination="eZa-Du-lPv" id="Wco-Yg-LTw"/>
+                        <outlet property="emailForInviteField" destination="jBR-0k-00g" id="AmU-pK-9GD"/>
                         <outlet property="inviteCreatorsLabel" destination="T3E-pb-O5V" id="7eU-xK-wiJ"/>
                         <outlet property="settingsTitleLabel" destination="gQw-wk-HfP" id="wTE-Sc-rco"/>
                         <outlet property="timelineNameField" destination="S0k-cT-IQK" id="Lgf-yS-g7a"/>
