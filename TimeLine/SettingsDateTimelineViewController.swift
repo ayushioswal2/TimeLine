@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class SettingsDateTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -69,12 +71,98 @@ class SettingsDateTimelineViewController: UIViewController, UITableViewDataSourc
     }
     
     @IBAction func sendInviteButtonPressed(_ sender: Any) {
-        if emailForInviteField.text != "" {
-            creatorList.append(emailForInviteField.text!)
+        Task {
+            await sendInvite()
         }
-        emailForInviteField.text = ""
-        creatorListTable.reloadData()
     }
+    
+    func sendInvite() async {
+            guard let inviteeEmail = emailForInviteField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !inviteeEmail.isEmpty else {
+                print("Please enter a valid email")
+                return
+            }
+
+            let db = Firestore.firestore()
+
+            let selectedTimelineName = "testerTL1" // Replace with value we pull from firebase of this timeline
+            var timelineID: String?
+
+            do {
+                // Get the Timeline ID
+                let timelineSnapshot = try await db.collection("timelines")
+                    .whereField("timelineName", isEqualTo: selectedTimelineName)
+                    .getDocuments()
+
+                guard let timelineDoc = timelineSnapshot.documents.first else {
+                    print("Timeline not found")
+                    return
+                }
+
+                timelineID = timelineDoc.documentID
+                let timelineName = timelineDoc["timelineName"] as? String ?? "timeline"
+
+                // Get the invitee user doc
+                let userSnapshot = try await db.collection("users")
+                    .whereField("email", isEqualTo: inviteeEmail)
+                    .getDocuments()
+
+                guard let userDoc = userSnapshot.documents.first else {
+                    print("User not found")
+                    return
+                }
+
+                let userRef = userDoc.reference
+                let currentInvites = userDoc["invites"] as? [[String: Any]] ?? []
+
+                if currentInvites.contains(where: { $0["timelineID"] as? String == timelineID }) {
+                    print("User already invited")
+                    return
+                }
+
+                // Get current user's username to include in invite
+                guard let currentUserEmail = Auth.auth().currentUser?.email else {
+                    print("Current user email not found")
+                    return
+                }
+
+                let inviterSnapshot = try await db.collection("users")
+                    .whereField("email", isEqualTo: currentUserEmail)
+                    .getDocuments()
+
+                guard let inviterDoc = inviterSnapshot.documents.first else {
+                    print("Inviter document not found")
+                    return
+                }
+
+                let inviterUsername = inviterDoc["username"] as? String ?? "Unknown"
+
+                let newInvite: [String: Any] = [
+                    "timelineID": timelineID!,
+                    "timelineName": timelineName,
+                    "inviterName": inviterUsername,
+                    "status": "pending"
+                ]
+
+                try await userRef.updateData([
+                    "invites": FieldValue.arrayUnion([newInvite])
+                ])
+
+                print("Invite sent to \(inviteeEmail)")
+
+                // Update UI
+                DispatchQueue.main.async {
+                    self.creatorList.append(inviteeEmail)
+                    self.creatorListTable.reloadData()
+                    self.emailForInviteField.text = ""
+                }
+
+            } catch {
+                print("Error sending invite: \(error.localizedDescription)")
+            }
+        }
+
+
     
     
     
