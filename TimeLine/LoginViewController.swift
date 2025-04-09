@@ -33,9 +33,7 @@ class LoginViewController: UIViewController {
         
         loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
         loginButton.backgroundColor = UIColor.appColorScheme(type: "primary")
-        
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+
     }
     
     @IBAction func onSignInPressed(_ sender: Any) {
@@ -95,8 +93,6 @@ class LoginViewController: UIViewController {
     @objc func updateFont() {
         loginTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
     @objc func updateColorScheme() {

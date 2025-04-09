@@ -36,11 +36,6 @@ class SignupViewController: UIViewController {
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         self.errorMessageLabel.text = ""
         
-        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        
         signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
         signupButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
@@ -113,10 +108,6 @@ class SignupViewController: UIViewController {
     
     @objc func updateFont() {
         signupTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
     }
     
