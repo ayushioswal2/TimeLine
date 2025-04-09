@@ -7,13 +7,17 @@
 
 import UIKit
 
-class SettingsDateTimelineViewController: UIViewController {
+class SettingsDateTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
 
     @IBOutlet weak var settingsTitleLabel: UILabel!
     @IBOutlet weak var timelineNameLabel: UILabel!
     @IBOutlet weak var timelineNameField: UILabel!
     @IBOutlet weak var creatorsLabel: UILabel!
     @IBOutlet weak var inviteCreatorsLabel: UILabel!
+    
+    @IBOutlet weak var creatorListTable: UITableView!
+    var creatorList: [String] = ["Tester1", "Tester2"]
     
     @IBOutlet weak var dummyCoverPhotoView: UIView!
     
@@ -33,6 +37,9 @@ class SettingsDateTimelineViewController: UIViewController {
 
         settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
+        
+        creatorListTable.dataSource = self
+        creatorListTable.delegate = self
     }
     
     @objc func updateFont() {
@@ -46,6 +53,17 @@ class SettingsDateTimelineViewController: UIViewController {
     @objc func updateColorScheme() {
         settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return creatorList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CreatorCell", for: indexPath) as! CreatorListViewCell
+        cell.creatorNameLabel.text = creatorList[indexPath.row]
+
+        return cell
     }
     
     
