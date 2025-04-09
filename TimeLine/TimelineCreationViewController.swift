@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class TimelineCreationViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -24,14 +26,44 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     var timelineName: String = ""
     var timelineCoverPhotoURL: String = ""
     
+    var db: Firestore!
+    
+    var currUserEmail: String?
+    var userDocumentID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
         
         // Initial Set Up
         setupUI()
+        
+        let currUser = Auth.auth().currentUser
+        if let user = currUser {
+            currUserEmail = user.email
+            db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
+                if let error = error {
+                    print("error fetching document: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("no matching document found")
+                    return
+                }
+                
+                // update fields to reflect this user
+                let document = documents.first
+                self.userDocumentID = document?.documentID
+//                let data = document?.data()
+//                let username = data?["username"] as? String ?? "no username found"
+//                self.currUserName = username
+            }
+        }
     }
     
     func setupUI() {
@@ -56,8 +88,30 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     @IBAction func createTimelinePressed(_ sender: Any) {
         // To-Do: Add check for empty name field
         let name = timelineNameField.text!
-        
+        self.performSegue(withIdentifier: "CreateTimelinetoDateSegue", sender:nil)
         timelines.append(name)
+        
+        // create timeline in Firestore database
+        Task {
+            await self.createTimeline(name: timelineNameField.text!)
+        }
+    }
+    
+    func createTimeline(name: String) async {        
+        do {
+            let ref = try await db.collection("timelines").addDocument(data: [
+                "timelineName": name,
+                "coverPhotoURL": "",
+                "creators": [self.currUserEmail]
+            ])
+            print("document \(ref.documentID) successfully added")
+            try await db.collection("users").document(userDocumentID!).updateData([
+                "timelines": FieldValue.arrayUnion([name])
+            ])
+            print("timelines updated to user")
+        } catch {
+            print("error adding document: \(error)")
+        }
     }
     
     @IBAction func cancelBtnClicked(_ sender: Any) {

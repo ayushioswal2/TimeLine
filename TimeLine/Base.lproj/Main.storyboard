@@ -250,11 +250,12 @@
                         <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
                         <outlet property="timelineNameField" destination="Uyt-dI-IwT" id="KjP-Mc-SlF"/>
                         <outlet property="timelineNameLabel" destination="DL6-9B-Zig" id="EsT-0u-5HB"/>
+                        <segue destination="16m-Vd-VD0" kind="show" identifier="CreateTimelinetoDateSegue" id="POa-tP-W9T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00j-cr-xQb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3107.727272727273" y="-994.14225941422603"/>
+            <point key="canvasLocation" x="3059" y="-994"/>
         </scene>
         <!--Custom Tab Bar Controller-->
         <scene sceneID="JcS-X5-H7C">
