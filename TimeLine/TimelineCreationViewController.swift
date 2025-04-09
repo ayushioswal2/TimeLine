@@ -119,12 +119,29 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     }
     
     @IBAction func coverPhotoSelectPressed(_ sender: Any) {
-        presentPhotoPicker()
+        let alert = UIAlertController(title: "Select Photo", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        // camera option
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
+                self.presentPhotoPicker(sourceType: .camera)
+            })
+        }
+        
+        // photo library option
+        alert.addAction(UIAlertAction(title: "Choose from Library", style: .default) { _ in
+            self.presentPhotoPicker(sourceType: .photoLibrary)
+        })
+        
+        // cancel image selection
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     
-    func presentPhotoPicker() {
+    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
         let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
+        picker.sourceType = sourceType
         picker.delegate = self
         picker.allowsEditing = false
         present(picker, animated: true, completion: nil)
@@ -135,15 +152,39 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
         
         if let image = info[.originalImage] as? UIImage {
             coverPhotoImageView.image = image
-        }
-        
-        if let imageURL = info[.imageURL] as? URL {
-            timelineCoverPhotoURL = imageURL.absoluteString
+            
+            if let imageURL = info[.imageURL] as? URL {
+                // image chosen from camera library
+                timelineCoverPhotoURL = imageURL.absoluteString
+            } else {
+                // Image was taken with camera – save it temporarily to get a URL
+                if let tempURL = saveImageToTemporaryDirectory(image) {
+                    timelineCoverPhotoURL = tempURL.absoluteString
+                } else {
+                    print("Failed to save camera image to temp directory")
+                }
+            }
         }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveImageToTemporaryDirectory(_ image: UIImage) -> URL? {
+        guard let data = image.jpegData(compressionQuality: 0.9) else { return nil }
+        
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let filename = UUID().uuidString + ".jpg"
+        let fileURL = tempDirectory.appendingPathComponent(filename)
+
+        do {
+            try data.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Error saving image: \(error)")
+            return nil
+        }
     }
     
     @objc func updateColorScheme() {
