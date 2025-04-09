@@ -130,7 +130,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufq-Qd-vPk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2693.1818181818185" y="-1122.1757322175733"/>
+            <point key="canvasLocation" x="3643" y="-1114"/>
         </scene>
         <!--Timeline Creation View Controller-->
         <scene sceneID="NG8-Mc-UCg">
@@ -244,8 +244,6 @@
                         <outlet property="createTimelineButton" destination="QoG-Jy-zfx" id="llK-5F-m1m"/>
                         <outlet property="dummyCoverPhotoView" destination="A5b-Pr-uFu" id="gSu-px-87o"/>
                         <outlet property="dummyPhotoIcon" destination="Baw-l2-feL" id="eTv-9J-yBx"/>
-                        <outlet property="inviteCreatorsLabel" destination="mUt-7n-edM" id="w8g-W6-cx4"/>
-                        <outlet property="sendButton" destination="6nW-Zk-tcS" id="iqt-Rv-hIG"/>
                         <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
                         <outlet property="timelineNameField" destination="Uyt-dI-IwT" id="KjP-Mc-SlF"/>
                         <outlet property="timelineNameLabel" destination="DL6-9B-Zig" id="EsT-0u-5HB"/>

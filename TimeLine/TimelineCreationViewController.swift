@@ -39,11 +39,9 @@ class TimelineCreationViewController: UIViewController {
         
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
         cancelButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
-        sendButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .medium)
         
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
-        sendButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
             
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
@@ -69,7 +67,6 @@ class TimelineCreationViewController: UIViewController {
     @objc func updateColorScheme() {
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
-        sendButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
 }

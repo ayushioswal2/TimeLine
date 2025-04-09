@@ -116,7 +116,6 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="2bg-cq-2Gy" id="Qre-4x-5lx"/>
                                             <outlet property="dummyCoverPhotoView" destination="qjD-dg-2N0" id="Ezd-cU-NSg"/>
-                                            <segue destination="bGd-ta-yBV" kind="show" id="587-tt-VXT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -129,7 +128,6 @@
                                 <connections>
                                     <action selector="settingsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gd8-be-dgr"/>
                                     <action selector="timelineSettingsButton:" destination="wPy-VS-rl0" eventType="touchUpInside" id="m15-mF-PmM"/>
-                                    <segue destination="geY-eW-jgn" kind="show" id="zbR-LH-xWn"/>
                                 </connections>
                             </button>
                         </subviews>
