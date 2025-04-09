@@ -20,9 +20,11 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
 
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         inboxTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        inboxTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         inviteTableView.dataSource = self
         inviteTableView.delegate = self
     }
@@ -57,5 +59,9 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func updateFont() {
         inboxTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+    }
+    
+    @objc func updateColorScheme() {
+        inboxTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
     }
 }

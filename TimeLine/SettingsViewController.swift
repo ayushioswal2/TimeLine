@@ -13,6 +13,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var navBarToggleLabel: UILabel!
     @IBOutlet weak var selectFontLabel: UILabel!
     @IBOutlet weak var selectColorThemeLabel: UILabel!
+
+    @IBOutlet weak var colorSchemeSegControl: UISegmentedControl!
     
     let fontChangeButton = UIButton(primaryAction: nil)
     let fontList = ["Refani", "System"]
@@ -23,11 +25,13 @@ class SettingsViewController: UIViewController {
         
         // waits for notification that font has been changed
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
         
         settingsTitleLabel.text = "User Settings"
         settingsTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        settingsTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         
+        colorSegControlSetup()
     }
     
     func fontButton() {
@@ -46,7 +50,6 @@ class SettingsViewController: UIViewController {
                     action.state = .on // Mark this action as selected
                 }
             }
-            
             menuChildren.append(action)
         }
         
@@ -57,7 +60,7 @@ class SettingsViewController: UIViewController {
         // set title of button to current font
         if let currentFont = FontManager.shared.getFont() {
            self.fontChangeButton.setTitle(currentFont, for: .normal)
-       }
+        }
         
         fontChangeButton.frame = CGRect(x: 290, y: 320, width: 100, height: 40)
         self.view.addSubview(fontChangeButton)
@@ -69,5 +72,39 @@ class SettingsViewController: UIViewController {
         navBarToggleLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         selectFontLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         selectColorThemeLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+    }
+    
+    func colorSegControlSetup() {
+        // resize segControl to be bigger
+        colorSchemeSegControl.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            colorSchemeSegControl.heightAnchor.constraint(equalToConstant: 200) // Set desired height
+        ])
+        
+        // Set selected item in seg control to current color choice
+        if ColorSchemeManager.shared.getColorScheme()! == "red" {
+            colorSchemeSegControl.selectedSegmentIndex = 0
+        } else if ColorSchemeManager.shared.getColorScheme()! == "green" {
+            colorSchemeSegControl.selectedSegmentIndex = 1
+        } else {
+            colorSchemeSegControl.selectedSegmentIndex = 2
+        }
+    }
+    
+    @IBAction func colorSchemeSegControlChanged(_ sender: Any) {
+        switch colorSchemeSegControl.selectedSegmentIndex {
+        case 0:
+            ColorSchemeManager.shared.setColorScheme(colorChoice: "red")
+        case 1:
+            ColorSchemeManager.shared.setColorScheme(colorChoice: "green")
+        case 2:
+            ColorSchemeManager.shared.setColorScheme(colorChoice: "blue")
+        default:
+            break
+        }
+    }
+    
+    @objc func updateColorScheme() {
+        settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
     }
 }

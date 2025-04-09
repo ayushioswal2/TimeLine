@@ -23,13 +23,17 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
         
         loginTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        loginTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        loginTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         errorMessageLabel.text = ""
         
         loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
+        loginButton.backgroundColor = UIColor.appColorScheme(type: "primary")
+        
         emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
@@ -93,5 +97,10 @@ class LoginViewController: UIViewController {
         loginButton.titleLabel?.font = UIFont.appFont(forTextStyle: .headline, weight: .bold)
         emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+    }
+    
+    @objc func updateColorScheme() {
+        loginTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        loginButton.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
 }

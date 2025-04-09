@@ -22,8 +22,13 @@ class InviteCell: UITableViewCell {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
+        
         // Initially set the font
         updateFont()
+        
+        acceptButton.tintColor = UIColor.appColorScheme(type: "primary")
+        rejectButton.tintColor = UIColor.appColorScheme(type: "primary")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,5 +47,10 @@ class InviteCell: UITableViewCell {
     @objc func updateFont() {
         timelineNameLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         inviterNameLabel.font = UIFont.appFont(forTextStyle: .caption1, weight: .regular)
+    }
+    
+    @objc func updateColorScheme() {
+        acceptButton.tintColor = UIColor.appColorScheme(type: "primary")
+        rejectButton.tintColor = UIColor.appColorScheme(type: "primary")
     }
 }
