@@ -8,7 +8,7 @@
 import Foundation
 
 struct Invite {
-    let groupName: String
+    let timelineName: String
     let senderName: String
 }
 
