@@ -31,6 +31,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        timelinesTableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timelines.count
     }
@@ -56,8 +61,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
+
+    @IBAction func createNewTimelinePressed(_ sender: Any) {
+//        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Load the other storyboard
+        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+        
+        // Instantiate the DateTimelineViewController directly
+        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? DateTimlineViewController {
+            
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+        }
+    }
+    
+
     @objc func updateColorScheme() {
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         homeTitle.textColor = UIColor.appColorScheme(type: "primary")
     }
+
 }
