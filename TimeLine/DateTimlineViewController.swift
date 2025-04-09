@@ -12,20 +12,27 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var datesTableView: UITableView!
     @IBOutlet weak var timelineTitleLabel: UILabel!
     @IBOutlet weak var addToTimelineButton: UIButton!
+    @IBOutlet weak var timelineSettingsButton: UIButton!
     
     var dates: [String] = ["March 11th, 2025", "April 12th, 2025"]
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
 
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         timelineTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
 
         timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        
         datesTableView.dataSource = self
         datesTableView.delegate = self
         self.datesTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
 
     }
     
@@ -43,6 +50,7 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
         timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
     
+
     @IBAction func settingsButtonPressed(_ sender: Any) {
          //Load the other storyboard
         let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
@@ -56,7 +64,7 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // Load the other storyboard
+        // Load the other storyboard
         let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
         
         // Instantiate the DateTimelineViewController directly
@@ -65,5 +73,9 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
             // Push onto the current navigation stack
             self.navigationController?.pushViewController(daySlideshowVC, animated: true)
         }
+    }
+    @objc func updateColorScheme() {
+        timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
 }

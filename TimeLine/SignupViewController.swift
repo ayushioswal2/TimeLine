@@ -28,18 +28,16 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
 
         // Do any additional setup after loading the view.
         signupTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        signupTitleLabel.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        signupTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
         self.errorMessageLabel.text = ""
         
-        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
+        signupButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
     
     @IBAction func onSignUpPressed(_ sender: Any) {
@@ -110,10 +108,11 @@ class SignupViewController: UIViewController {
     
     @objc func updateFont() {
         signupTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        nameFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        emailFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        passwordFieldLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
-        confirmPasswordLabel.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         signupButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .medium)
+    }
+    
+    @objc func updateColorScheme() {
+        signupTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        signupButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
 }

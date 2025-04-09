@@ -115,6 +115,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="2bg-cq-2Gy" id="Qre-4x-5lx"/>
+                                            <outlet property="dummyCoverPhotoView" destination="qjD-dg-2N0" id="Ezd-cU-NSg"/>
+                                            <segue destination="bGd-ta-yBV" kind="show" id="587-tt-VXT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -126,6 +128,8 @@
                                 <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system"/>
                                 <connections>
                                     <action selector="settingsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gd8-be-dgr"/>
+                                    <action selector="timelineSettingsButton:" destination="wPy-VS-rl0" eventType="touchUpInside" id="m15-mF-PmM"/>
+                                    <segue destination="geY-eW-jgn" kind="show" id="zbR-LH-xWn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -148,10 +152,12 @@
                     <connections>
                         <outlet property="addToTimelineButton" destination="YnT-77-MpA" id="fCb-CY-6Qc"/>
                         <outlet property="datesTableView" destination="ux5-gn-C0A" id="gvd-OQ-Aep"/>
+                        <outlet property="timelineSettingsButton" destination="MlO-rE-aaX" id="R89-fW-1B3"/>
                         <outlet property="timelineTitleLabel" destination="yXr-pq-DsD" id="HUg-y4-THV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="wPy-VS-rl0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
         </scene>
@@ -374,6 +380,7 @@
                     <navigationItem key="navigationItem" id="Rc1-pB-ndB"/>
                     <connections>
                         <outlet property="creatorsLabel" destination="ude-KL-MyA" id="r5w-pc-rKL"/>
+                        <outlet property="dummyCoverPhotoView" destination="eZa-Du-lPv" id="Wco-Yg-LTw"/>
                         <outlet property="inviteCreatorsLabel" destination="T3E-pb-O5V" id="7eU-xK-wiJ"/>
                         <outlet property="settingsTitleLabel" destination="gQw-wk-HfP" id="wTE-Sc-rco"/>
                         <outlet property="timelineNameField" destination="S0k-cT-IQK" id="Lgf-yS-g7a"/>

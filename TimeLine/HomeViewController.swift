@@ -28,6 +28,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         timelinesTableView.dataSource = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +50,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func setupUI() {
         homeTitle.text = "My Timelines"
         homeTitle.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-        homeTitle.textColor = UIColor(red: 75/255, green: 36/255, blue: 24/255, alpha: 1)
+        homeTitle.textColor = UIColor.appColorScheme(type: "primary")
+        
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
     
     @objc func updateFont() {
@@ -58,6 +61,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
+
     @IBAction func createNewTimelinePressed(_ sender: Any) {
 //        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
     }
@@ -74,4 +78,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+
+    @objc func updateColorScheme() {
+        createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        homeTitle.textColor = UIColor.appColorScheme(type: "primary")
+    }
+
 }

@@ -16,11 +16,15 @@ class ScrapbookViewController: UIViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
 
         view.backgroundColor = UIColor.init(red: 255/255, green: 244/255, blue: 225/255, alpha: 1)
 
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+        dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
+        saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
     
     @objc func updateFont() {
@@ -28,16 +32,9 @@ class ScrapbookViewController: UIViewController {
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
-//    @IBAction func addScrapbookButtonPressed(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
-//        
-//        // Instantiate the DateTimelineViewController directly
-//        if let scrapbookingVC = storyboard.instantiateViewController(withIdentifier: "ScrapbookingPageID") as? ScrapbookViewController {
-//            
-//            // Push onto the current navigation stack
-//            self.navigationController?.pushViewController(scrapbookingVC, animated: true)
-//        }
-//    }
-    
-    
+    @objc func updateColorScheme() {
+        dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+
+    }
 }
