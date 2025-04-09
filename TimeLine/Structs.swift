@@ -11,3 +11,9 @@ struct Invite {
     let groupName: String
     let senderName: String
 }
+
+struct Timeline {
+    var name: String
+    var coverPhotoURL: URL?
+    var users: [String] = []
+}

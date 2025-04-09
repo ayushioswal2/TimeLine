@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TimelineCreationViewController: UIViewController {
+class TimelineCreationViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var inviteCreatorsLabel: UILabel!
     @IBOutlet weak var timelineNameLabel: UILabel!
@@ -19,8 +19,10 @@ class TimelineCreationViewController: UIViewController {
     
     @IBOutlet weak var timelineNameField: UITextField!
     
-    @IBOutlet weak var dummyCoverPhotoView: UIView!
-    @IBOutlet weak var dummyPhotoIcon: UIImageView!
+    @IBOutlet weak var coverPhotoImageView: UIImageView!
+    
+    var timelineName: String = ""
+    var timelineCoverPhotoURL: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +44,6 @@ class TimelineCreationViewController: UIViewController {
         
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
-            
-        dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
     
     @objc func updateFont() {
@@ -64,9 +64,36 @@ class TimelineCreationViewController: UIViewController {
 
     }
     
+    @IBAction func coverPhotoSelectPressed(_ sender: Any) {
+        presentPhotoPicker()
+    }
+    
+    func presentPhotoPicker() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = false
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let image = info[.originalImage] as? UIImage {
+            coverPhotoImageView.image = image
+        }
+        
+        if let imageURL = info[.imageURL] as? URL {
+            timelineCoverPhotoURL = imageURL.absoluteString
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func updateColorScheme() {
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
-        dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
 }
