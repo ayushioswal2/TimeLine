@@ -252,6 +252,7 @@
                         <outlet property="cancelButton" destination="3bX-Ng-fT4" id="Se7-8B-cBA"/>
                         <outlet property="coverPhotoImageView" destination="VJ1-KZ-z2E" id="PwK-rH-Xxd"/>
                         <outlet property="createTimelineButton" destination="QoG-Jy-zfx" id="llK-5F-m1m"/>
+                        <outlet property="imageBackground" destination="A5b-Pr-uFu" id="ya8-qp-GHy"/>
                         <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
                         <outlet property="timelineNameField" destination="Uyt-dI-IwT" id="KjP-Mc-SlF"/>
                         <outlet property="timelineNameLabel" destination="DL6-9B-Zig" id="EsT-0u-5HB"/>

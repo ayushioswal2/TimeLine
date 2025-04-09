@@ -21,6 +21,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     
     @IBOutlet weak var timelineNameField: UITextField!
     
+    @IBOutlet weak var imageBackground: UIView!
     @IBOutlet weak var coverPhotoImageView: UIImageView!
     
     var timelineName: String = ""
@@ -76,6 +77,8 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
         
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        
+        imageBackground.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
     
     @objc func updateFont() {
@@ -190,5 +193,6 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     @objc func updateColorScheme() {
         timelineCreationTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        imageBackground.backgroundColor = UIColor.appColorScheme(type: "primary")
     }
 }
