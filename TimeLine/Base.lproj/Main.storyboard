@@ -23,7 +23,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCW-BL-h21">
                                 <rect key="frame" x="95" y="793" width="250" height="50"/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.6784313917" blue="0.60784316059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.1294117719" green="0.22745099660000001" blue="0.062745101750000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="vGy-21-VfO"/>
                                     <constraint firstAttribute="height" constant="50" id="y3d-9h-csS"/>
@@ -31,7 +31,7 @@
                                 <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Create New Timeline">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -160,7 +160,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.2941176593" green="0.1411764771" blue="0.094117648900000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="Baw-l2-feL" firstAttribute="centerY" secondItem="A5b-Pr-uFu" secondAttribute="centerY" id="K9l-jS-GCg"/>
                                     <constraint firstItem="Baw-l2-feL" firstAttribute="centerX" secondItem="A5b-Pr-uFu" secondAttribute="centerX" id="jw2-Eg-uXH"/>
@@ -319,6 +319,8 @@
                     <connections>
                         <outlet property="cancelButton" destination="3bX-Ng-fT4" id="Se7-8B-cBA"/>
                         <outlet property="createTimelineButton" destination="QoG-Jy-zfx" id="llK-5F-m1m"/>
+                        <outlet property="dummyCoverPhotoView" destination="A5b-Pr-uFu" id="gSu-px-87o"/>
+                        <outlet property="dummyPhotoIcon" destination="Baw-l2-feL" id="eTv-9J-yBx"/>
                         <outlet property="inviteCreatorsLabel" destination="mUt-7n-edM" id="w8g-W6-cx4"/>
                         <outlet property="sendButton" destination="6nW-Zk-tcS" id="iqt-Rv-hIG"/>
                         <outlet property="timelineCreationTitleLabel" destination="srT-Bb-cJw" id="j7X-jG-J5Y"/>
@@ -329,10 +331,10 @@
             </objects>
             <point key="canvasLocation" x="2237.727272727273" y="-994.14225941422603"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab Bar Controller-->
         <scene sceneID="JcS-X5-H7C">
             <objects>
-                <tabBarController storyboardIdentifier="MainNavID" automaticallyAdjustsScrollViewInsets="NO" id="Xbe-hu-ZMG" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainNavID" automaticallyAdjustsScrollViewInsets="NO" id="Xbe-hu-ZMG" customClass="CustomTabBarController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n3v-Us-GR4">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -492,6 +494,7 @@
                         <outlet property="deleteAccountButton" destination="IjT-1H-Wxb" id="ZEg-Cc-PVm"/>
                         <outlet property="logOutButton" destination="Av9-g5-ylc" id="s4c-Jy-RzR"/>
                         <outlet property="myAccountTitleLabel" destination="qkk-Mm-xPm" id="CM2-gc-ZzU"/>
+                        <outlet property="profilePicImageView" destination="tvh-go-WHs" id="Ovu-p1-eTs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kY1-qh-L5K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -642,6 +645,9 @@
                                     <segment title="Green"/>
                                     <segment title="Blue"/>
                                 </segments>
+                                <connections>
+                                    <action selector="colorSchemeSegControlChanged:" destination="avY-S3-lEO" eventType="valueChanged" id="JZe-T7-eus"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zp0-vH-CKH"/>
@@ -671,6 +677,7 @@
                         <color key="badgeColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="colorSchemeSegControl" destination="mcw-Wk-VuG" id="J06-yx-LHh"/>
                         <outlet property="navBarToggleLabel" destination="Rjf-vP-Lln" id="bmi-xw-cAz"/>
                         <outlet property="selectColorThemeLabel" destination="Tef-7M-91k" id="cpe-lW-4KY"/>
                         <outlet property="selectFontLabel" destination="vEJ-hA-btV" id="8Iq-mw-kqi"/>
