@@ -9,7 +9,9 @@ import Foundation
 
 struct Invite {
     let timelineName: String
-    let senderName: String
+    let status: String
+    let inviterName: String
+    let timelineID: String
 }
 
 struct Timeline {
