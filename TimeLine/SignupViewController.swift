@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class SignupViewController: UIViewController {
 
@@ -24,8 +25,12 @@ class SignupViewController: UIViewController {
     
     @IBOutlet weak var signupButton: UIButton!
     
+    var db: Firestore!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -41,11 +46,17 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func onSignUpPressed(_ sender: Any) {
-        guard isValidEmail(emailField.text!) && isValidPassword(passwordField.text!) && passwordField.text == verifyPasswordField.text else {
+        guard isValidEmail(emailField.text!) && isValidPassword(passwordField.text!) && passwordField.text == verifyPasswordField.text && !(nameField.text!).isEmpty else {
             self.errorMessageLabel.textColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
             
             var errorMessage = ""
 
+            if (nameField.text!).isEmpty {
+                errorMessage += "\nUsername cannot be empty"
+                self.emailField.layer.borderWidth = 2
+                self.emailField.layer.borderColor = .init(red: 168/255, green: 20/255, blue: 20/255, alpha: 1)
+                self.emailField.layer.cornerRadius = 10
+            }
             if !isValidEmail(emailField.text!) {
                 errorMessage += "\nInvalid email format"
                 self.emailField.layer.borderWidth = 2
@@ -82,12 +93,34 @@ class SignupViewController: UIViewController {
                         print(error.localizedDescription)
                     } else {
                         print("successful sign-in for \(self.emailField.text!)")
+                        let username = self.nameField.text!
+                        let email = self.emailField.text!
+                        let password = self.passwordField.text!
                         self.performSegue(withIdentifier: "SignupSegue", sender:nil)
                         self.emailField.text = nil
                         self.passwordField.text = nil
+                        
+                        // also create user in Firestore database with their information
+                        Task {
+                            await self.createUser(name: username, email: email, password: password)
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    func createUser(name: String, email: String, password: String) async {
+        do {
+            let ref = try await db.collection("users").addDocument(data: [
+                "username": name,
+                "email": email,
+                "password": password,
+                "timelines": []
+            ])
+            print("document \(ref.documentID) successfully added")
+        } catch {
+            print("error adding document: \(error)")
         }
     }
     
