@@ -116,7 +116,8 @@ class SignupViewController: UIViewController {
                 "username": name,
                 "email": email,
                 "password": password,
-                "timelines": []
+                "timelines": [],
+                "invites": []
             ])
             print("document \(ref.documentID) successfully added")
         } catch {
