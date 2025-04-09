@@ -62,4 +62,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Load the other storyboard
+        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+        
+        // Instantiate the DateTimelineViewController directly
+        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? DateTimlineViewController {
+            
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+        }
+    }
+    
 }

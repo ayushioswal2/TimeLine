@@ -27,4 +27,17 @@ class ScrapbookViewController: UIViewController {
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
+    
+//    @IBAction func addScrapbookButtonPressed(_ sender: Any) {
+//        let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
+//        
+//        // Instantiate the DateTimelineViewController directly
+//        if let scrapbookingVC = storyboard.instantiateViewController(withIdentifier: "ScrapbookingPageID") as? ScrapbookViewController {
+//            
+//            // Push onto the current navigation stack
+//            self.navigationController?.pushViewController(scrapbookingVC, animated: true)
+//        }
+//    }
+    
+    
 }
