@@ -123,8 +123,6 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
     }
 
-
-
     func handleReject(invite: Invite, at index: Int) {
         guard let userEmail = Auth.auth().currentUser?.email else { return }
         let db = Firestore.firestore()
@@ -166,7 +164,6 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
     }
 
-    
     @objc func updateFont() {
         inboxTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }

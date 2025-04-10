@@ -39,7 +39,6 @@ class InviteCell: UITableViewCell {
         acceptAction?()
     }
     
-    
     @IBAction func rejectPressed(_ sender: Any) {
         rejectAction?()
     }

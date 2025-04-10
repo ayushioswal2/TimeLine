@@ -134,7 +134,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-
     @objc func updateColorScheme() {
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         homeTitle.textColor = UIColor.appColorScheme(type: "primary")

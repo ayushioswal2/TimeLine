@@ -50,7 +50,6 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
         timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
     
-
     @IBAction func settingsButtonPressed(_ sender: Any) {
          //Load the other storyboard
         let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
@@ -74,6 +73,7 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
             self.navigationController?.pushViewController(daySlideshowVC, animated: true)
         }
     }
+    
     @objc func updateColorScheme() {
         timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")

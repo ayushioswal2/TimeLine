@@ -49,7 +49,6 @@ class DaySlideshowViewController: UIViewController {
         }
     }
     
-    
     @objc func updateColorScheme() {
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
     }
