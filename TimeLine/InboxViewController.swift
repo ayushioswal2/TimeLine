@@ -41,7 +41,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
 
             let invite = invites[indexPath.row]
             cell.timelineNameLabel.text = invite.timelineName
-            cell.inviterNameLabel.text = "@\(invite.senderName)"
+            cell.inviterNameLabel.text = "@\(invite.inviterName)"
 
             cell.acceptAction = {
                 self.handleAccept(invite: invite, at: indexPath.row)
@@ -55,18 +55,117 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func handleAccept(invite: Invite, at index: Int) {
-        print("Accepted invite to \(invite.timelineName)")
-        // TODO: Add current user to timeline, remove invite from Firestore
-        invites.remove(at: index)
-        inviteTableView.reloadData()
+        guard let user = Auth.auth().currentUser, let userEmail = user.email else { return }
+        let db = Firestore.firestore()
+
+        db.collection("users")
+            .whereField("email", isEqualTo: userEmail)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error finding user: \(error)")
+                    return
+                }
+
+                guard let userDoc = snapshot?.documents.first else {
+                    print("User document not found")
+                    return
+                }
+
+                let userRef = userDoc.reference
+
+                let inviteDict: [String: Any] = [
+                    "inviterName": invite.inviterName,
+                    "timelineName": invite.timelineName,
+                    "status": "pending",
+                    "timelineID": invite.timelineID
+                ]
+
+                userRef.updateData([
+                    "timelines": FieldValue.arrayUnion([invite.timelineName]),
+                    "invites": FieldValue.arrayRemove([inviteDict])
+                ]) { err in
+                    if let err = err {
+                        print("Error updating user document: \(err)")
+                        return
+                    }
+
+                    print("User timelines updated and invite removed from user doc.")
+
+                    let timelineRef = db.collection("timelines").document(invite.timelineID)
+                    timelineRef.getDocument { snapshot, error in
+                        if let error = error {
+                            print("Error finding timeline: \(error)")
+                            return
+                        }
+
+                        guard let snapshot = snapshot, snapshot.exists else {
+                            print("Timeline not found for ID: \(invite.timelineID)")
+                            return
+                        }
+
+                        timelineRef.updateData([
+                            "creators": FieldValue.arrayUnion([userEmail])
+                        ]) { err in
+                            if let err = err {
+                                print("Error updating timeline creators: \(err)")
+                            } else {
+                                print("User added to timeline creators successfully.")
+                            }
+
+                            DispatchQueue.main.async {
+                                self.invites.remove(at: index)
+                                self.inviteTableView.reloadData()
+                            }
+                        }
+                    }
+
+                }
+            }
     }
 
+
+
     func handleReject(invite: Invite, at index: Int) {
-        print("Rejected invite to \(invite.timelineName)")
-        // TODO: Remove the invite from Firestore
-        invites.remove(at: index)
-        inviteTableView.reloadData()
+        guard let userEmail = Auth.auth().currentUser?.email else { return }
+        let db = Firestore.firestore()
+
+        db.collection("users")
+            .whereField("email", isEqualTo: userEmail)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error finding user: \(error)")
+                    return
+                }
+
+                guard let userDoc = snapshot?.documents.first else {
+                    print("User document not found")
+                    return
+                }
+
+                let userRef = userDoc.reference
+                let inviteDict: [String: Any] = [
+                    "inviterName": invite.inviterName,
+                    "timelineName": invite.timelineName
+                ]
+
+                userRef.updateData([
+                    "invites": FieldValue.arrayRemove([inviteDict])
+                ]) { err in
+                    if let err = err {
+                        print("Error removing invite: \(err)")
+                        return
+                    }
+
+                    print("Invite rejected and removed")
+
+                    DispatchQueue.main.async {
+                        self.invites.remove(at: index)
+                        self.inviteTableView.reloadData()
+                    }
+                }
+            }
     }
+
     
     @objc func updateFont() {
         inboxTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
@@ -98,13 +197,23 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             let data = document.data()
             if let inviteData = data["invites"] as? [[String: Any]] {
                 self.invites = inviteData.compactMap { inviteDict in
-                        guard
-                            let timelineName = inviteDict["timelineName"] as? String,
-                            let inviterName = inviteDict["inviterName"] as? String
-                        else { return nil }
-
-                        return Invite(timelineName: timelineName, senderName: inviterName)
+                    guard
+                        let timelineName = inviteDict["timelineName"] as? String,
+                        let status = inviteDict["status"] as? String,
+                        let timelineID = inviteDict["timelineID"] as? String,
+                        let inviterName = inviteDict["inviterName"] as? String
+                    else {
+                        return nil
                     }
+
+                    return Invite(
+                        timelineName: timelineName,
+                        status: status,
+                        inviterName: inviterName,
+                        timelineID: timelineID
+                    )
+                }
+
                 
                 DispatchQueue.main.async {
                     self.inviteTableView.reloadData()
