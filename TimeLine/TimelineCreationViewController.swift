@@ -60,9 +60,6 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
                 // update fields to reflect this user
                 let document = documents.first
                 self.userDocumentID = document?.documentID
-//                let data = document?.data()
-//                let username = data?["username"] as? String ?? "no username found"
-//                self.currUserName = username
             }
         }
     }
@@ -104,7 +101,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
         do {
             let ref = try await db.collection("timelines").addDocument(data: [
                 "timelineName": name,
-                "coverPhotoURL": "",
+                "coverPhotoURL": self.timelineCoverPhotoURL,
                 "creators": [self.currUserEmail]
             ])
             print("document \(ref.documentID) successfully added")

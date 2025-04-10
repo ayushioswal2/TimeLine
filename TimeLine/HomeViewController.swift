@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
-var timelines: [String] = ["Personal Timeline", "The FAM"]
+var timelines: [String] = []
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -19,9 +21,35 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let timelineCellIdentifier = "timelineCellIdentifier"
     
+    var db: Firestore!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        db = Firestore.firestore()
+        
+        let currUser = Auth.auth().currentUser
+        if let user = currUser {
+            let currUserEmail = user.email
+            db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
+                if let error = error {
+                    print("error fetching document: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("no matching document found")
+                    return
+                }
+                
+                // update fields to reflect this user
+                let document = documents.first
+                let data = document?.data()
+                timelines = data?["timelines"] as! [String]
+                self.timelinesTableView.reloadData()
+            }
+        }
+                
         setupUI()
         
         timelinesTableView.delegate = self
@@ -43,6 +71,34 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
         cell.timelineNameLabel.text = timelines[indexPath.row]
+        
+        
+        // bug for office hours: cover images are populating irregularly for wrong timelines
+//        db.collection("timelines").whereField("timelineName", isEqualTo: timelines[indexPath.row]).getDocuments() { (snapshot, error) in
+//            if let error = error {
+//                print("error fetching document: \(error)")
+//                return
+//            }
+//            
+//            guard let documents = snapshot?.documents, !documents.isEmpty else {
+//                print("no matching document found")
+//                return
+//            }
+//            
+//            let document = documents.first
+//            let data = document?.data()
+//            let coverImageURL = data?["coverPhotoURL"] as? String
+//            guard let imageURL = URL(string: coverImageURL ?? "") else {
+//                print("invalid cover image URL for \(timelines[indexPath.row])")
+//                return
+//            }
+//            do {
+//                let imageData = try Data(contentsOf: imageURL)
+//                cell.timelineCoverImageView.image = UIImage(data: imageData)
+//            } catch {
+//                print ("error loading image: \(error)")
+//            }
+//        }
 
         return cell
     }
