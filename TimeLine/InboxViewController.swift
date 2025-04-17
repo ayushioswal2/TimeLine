@@ -12,6 +12,7 @@ import FirebaseAuth
 class InboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var inboxTitleLabel: UILabel!
     @IBOutlet weak var inviteTableView: UITableView!
+    @IBOutlet weak var noInvitesLabel: UILabel!
     
     var invites: [Invite] = []
     
@@ -26,6 +27,9 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         inboxTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         inviteTableView.dataSource = self
         inviteTableView.delegate = self
+        
+        inviteTableView.isHidden = false
+        noInvitesLabel.isHidden = true
         
         fetchInvites()
     }
@@ -114,11 +118,11 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                             DispatchQueue.main.async {
                                 self.invites.remove(at: index)
+                                self.emptyInboxCheck()
                                 self.inviteTableView.reloadData()
                             }
                         }
                     }
-
                 }
             }
     }
@@ -158,6 +162,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                     DispatchQueue.main.async {
                         self.invites.remove(at: index)
+                        self.emptyInboxCheck()
                         self.inviteTableView.reloadData()
                     }
                 }
@@ -202,7 +207,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
                     else {
                         return nil
                     }
-
+                    
                     return Invite(
                         timelineName: timelineName,
                         status: status,
@@ -210,11 +215,27 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
                         timelineID: timelineID
                     )
                 }
-
-                
+                   
+                self.emptyInboxCheck()
+                    
                 DispatchQueue.main.async {
                     self.inviteTableView.reloadData()
                 }
+            }
+        }
+    }
+    
+    func emptyInboxCheck() {
+        if self.invites.isEmpty {
+            print("no invites found")
+            DispatchQueue.main.async {
+                self.noInvitesLabel.isHidden = false
+                self.inviteTableView.isHidden = true
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.noInvitesLabel.isHidden = true
+                self.inviteTableView.isHidden = false
             }
         }
     }

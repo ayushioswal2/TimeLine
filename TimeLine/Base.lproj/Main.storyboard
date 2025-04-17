@@ -450,6 +450,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Invites Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAd-fO-kss">
+                                <rect key="frame" x="156.33333333333334" y="467.66666666666669" width="127.66666666666666" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wch-7M-EZd">
                                 <rect key="frame" x="0.0" y="199" width="440" height="709"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -521,8 +527,10 @@
                         <viewLayoutGuide key="safeArea" id="lYg-om-Oku"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="MAd-fO-kss" firstAttribute="centerY" secondItem="tAI-RU-ri6" secondAttribute="centerY" id="ZVP-um-oi4"/>
                             <constraint firstItem="MXM-jZ-FVn" firstAttribute="top" secondItem="lYg-om-Oku" secondAttribute="top" constant="56" id="ax0-1t-ebg"/>
                             <constraint firstItem="MXM-jZ-FVn" firstAttribute="centerX" secondItem="tAI-RU-ri6" secondAttribute="centerX" id="ckM-92-O2C"/>
+                            <constraint firstItem="MAd-fO-kss" firstAttribute="centerX" secondItem="tAI-RU-ri6" secondAttribute="centerX" id="gTk-1g-RYL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="envelope" catalog="system" selectedImage="envelope.fill" id="n6x-vM-YO7">
@@ -531,6 +539,7 @@
                     <connections>
                         <outlet property="inboxTitleLabel" destination="MXM-jZ-FVn" id="q6X-Rg-my4"/>
                         <outlet property="inviteTableView" destination="wch-7M-EZd" id="8bR-Fu-tk9"/>
+                        <outlet property="noInvitesLabel" destination="MAd-fO-kss" id="2u9-ws-SKI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="quc-jF-5yn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
