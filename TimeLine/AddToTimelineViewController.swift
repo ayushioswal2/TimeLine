@@ -36,8 +36,12 @@ class AddToTimelineViewController: UIViewController {
         doneButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
     
-    @IBAction func doneBtnPressed(_ sender: Any) {        
-        dates.append(datePicker.date)
-        dates.sort()
+    @IBAction func doneBtnPressed(_ sender: Any) {
+        if dates.contains(datePicker.date) {
+            print("Entry already exists")
+        } else {
+            dates.append(datePicker.date)
+            dates.sort()
+        }
     }
 }
