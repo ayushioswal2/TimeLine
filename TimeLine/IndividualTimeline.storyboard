@@ -42,6 +42,9 @@
                                         <integer key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addToTimelinePressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eyQ-gs-KpB"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ux5-gn-C0A">
                                 <rect key="frame" x="20" y="123" width="400" height="671"/>
@@ -160,6 +163,76 @@
                 <exit id="wPy-VS-rl0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
+        </scene>
+        <!--Add To Timeline View Controller-->
+        <scene sceneID="byu-JP-HMT">
+            <objects>
+                <viewController storyboardIdentifier="AddToTimelineID" id="ik6-cZ-eGt" customClass="AddToTimelineViewController" customModule="TimeLine" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uZB-6Y-ku6">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add To Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf7-qY-ibP">
+                                <rect key="frame" x="159" y="82" width="122" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="ovL-R6-dwA">
+                                <rect key="frame" x="60" y="189" width="320" height="324"/>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aE7-Tg-XsB">
+                                <rect key="frame" x="60" y="158" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jnf-t3-sZ9">
+                                <rect key="frame" x="170" y="819" width="100" height="35"/>
+                                <color key="backgroundColor" red="0.49019610879999997" green="0.231372565" blue="0.20784312490000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Iun-WP-nxS"/>
+                                    <constraint firstAttribute="height" constant="35" id="ctP-jn-viW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.99215686319999996" green="0.95686274770000002" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="doneBtnPressed:" destination="ik6-cZ-eGt" eventType="touchUpInside" id="h7Z-mr-uhG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dzE-FO-YgX"/>
+                        <color key="backgroundColor" red="0.99215686319999996" green="0.95686274770000002" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="ovL-R6-dwA" firstAttribute="centerX" secondItem="uZB-6Y-ku6" secondAttribute="centerX" id="50M-94-QA7"/>
+                            <constraint firstItem="lf7-qY-ibP" firstAttribute="top" secondItem="dzE-FO-YgX" secondAttribute="top" constant="20" id="7dB-ex-aCy"/>
+                            <constraint firstItem="aE7-Tg-XsB" firstAttribute="top" secondItem="lf7-qY-ibP" secondAttribute="bottom" constant="55" id="Ata-zR-ac3"/>
+                            <constraint firstItem="dzE-FO-YgX" firstAttribute="bottom" secondItem="Jnf-t3-sZ9" secondAttribute="bottom" constant="68" id="Yj7-NI-NyL"/>
+                            <constraint firstItem="aE7-Tg-XsB" firstAttribute="leading" secondItem="dzE-FO-YgX" secondAttribute="leading" constant="60" id="jEb-Wl-BuW"/>
+                            <constraint firstItem="lf7-qY-ibP" firstAttribute="centerX" secondItem="uZB-6Y-ku6" secondAttribute="centerX" id="sHd-fZ-1ac"/>
+                            <constraint firstItem="Jnf-t3-sZ9" firstAttribute="centerX" secondItem="ovL-R6-dwA" secondAttribute="centerX" id="vJz-FY-zpX"/>
+                            <constraint firstItem="ovL-R6-dwA" firstAttribute="leading" secondItem="dzE-FO-YgX" secondAttribute="leading" constant="60" id="x9n-24-rmy"/>
+                            <constraint firstItem="ovL-R6-dwA" firstAttribute="top" secondItem="aE7-Tg-XsB" secondAttribute="bottom" constant="10" id="yce-cF-Gd4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="ovL-R6-dwA" id="Kgg-Tl-jyg"/>
+                        <outlet property="doneButton" destination="Jnf-t3-sZ9" id="mQN-7T-9NX"/>
+                        <outlet property="selectDateLabel" destination="aE7-Tg-XsB" id="urX-Zd-aWV"/>
+                        <outlet property="titleLabel" destination="lf7-qY-ibP" id="2AS-d3-dPD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i1d-tN-mZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1276" y="690"/>
         </scene>
         <!--Timeline Settings View Controller-->
         <scene sceneID="Opa-8e-wQ1">
