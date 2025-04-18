@@ -13,6 +13,9 @@ class DateCell: UITableViewCell {
     
     @IBOutlet weak var dummyCoverPhotoView: UIView!
     
+    @IBOutlet weak var dateCellSideLine: UIView!
+    @IBOutlet weak var dateCellSideCircle: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -36,5 +39,7 @@ class DateCell: UITableViewCell {
     @objc func updateColorScheme() {
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
+        dateCellSideLine.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        dateCellSideCircle.tintColor = UIColor.appColorScheme(type: "secondary")
     }
 }

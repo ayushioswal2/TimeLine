@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DateTimlineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TimelineMainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var datesTableView: UITableView!
     @IBOutlet weak var timelineTitleLabel: UILabel!
@@ -55,7 +55,7 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
         let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
 
         // Instantiate the DateTimelineViewController directly
-        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "SettingsDateTimelineId") as? SettingsDateTimelineViewController {
+        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "SettingsDateTimelineId") as? TimelineSettingsViewController {
 
             // Push onto the current navigation stack
             self.navigationController?.pushViewController(dateTimelineVC, animated: true)
@@ -77,5 +77,6 @@ class DateTimlineViewController: UIViewController, UITableViewDataSource, UITabl
     @objc func updateColorScheme() {
         timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
     }
 }

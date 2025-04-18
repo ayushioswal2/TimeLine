@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class SettingsDateTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TimelineSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 
     @IBOutlet weak var settingsTitleLabel: UILabel!

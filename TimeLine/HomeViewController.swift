@@ -127,7 +127,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
         
         // Instantiate the DateTimelineViewController directly
-        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? DateTimlineViewController {
+        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
             
             // Push onto the current navigation stack
             self.navigationController?.pushViewController(dateTimelineVC, animated: true)
