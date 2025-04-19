@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import PhotosUI
 
-class AddToTimelineViewController: UIViewController {
-
+class AddToTimelineViewController: UIViewController, PHPickerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var selectDateLabel: UILabel!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var doneButton: UIButton!
         
+    @IBOutlet weak var collectionView: UICollectionView!
+    var selectedImages: [UIImage] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +27,10 @@ class AddToTimelineViewController: UIViewController {
         
         updateFont()
         updateColorScheme()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
     }
     
     @objc func updateFont() {
@@ -36,6 +44,35 @@ class AddToTimelineViewController: UIViewController {
         doneButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
     }
     
+    @IBAction func addPhotosPressed(_ sender: Any) {
+        var pickerConfig = PHPickerConfiguration()
+        pickerConfig.selectionLimit = 0 // 0 means no limit
+        pickerConfig.filter = .images
+        
+        let photopicker = PHPickerViewController(configuration: pickerConfig)
+        photopicker.delegate = self
+        
+        present(photopicker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        for result in results {
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            print("Got image: \(image)")
+                            self.selectedImages.append(image)
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     @IBAction func doneBtnPressed(_ sender: Any) {
         if dates.contains(datePicker.date) {
             print("Entry already exists")
@@ -43,5 +80,23 @@ class AddToTimelineViewController: UIViewController {
             dates.append(datePicker.date)
             dates.sort()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return selectedImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
+        
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+
+        let imageView = UIImageView(frame: cell.contentView.bounds)
+        imageView.image = selectedImages[indexPath.item]
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        cell.contentView.addSubview(imageView)
+        
+        return cell
     }
 }
