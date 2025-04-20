@@ -19,3 +19,8 @@ struct Timeline {
     var coverPhotoURL: URL?
     var users: [String] = []
 }
+
+struct Day {
+    var date: Date
+    var images: [URL] = []
+}

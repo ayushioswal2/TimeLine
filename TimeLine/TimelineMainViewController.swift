@@ -14,7 +14,8 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var addToTimelineButton: UIButton!
     @IBOutlet weak var timelineSettingsButton: UIButton!
     
-    var dates: [String] = ["March 11th, 2025", "April 12th, 2025"]
+    let formatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +35,15 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
 
+        formatter.dateFormat = "MMMM d, yyyy"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateFont()
+        updateColorScheme()
+        
+        datesTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +52,10 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell", for: indexPath) as! DateCell
-        cell.dateLabel.text = dates[indexPath.row]
+        
+        let formattedDate = formatter.string(from: dates[indexPath.row])
+        print(formattedDate)
+        cell.dateLabel.text = formattedDate
         return cell
     }
     
@@ -51,7 +64,7 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
-         //Load the other storyboard
+        // Load the other storyboard
         let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
 
         // Instantiate the DateTimelineViewController directly
@@ -78,5 +91,16 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
+    }
+    
+    @IBAction func addToTimelinePressed(_ sender: Any) {
+        // Load the other storyboard
+        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+
+        if let addToTimelineVC = storyboard.instantiateViewController(withIdentifier: "AddToTimelineID") as? AddToTimelineViewController {
+
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(addToTimelineVC, animated: true)
+        }
     }
 }
