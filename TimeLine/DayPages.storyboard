@@ -263,6 +263,9 @@
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="pencil.tip" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="penButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="Ybs-NL-sTK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-hh-Wil">
                                         <rect key="frame" x="-3.3333333333333144" y="193.66666666666666" width="52" height="52"/>
@@ -290,6 +293,9 @@
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="eraser" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="eraseButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="kHH-zz-WoQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndb-5E-xuy">
                                         <rect key="frame" x="-5.6666666666666856" y="347.33333333333337" width="56.333333333333336" height="56.333333333333314"/>
@@ -299,6 +305,9 @@
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="capsule.on.rectangle" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="shapeButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="Dyh-i6-23N"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5u-2Y-7GM">
                                         <rect key="frame" x="-4.3333333333333144" y="403.66666666666674" width="53.666666666666664" height="53.666666666666686"/>
@@ -308,6 +317,9 @@
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="paintpalette" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="colorButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="UA5-FM-Q6w"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFI-iC-ghX">
                                         <rect key="frame" x="-3" y="457.33333333333337" width="51.333333333333336" height="51.333333333333314"/>
@@ -347,9 +359,9 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gus-TK-NQl">
-                                <rect key="frame" x="67" y="639" width="259.33333333333331" height="45"/>
+                                <rect key="frame" x="67" y="639" width="259" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-5E-0uI">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-5E-0uI">
                                         <rect key="frame" x="0.0" y="-3" width="51.333333333333336" height="51.333333333333336"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="yeD-5E-0uI" secondAttribute="height" multiplier="1:1" id="90m-cN-138"/>
@@ -358,7 +370,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="square.stack.3d.up" catalog="system" title=""/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGa-pa-Mmd">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGa-pa-Mmd">
                                         <rect key="frame" x="51.333333333333329" y="-5.3333333333333712" width="55.666666666666671" height="55.666666666666664"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="pGa-pa-Mmd" secondAttribute="height" multiplier="1:1" id="FKI-3h-Vaa"/>
@@ -366,8 +378,11 @@
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="character.textbox" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="addTextButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="ka5-s1-1jP"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beV-5N-ozv">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beV-5N-ozv">
                                         <rect key="frame" x="107.00000000000001" y="-2.3333333333333712" width="49.666666666666671" height="49.666666666666664"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="beV-5N-ozv" secondAttribute="height" multiplier="1:1" id="0rW-fK-JmS"/>
@@ -376,8 +391,8 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="face.dashed" catalog="system" title=""/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaQ-VP-67J">
-                                        <rect key="frame" x="211.33333333333331" y="-1.3333333333333712" width="48" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaQ-VP-67J">
+                                        <rect key="frame" x="211" y="-1.3333333333333712" width="48" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YaQ-VP-67J" secondAttribute="height" multiplier="1:1" id="ghD-WW-8Vq"/>
                                         </constraints>
@@ -386,13 +401,16 @@
                                         <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgb-CQ-fIj">
-                                        <rect key="frame" x="156.66666666666666" y="-4.6666666666666288" width="54.666666666666657" height="54.666666666666664"/>
+                                        <rect key="frame" x="156.66666666666666" y="-4.6666666666666288" width="54.333333333333343" height="54.333333333333336"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="sgb-CQ-fIj" secondAttribute="height" multiplier="1:1" id="moW-UO-3kW"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="photo.badge.plus" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="addImageButtonPressed:" destination="LCs-il-U1W" eventType="touchUpInside" id="Voh-yP-8r8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.85515098970000003" green="0.8079639099" blue="0.54509803921568623" alpha="0.19530814029999999" colorSpace="custom" customColorSpace="sRGB"/>
@@ -430,19 +448,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rfv-6n-qjZ">
-                                <rect key="frame" x="16" y="247.33333333333329" width="308" height="407.66666666666663"/>
-                                <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuC-eD-zWc">
+                                <rect key="frame" x="38" y="226" width="260" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="rfv-6n-qjZ" secondAttribute="height" multiplier="3:4" id="trP-GY-GDx"/>
+                                    <constraint firstAttribute="width" secondItem="uuC-eD-zWc" secondAttribute="height" multiplier="13:20" id="Dnw-bN-MvL"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Lr-pl-Vql"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -451,9 +463,11 @@
                             <constraint firstItem="sgB-Mb-ylu" firstAttribute="top" secondItem="7Lr-pl-Vql" secondAttribute="top" constant="56" id="CBF-i9-FXR"/>
                             <constraint firstItem="sgB-Mb-ylu" firstAttribute="centerX" secondItem="kjT-ZJ-pW8" secondAttribute="centerX" id="DE7-tv-qR1"/>
                             <constraint firstItem="7Lr-pl-Vql" firstAttribute="trailing" secondItem="VKK-rF-qkE" secondAttribute="trailing" constant="16" id="KMe-kY-mdW"/>
-                            <constraint firstItem="rfv-6n-qjZ" firstAttribute="leading" secondItem="7Lr-pl-Vql" secondAttribute="leading" constant="16" id="R0M-x2-Vdd"/>
-                            <constraint firstItem="Yie-Id-Lza" firstAttribute="leading" secondItem="rfv-6n-qjZ" secondAttribute="trailing" constant="8" symbolic="YES" id="Y6L-af-Bh9"/>
-                            <constraint firstItem="rfv-6n-qjZ" firstAttribute="centerY" secondItem="Yie-Id-Lza" secondAttribute="centerY" id="ah7-oa-M19"/>
+                            <constraint firstItem="gus-TK-NQl" firstAttribute="leading" secondItem="uuC-eD-zWc" secondAttribute="trailing" constant="-231" id="MaD-wR-Dgl"/>
+                            <constraint firstItem="7Lr-pl-Vql" firstAttribute="trailing" secondItem="uuC-eD-zWc" secondAttribute="trailing" constant="95" id="Rmd-Pb-Y9a"/>
+                            <constraint firstItem="uuC-eD-zWc" firstAttribute="leading" secondItem="7Lr-pl-Vql" secondAttribute="leading" constant="38" id="TEU-yK-lIQ"/>
+                            <constraint firstItem="uuC-eD-zWc" firstAttribute="centerY" secondItem="kjT-ZJ-pW8" secondAttribute="centerY" id="YXq-58-Aci"/>
+                            <constraint firstItem="uuC-eD-zWc" firstAttribute="top" secondItem="sgB-Mb-ylu" secondAttribute="bottom" constant="18.333333333333343" id="cg0-Mf-ae1"/>
                             <constraint firstItem="Yie-Id-Lza" firstAttribute="centerY" secondItem="7Lr-pl-Vql" secondAttribute="centerY" id="eEz-1I-jOn"/>
                             <constraint firstItem="7Lr-pl-Vql" firstAttribute="bottom" secondItem="gus-TK-NQl" secondAttribute="bottom" constant="100" id="jzO-SY-t2x"/>
                             <constraint firstItem="7Lr-pl-Vql" firstAttribute="bottom" secondItem="VKK-rF-qkE" secondAttribute="bottom" constant="50" id="r3D-Og-7bh"/>
@@ -462,6 +476,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZHr-Fd-bmD"/>
                     <connections>
+                        <outlet property="canvasUIView" destination="uuC-eD-zWc" id="ksz-Bg-QeV"/>
                         <outlet property="dateLabel" destination="sgB-Mb-ylu" id="xPi-F8-GkK"/>
                         <outlet property="saveButton" destination="VKK-rF-qkE" id="Q4o-ui-4YV"/>
                     </connections>
