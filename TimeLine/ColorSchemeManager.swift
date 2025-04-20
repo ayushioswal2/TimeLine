@@ -17,7 +17,6 @@ class ColorSchemeManager {
         UserDefaults.standard.synchronize()
         
         NotificationCenter.default.post(name: NSNotification.Name("ColorSchemeChanged"), object: nil)
-        print(colorChoice)
     }
     
     func getColorScheme() -> String? {
