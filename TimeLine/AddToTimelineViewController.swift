@@ -80,6 +80,8 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
             dates.append(datePicker.date)
             dates.sort()
         }
+        
+        navigationController?.popViewController(animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
