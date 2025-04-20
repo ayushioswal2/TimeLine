@@ -15,6 +15,11 @@ class ScrapbookViewController: UIViewController {
     
     @IBOutlet weak var canvasUIView: UIView!
     var drawingCanvasView: PKCanvasView!
+    var currentDrawingColor: UIColor = .black
+    var isDrawing: Bool = false
+    var isShape: Bool = false
+    var isText: Bool = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,16 +43,20 @@ class ScrapbookViewController: UIViewController {
         canvasUIView.layer.shadowRadius = 8
         canvasUIView.layer.cornerRadius = 12
         
+        // add drawing frame for the pencil function
         drawingCanvasView = PKCanvasView(frame: canvasUIView.bounds)
         drawingCanvasView.backgroundColor = .clear
         drawingCanvasView.drawingPolicy = .anyInput
         canvasUIView.addSubview(drawingCanvasView)
+        drawingCanvasView.isUserInteractionEnabled = isDrawing
+
+        print ("viewDidLoad")
+        print ("\(isShape) - shape")
+        print ("\(isDrawing) - drawing")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        // Ensure canvas matches container size
         drawingCanvasView.frame = canvasUIView.bounds
     }
     
@@ -63,20 +72,103 @@ class ScrapbookViewController: UIViewController {
     }
     
     @IBAction func penButtonPressed(_ sender: Any) {
+        isDrawing.toggle()
+        drawingCanvasView.isUserInteractionEnabled = isDrawing
+        
+        if isDrawing {
+            drawingCanvasView.tool = PKInkingTool(.pen, color: currentDrawingColor, width: 5)
+            drawingCanvasView.becomeFirstResponder()
+        }
+        
+        if let button = sender as? UIButton {
+            button.tintColor = isDrawing ? .systemBlue : .label
+        }
+        
+        print("pen")
+        print ("\(isShape) - shape")
+        print ("\(isDrawing) - drawing")
+        
     }
     
     @IBAction func shapeButtonPressed(_ sender: Any) {
+        isShape.toggle()
+        if let button = sender as? UIButton {
+            button.tintColor = isShape ? .systemBlue : .label
+        }
+        print("shape")
+        print ("\(isShape) - shape")
+        print ("\(isDrawing) - drawing")
+    }
+    
+    @IBAction func drawShape(_ recognizer: UITapGestureRecognizer) {
+        let tapLocation = recognizer.location(in: canvasUIView)
+
+        if isShape {
+            let circleSize: CGFloat = 100
+            let circleView = UIView(frame: CGRect(
+                x: tapLocation.x - circleSize / 2,
+                y: tapLocation.y - circleSize / 2,
+                width: circleSize,
+                height: circleSize
+            ))
+            
+            circleView.backgroundColor = currentDrawingColor
+            circleView.layer.cornerRadius = circleSize / 2
+            circleView.clipsToBounds = true
+            
+            // make it resizable, deletable, etc. later
+            circleView.isUserInteractionEnabled = true
+            
+            canvasUIView.addSubview(circleView)
+        }
+        
+        if isText {
+            let controller = UIAlertController(title: "Enter Text", message: "", preferredStyle: .alert)
+            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            controller.addTextField { (textField) in
+                textField.placeholder = "Enter text here"
+            }
+            
+            controller.addAction(UIAlertAction(title: "Add", style: .default) {
+                (action) in
+                let enteredText = controller.textFields![0].text ?? ""
+                print(enteredText)
+            })
+            
+            present(controller, animated: true)
+        }
+        
     }
     
     @IBAction func eraseButtonPressed(_ sender: Any) {
     }
     
     @IBAction func colorButtonPressed(_ sender: Any) {
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.delegate = self
+        colorPicker.selectedColor = currentDrawingColor
+        present(colorPicker, animated: true, completion: nil)
     }
     
     @IBAction func addImageButtonPressed(_ sender: Any) {
     }
     
     @IBAction func addTextButtonPressed(_ sender: Any) {
+        isText.toggle()
+        
+        if let button = sender as? UIButton {
+            button.tintColor = isText ? .systemBlue : .label
+        }
+    }
+}
+
+extension ScrapbookViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        currentDrawingColor = viewController.selectedColor
+
+        // If the pen is currently active, update its color immediately
+        if isDrawing {
+            drawingCanvasView.tool = PKInkingTool(.pen, color: currentDrawingColor, width: 5)
+        }
     }
 }
