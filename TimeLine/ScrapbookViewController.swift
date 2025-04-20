@@ -129,15 +129,33 @@ class ScrapbookViewController: UIViewController {
                 textField.placeholder = "Enter text here"
             }
             
-            controller.addAction(UIAlertAction(title: "Add", style: .default) {
-                (action) in
+            controller.addAction(UIAlertAction(title: "Add", style: .default) { [weak self] _ in
+                guard let self = self else { return }
                 let enteredText = controller.textFields![0].text ?? ""
-                print(enteredText)
+                if !enteredText.isEmpty {
+                    self.createLabel(with: enteredText, at: tapLocation)
+                }
             })
             
             present(controller, animated: true)
         }
         
+    }
+    
+    func createLabel(with text: String, at coor: CGPoint) {
+        let label = UILabel()
+        label.text = text
+        label.textColor = currentDrawingColor
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.sizeToFit()
+        label.frame.origin = CGPoint(
+            x: coor.x - label.frame.width / 2,
+            y: coor.y - label.frame.height / 2
+        )
+        
+        label.isUserInteractionEnabled = true
+
+        canvasUIView.addSubview(label)
     }
     
     @IBAction func eraseButtonPressed(_ sender: Any) {
