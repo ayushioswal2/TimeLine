@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class ScrapbookViewController: UIViewController {
+class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
@@ -20,6 +20,8 @@ class ScrapbookViewController: UIViewController {
     var isShape: Bool = false
     var isText: Bool = false
     var isErasing: Bool = false
+    var selectedElement: UIView?
+
 
     
     override func viewDidLoad() {
@@ -43,6 +45,7 @@ class ScrapbookViewController: UIViewController {
         canvasUIView.layer.shadowOffset = CGSize(width: 0, height: 4)
         canvasUIView.layer.shadowRadius = 8
         canvasUIView.layer.cornerRadius = 12
+        canvasUIView.clipsToBounds = true
         
         // add drawing frame for the pencil function
         drawingCanvasView = PKCanvasView(frame: canvasUIView.bounds)
@@ -50,6 +53,7 @@ class ScrapbookViewController: UIViewController {
         drawingCanvasView.drawingPolicy = .anyInput
         canvasUIView.addSubview(drawingCanvasView)
         drawingCanvasView.isUserInteractionEnabled = isDrawing
+        
 
         print ("viewDidLoad")
         print ("\(isShape) - shape")
@@ -103,6 +107,18 @@ class ScrapbookViewController: UIViewController {
     
     @IBAction func drawShape(_ recognizer: UITapGestureRecognizer) {
         let tapLocation = recognizer.location(in: canvasUIView)
+        
+        if isErasing {
+            handleEraseTap(recognizer)
+        }
+        
+        for subview in canvasUIView.subviews {
+            if subview != drawingCanvasView && subview.frame.contains(tapLocation) {
+                // Select it instead of creating anything new
+                handleTapToSelect(UITapGestureRecognizer(target: self, action: #selector(handleTapToSelect(_:))))
+                return
+            }
+        }
 
         if isShape {
             let circleSize: CGFloat = 100
@@ -121,6 +137,8 @@ class ScrapbookViewController: UIViewController {
             circleView.isUserInteractionEnabled = true
             
             canvasUIView.addSubview(circleView)
+            makeElementInteractive(circleView)
+
         }
         
         if isText {
@@ -141,10 +159,6 @@ class ScrapbookViewController: UIViewController {
             present(controller, animated: true)
         }
         
-        if isErasing {
-            handleEraseTap(recognizer)
-        }
-        
     }
     
     func createLabel(with text: String, at coor: CGPoint) {
@@ -161,6 +175,8 @@ class ScrapbookViewController: UIViewController {
         label.isUserInteractionEnabled = true
 
         canvasUIView.addSubview(label)
+        makeElementInteractive(label)
+
     }
     
     @IBAction func eraseButtonPressed(_ sender: Any) {
@@ -195,6 +211,87 @@ class ScrapbookViewController: UIViewController {
         drawingCanvasView.drawing = PKDrawing(strokes: filteredStrokes)
     }
     
+    func makeElementInteractive(_ view: UIView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapToSelect(_:)))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @objc func handleTapToSelect(_ gesture: UITapGestureRecognizer) {
+        guard let tappedView = gesture.view else { return }
+
+        // Deselect current
+        if let currentlySelected = selectedElement, currentlySelected != tappedView {
+            currentlySelected.layer.borderWidth = 0
+            removeEditGestures(from: currentlySelected)
+        }
+
+        // Select tapped
+        selectedElement = tappedView
+        tappedView.layer.borderColor = UIColor.systemBlue.cgColor
+        tappedView.layer.borderWidth = 2
+
+        addEditGestures(to: tappedView)
+    }
+
+    func addEditGestures(to view: UIView) {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        pan.name = "editPan"
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
+        pinch.name = "editPinch"
+        
+        let rotation = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(_:)))
+        rotation.name = "editRotation"
+        
+        view.addGestureRecognizer(pan)
+        view.addGestureRecognizer(pinch)
+        view.addGestureRecognizer(rotation)
+    }
+
+    
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+        guard let view = gesture.view else { return }
+        let translation = gesture.translation(in: canvasUIView)
+        view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+        gesture.setTranslation(.zero, in: canvasUIView)
+    }
+
+    @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+        guard let view = gesture.view else { return }
+        view.transform = view.transform.scaledBy(x: gesture.scale, y: gesture.scale)
+        gesture.scale = 1.0
+    }
+
+    @objc func handleRotation(_ gesture: UIRotationGestureRecognizer) {
+        guard let view = gesture.view else { return }
+        view.transform = view.transform.rotated(by: gesture.rotation)
+        gesture.rotation = 0
+    }
+
+
+    func removeEditGestures(from view: UIView) {
+        view.gestureRecognizers?.removeAll(where: {
+            $0.name == "editPan" || $0.name == "editPinch" || $0.name == "editRotation"
+        })
+    }
+
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: canvasUIView)
+        
+        if let selected = selectedElement, !selected.frame.contains(location) {
+            selected.layer.borderWidth = 0
+            removeEditGestures(from: selected)
+            selectedElement = nil
+        }
+    }
+    
     func boundingBox(for points: [CGPoint]) -> CGRect {
         guard let first = points.first else { return .zero }
         
@@ -212,9 +309,6 @@ class ScrapbookViewController: UIViewController {
 
         return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
-
-
-
     
     @IBAction func colorButtonPressed(_ sender: Any) {
         let colorPicker = UIColorPickerViewController()
