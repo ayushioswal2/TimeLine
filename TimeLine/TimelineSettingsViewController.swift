@@ -21,11 +21,37 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var creatorListTable: UITableView!
     
     var creatorList: [String] = []
+    var db: Firestore!
+    
+    var currUserEmail: String?
+    var userDocumentID: String?
     
     @IBOutlet weak var dummyCoverPhotoView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
+        
+        let currUser = Auth.auth().currentUser
+        if let user = currUser {
+            currUserEmail = user.email
+            db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
+                if let error = error {
+                    print("error fetching document: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("no matching document found")
+                    return
+                }
+                
+                // update fields to reflect this user
+                let document = documents.first
+                self.userDocumentID = document?.documentID
+            }
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -157,5 +183,71 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     
     func fetchCreators() {
         self.creatorList = currTimeline?.creators ?? []
+    }
+    
+    @IBAction func editTimelineNamePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Edit Timeline Name", message: "", preferredStyle: .alert)
+        
+        controller.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(
+            title: "OK",
+            style: .default)
+                {(action) in
+            let newName = controller.textFields![0].text
+            print(newName!)
+            
+            // check that new name is given for sure
+            currTimeline?.name = newName!
+            self.timelineNameField.text = newName
+            
+            Task {
+                await self.changeTimelineName(newName!)
+            }
+            
+            Task {
+                await self.updateUserTimelines(newName!)
+            }
+        })
+        
+        present(controller, animated: true)
+    }
+    
+    func changeTimelineName(_ newName: String) async {
+        do {
+            let document = try await db.collection("timelines").document(currTimelineID).getDocument()
+            
+            guard document.data() != nil else {
+                print("No data found in document")
+                return
+            }
+
+            try await document.reference.updateData([
+                "timelineName": newName
+            ])
+            print("Timeline name updated")
+        } catch {
+            print("Firestore fetch error: \(error.localizedDescription)")
+        }
+    }
+    
+    func updateUserTimelines(_ newName: String) async {
+        do {
+            guard let currUser = Auth.auth().currentUser else {
+                print("No user signed in")
+                return
+            }
+
+            
+            try await db.collection("users").document(userDocumentID!).updateData([
+                "timelines.\(currTimelineID)": newName
+            ])
+            print("timelines updated to user")
+        } catch {
+            print("error adding document: \(error)")
+        }
     }
 }

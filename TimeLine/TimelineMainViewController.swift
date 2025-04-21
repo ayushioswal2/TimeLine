@@ -44,6 +44,7 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         updateFont()
         updateColorScheme()
         
+        timelineTitleLabel.text = currTimeline?.name
         datesTableView.reloadData()
     }
     
