@@ -44,7 +44,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         
         fetchUserTimelines()
-        userTimelineNames = Array(userTimelines.values)
         timelinesTableView.reloadData()
     }
     
@@ -128,10 +127,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return
             }
             
-            // ***** To-Do: Make timelines stay in some order *****
             userTimelines = document["timelines"] as? [String: String] ?? [:]
-            userTimelineNames = Array(userTimelines.values)
-            userTimelineIDs = Array(userTimelines.keys)
+            
+            let sortedTimelines = userTimelines.sorted { $0.value < $1.value }
+
+            userTimelineIDs = sortedTimelines.map { $0.key }
+            userTimelineNames = sortedTimelines.map { $0.value }
 
             DispatchQueue.main.async {
                 self.timelinesTableView.reloadData()
