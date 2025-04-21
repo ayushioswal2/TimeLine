@@ -27,6 +27,7 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
 
         timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        timelineTitleLabel.text = currTimeline?.name
         
         datesTableView.dataSource = self
         datesTableView.delegate = self

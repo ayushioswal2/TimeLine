@@ -87,14 +87,19 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     
     @IBAction func createTimelinePressed(_ sender: Any) {
         // To-Do: Add check for empty name field
-        let name = timelineNameField.text!
-        self.performSegue(withIdentifier: "CreateTimelinetoDateSegue", sender:nil)
-        timelines.append(name)
-        
-        // create timeline in Firestore database
-        Task {
-            await self.createTimeline(name: timelineNameField.text!)
+        if timelineNameField.hasText {
+            self.performSegue(withIdentifier: "CreateTimelinetoDateSegue", sender:nil)
+            
+            // create timeline in Firestore database
+            Task {
+                await self.createTimeline(name: timelineNameField.text!)
+            }
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Timeline name cannot be empty.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }
+        
     }
     
     func createTimeline(name: String) async {        
@@ -104,9 +109,11 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
                 "coverPhotoURL": self.timelineCoverPhotoURL,
                 "creators": [self.currUserEmail]
             ])
-            print("document \(ref.documentID) successfully added")
+            let newTimelineID = ref.documentID
+            print("document \(newTimelineID) successfully added")
+            userTimelines[newTimelineID] = name
             try await db.collection("users").document(userDocumentID!).updateData([
-                "timelines": FieldValue.arrayUnion([name])
+                "timelines.\(newTimelineID)": name
             ])
             print("timelines updated to user")
         } catch {
@@ -115,7 +122,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     }
     
     @IBAction func cancelBtnClicked(_ sender: Any) {
-
+        timelineNameField.text = ""
     }
     
     @IBAction func coverPhotoSelectPressed(_ sender: Any) {

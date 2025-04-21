@@ -7,4 +7,9 @@
 
 import Foundation
 
+var userTimelines: [String: String] = [:]
+
+var currTimelineID = ""
+var currTimeline: Timeline?
+
 var dates: [Date] = []

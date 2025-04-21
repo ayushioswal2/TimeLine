@@ -85,7 +85,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
                 ]
 
                 userRef.updateData([
-                    "timelines": FieldValue.arrayUnion([invite.timelineName]),
+                    "timelines.\(invite.timelineID)": invite.timelineName,
                     "invites": FieldValue.arrayRemove([inviteDict])
                 ]) { err in
                     if let err = err {
