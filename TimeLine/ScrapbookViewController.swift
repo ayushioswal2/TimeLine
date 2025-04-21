@@ -19,6 +19,7 @@ class ScrapbookViewController: UIViewController {
     var isDrawing: Bool = false
     var isShape: Bool = false
     var isText: Bool = false
+    var isErasing: Bool = false
 
     
     override func viewDidLoad() {
@@ -140,6 +141,10 @@ class ScrapbookViewController: UIViewController {
             present(controller, animated: true)
         }
         
+        if isErasing {
+            handleEraseTap(recognizer)
+        }
+        
     }
     
     func createLabel(with text: String, at coor: CGPoint) {
@@ -159,7 +164,57 @@ class ScrapbookViewController: UIViewController {
     }
     
     @IBAction func eraseButtonPressed(_ sender: Any) {
+        isErasing.toggle()
+        drawingCanvasView.isUserInteractionEnabled = isDrawing
+        if let button = sender as? UIButton {
+            button.tintColor = isErasing ? .systemBlue : .label
+        }
     }
+    
+    @objc func handleEraseTap(_ recognizer: UITapGestureRecognizer) {
+        guard isErasing else { return }
+
+        let location = recognizer.location(in: canvasUIView)
+
+        // checking for shapes, text, etc.
+        for subview in canvasUIView.subviews {
+            if subview != drawingCanvasView && subview.frame.contains(location) {
+                subview.removeFromSuperview()
+                return
+            }
+        }
+        
+        // checking for anything from the pencil kit
+        let drawing = drawingCanvasView.drawing
+        let filteredStrokes = drawing.strokes.filter { stroke in
+            let points = stroke.path.map { $0.location }
+            let strokeBounds = boundingBox(for: points)
+            return !strokeBounds.insetBy(dx: -10, dy: -10).contains(location)
+        }
+
+        drawingCanvasView.drawing = PKDrawing(strokes: filteredStrokes)
+    }
+    
+    func boundingBox(for points: [CGPoint]) -> CGRect {
+        guard let first = points.first else { return .zero }
+        
+        var minX = first.x
+        var minY = first.y
+        var maxX = first.x
+        var maxY = first.y
+
+        for point in points {
+            minX = min(minX, point.x)
+            minY = min(minY, point.y)
+            maxX = max(maxX, point.x)
+            maxY = max(maxY, point.y)
+        }
+
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+
+
+
     
     @IBAction func colorButtonPressed(_ sender: Any) {
         let colorPicker = UIColorPickerViewController()
