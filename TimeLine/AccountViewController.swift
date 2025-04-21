@@ -21,6 +21,7 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var profilePicImageView: UIImageView!
     
     var db: Firestore!
+    var currUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class AccountViewController: UIViewController {
         myAccountTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         
         // fetch info from Firebase
-        let currUser = Auth.auth().currentUser
+        currUser = Auth.auth().currentUser
         if let user = currUser {
             let currUserEmail = user.email
             db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
@@ -90,5 +91,29 @@ class AccountViewController: UIViewController {
         logOutButton.backgroundColor = UIColor.appColorScheme(type: "primary")
         profilePicImageView.tintColor = UIColor.appColorScheme(type: "primary")
         myAccountTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+    }
+    
+    @IBAction func onDeleteAccountPressed(_ sender: Any) {
+        let controller = UIAlertController(
+            title: "Delete Account",
+            message: "Are you sure you want to delete your account? This action cannot be reversed.",
+            preferredStyle: .alert)
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteAccount(alert:)))
+        
+        present(controller,animated:true)
+    }
+    
+    func deleteAccount(alert: UIAlertAction) {
+        if let user = currUser {
+            user.delete { error in
+                if let error = error {
+                    print("an error occured while deleting this user's account")
+                } else {
+                    print("account successfully deleted")
+                }
+            }
+        }
     }
 }
