@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 class TimelineSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-
     @IBOutlet weak var settingsTitleLabel: UILabel!
     @IBOutlet weak var timelineNameLabel: UILabel!
     @IBOutlet weak var timelineNameField: UILabel!
@@ -21,7 +20,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var emailForInviteField: UITextField!
     @IBOutlet weak var creatorListTable: UITableView!
     
-    var selectedTimelineName: String = "testerTL1"
     var creatorList: [String] = []
     
     @IBOutlet weak var dummyCoverPhotoView: UIView!
@@ -42,6 +40,10 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
 
         settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
+        
+        timelineNameField.text = currTimeline?.name
+        
+        fetchCreators()
         
         creatorListTable.dataSource = self
         creatorListTable.delegate = self
@@ -92,22 +94,7 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
 
         let db = Firestore.firestore()
 
-        var timelineID: String?
-
         do {
-            // Get the Timeline ID
-            let timelineSnapshot = try await db.collection("timelines")
-                .whereField("timelineName", isEqualTo: selectedTimelineName)
-                .getDocuments()
-
-            guard let timelineDoc = timelineSnapshot.documents.first else {
-                print("Timeline not found")
-                return
-            }
-
-            timelineID = timelineDoc.documentID
-            let timelineName = timelineDoc["timelineName"] as? String ?? "timeline"
-
             // Get the invitee user doc
             let userSnapshot = try await db.collection("users")
                 .whereField("email", isEqualTo: inviteeEmail)
@@ -121,7 +108,7 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             let userRef = userDoc.reference
             let currentInvites = userDoc["invites"] as? [[String: Any]] ?? []
 
-            if currentInvites.contains(where: { $0["timelineID"] as? String == timelineID }) {
+            if currentInvites.contains(where: { $0["timelineID"] as? String == currTimelineID }) {
                 print("User already invited")
                 return
             }
@@ -144,8 +131,8 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             let inviterUsername = inviterDoc["username"] as? String ?? "Unknown"
 
             let newInvite: [String: Any] = [
-                "timelineID": timelineID!,
-                "timelineName": timelineName,
+                "timelineID": currTimelineID,
+                "timelineName": currTimeline?.name ?? "timeline",
                 "inviterName": inviterUsername,
                 "status": "pending"
             ]
@@ -169,31 +156,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     }
     
     func fetchCreators() {
-        let db = Firestore.firestore()
-        
-        db.collection("timelines")
-            .whereField("timelineName", isEqualTo: selectedTimelineName)
-            .getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching timeline: \(error)")
-                    return
-                }
-
-                guard let timelineDoc = snapshot?.documents.first else {
-                    print("Timeline not found")
-                    return
-                }
-
-                let data = timelineDoc.data()
-                if let creators = data["creators"] as? [String] {
-                    self.creatorList = creators
-                    
-                    DispatchQueue.main.async {
-                        self.creatorListTable.reloadData()
-                    }
-                } else {
-                    print("No creators found or wrong data format")
-                }
-            }
+        self.creatorList = currTimeline?.creators ?? []
     }
 }

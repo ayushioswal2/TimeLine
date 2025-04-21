@@ -17,7 +17,7 @@ struct Invite {
 struct Timeline {
     var name: String
     var coverPhotoURL: URL?
-    var users: [String] = []
+    var creators: [String] = []
 }
 
 struct Day {

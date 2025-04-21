@@ -9,46 +9,27 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-var timelines: [String] = []
+var userTimelineNames: [String] = []
+var userTimelineIDs: [String] = []
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var homeTitle: UILabel!
     @IBOutlet weak var createTimelineButton: UIButton!
     @IBOutlet weak var timelinesTableView: UITableView!
-    
-    let timelineTitle = UILabel()
-    
+        
     let timelineCellIdentifier = "timelineCellIdentifier"
     
     var db: Firestore!
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         db = Firestore.firestore()
         
-        let currUser = Auth.auth().currentUser
-        if let user = currUser {
-            let currUserEmail = user.email
-            db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
-                if let error = error {
-                    print("error fetching document: \(error)")
-                    return
-                }
-                
-                guard let documents = snapshot?.documents, !documents.isEmpty else {
-                    print("no matching document found")
-                    return
-                }
-                
-                // update fields to reflect this user
-                let document = documents.first
-                let data = document?.data()
-                timelines = data?["timelines"] as! [String]
-                self.timelinesTableView.reloadData()
-            }
-        }
+        fetchUserTimelines()
+        currTimelineID = ""
+        currTimeline = nil
                 
         setupUI()
         
@@ -61,44 +42,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchUserTimelines()
+        userTimelineNames = Array(userTimelines.values)
         timelinesTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timelines.count
+        return userTimelineNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
-        cell.timelineNameLabel.text = timelines[indexPath.row]
-        
-        
-        // bug for office hours: cover images are populating irregularly for wrong timelines
-//        db.collection("timelines").whereField("timelineName", isEqualTo: timelines[indexPath.row]).getDocuments() { (snapshot, error) in
-//            if let error = error {
-//                print("error fetching document: \(error)")
-//                return
-//            }
-//            
-//            guard let documents = snapshot?.documents, !documents.isEmpty else {
-//                print("no matching document found")
-//                return
-//            }
-//            
-//            let document = documents.first
-//            let data = document?.data()
-//            let coverImageURL = data?["coverPhotoURL"] as? String
-//            guard let imageURL = URL(string: coverImageURL ?? "") else {
-//                print("invalid cover image URL for \(timelines[indexPath.row])")
-//                return
-//            }
-//            do {
-//                let imageData = try Data(contentsOf: imageURL)
-//                cell.timelineCoverImageView.image = UIImage(data: imageData)
-//            } catch {
-//                print ("error loading image: \(error)")
-//            }
-//        }
+        cell.timelineNameLabel.text = userTimelineNames[indexPath.row]
 
         return cell
     }
@@ -117,20 +73,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         createTimelineButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
     }
     
-
     @IBAction func createNewTimelinePressed(_ sender: Any) {
 //        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Load the other storyboard
-        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+        currTimelineID = userTimelineIDs[indexPath.row]
         
-        // Instantiate the DateTimelineViewController directly
-        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
-            
-            // Push onto the current navigation stack
-            self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+        Task {
+            await getTimelineData()
+
+            let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+            if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
+                self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+            }
         }
     }
     
@@ -139,4 +95,75 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         homeTitle.textColor = UIColor.appColorScheme(type: "primary")
     }
 
+    func getTimelineData() async {
+        do {
+            let document = try await db.collection("timelines").document(currTimelineID).getDocument()
+            
+            guard let data = document.data() else {
+                print("No data found in document")
+                return
+            }
+
+            currTimeline = Timeline(
+                name: data["timelineName"] as? String ?? "Unknown Name",
+                coverPhotoURL: (data["coverPhotoURL"] as? String).flatMap { URL(string: $0) },
+                creators: data["creators"] as? [String] ?? []
+            )
+        } catch {
+            print("Firestore fetch error: \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchUserTimelines() {
+        guard let currUserEmail = Auth.auth().currentUser?.email else { return }
+        
+        db.collection("users").whereField("email", isEqualTo: currUserEmail).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching user document: \(error)")
+                return
+            }
+            
+            guard let document = snapshot?.documents.first else {
+                print("No user document found")
+                return
+            }
+            
+            // ***** To-Do: Make timelines stay in some order *****
+            userTimelines = document["timelines"] as? [String: String] ?? [:]
+            userTimelineNames = Array(userTimelines.values)
+            userTimelineIDs = Array(userTimelines.keys)
+
+            DispatchQueue.main.async {
+                self.timelinesTableView.reloadData()
+            }
+        }
+    }
 }
+
+// image stuff:
+// bug for office hours: cover images are populating irregularly for wrong timelines
+//        db.collection("timelines").whereField("timelineName", isEqualTo: timelines[indexPath.row]).getDocuments() { (snapshot, error) in
+//            if let error = error {
+//                print("error fetching document: \(error)")
+//                return
+//            }
+//
+//            guard let documents = snapshot?.documents, !documents.isEmpty else {
+//                print("no matching document found")
+//                return
+//            }
+//
+//            let document = documents.first
+//            let data = document?.data()
+//            let coverImageURL = data?["coverPhotoURL"] as? String
+//            guard let imageURL = URL(string: coverImageURL ?? "") else {
+//                print("invalid cover image URL for \(timelines[indexPath.row])")
+//                return
+//            }
+//            do {
+//                let imageData = try Data(contentsOf: imageURL)
+//                cell.timelineCoverImageView.image = UIImage(data: imageData)
+//            } catch {
+//                print ("error loading image: \(error)")
+//            }
+//        }

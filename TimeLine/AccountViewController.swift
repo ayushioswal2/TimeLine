@@ -74,6 +74,8 @@ class AccountViewController: UIViewController {
         } catch {
             print("An error has occurred")
         }
+        
+        userTimelines = [:]
     }
     
     @objc func updateFont() {
