@@ -90,10 +90,6 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
             button.tintColor = isDrawing ? .systemBlue : .label
         }
         
-        print("pen")
-        print ("\(isShape) - shape")
-        print ("\(isDrawing) - drawing")
-        
     }
     
     @IBAction func rectButtonPressed(_ sender: Any) {
@@ -110,9 +106,6 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
         if let button = sender as? UIButton {
             button.tintColor = isShape ? .systemBlue : .label
         }
-        print("shape")
-        print ("\(isShape) - shape")
-        print ("\(isDrawing) - drawing")
     }
     
     @IBAction func drawShape(_ recognizer: UITapGestureRecognizer) {
@@ -168,11 +161,6 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
 
             canvasUIView.addSubview(rectView)
 
-            // Add border to indicate it's interactive
-            rectView.layer.borderColor = UIColor.darkGray.cgColor
-            rectView.layer.borderWidth = 1
-
-            // Add pan, pinch, and rotate gestures
             makeElementInteractive(rectView)
         }
         
