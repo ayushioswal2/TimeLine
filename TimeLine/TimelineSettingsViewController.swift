@@ -19,15 +19,13 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     
     @IBOutlet weak var emailForInviteField: UITextField!
     @IBOutlet weak var creatorListTable: UITableView!
+    @IBOutlet weak var dummyCoverPhotoView: UIView!
     
     var creatorList: [String] = []
     var db: Firestore!
-    
     var currUserEmail: String?
     var userDocumentID: String?
-    
-    @IBOutlet weak var dummyCoverPhotoView: UIView!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -236,12 +234,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     
     func updateUserTimelines(_ newName: String) async {
         do {
-            guard let currUser = Auth.auth().currentUser else {
-                print("No user signed in")
-                return
-            }
-
-            
             try await db.collection("users").document(userDocumentID!).updateData([
                 "timelines.\(currTimelineID)": newName
             ])
@@ -250,4 +242,73 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             print("error adding document: \(error)")
         }
     }
+    
+    @IBAction func deleteTimelinePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Delete Timeline", message: "Are you sure you want to delete this timeline? This action will remove the timeline for all users.", preferredStyle: .alert)
+        controller.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            print("Deleting for real for real")
+            Task {
+                await self.deleteTimeline()
+            }
+            Task {
+                await self.deleteTimelineFromUsers()
+            }
+            
+            deletionOccurred = true
+            self.navigationController?.popViewController(animated: true)
+
+        }))
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(controller, animated: true)
+    }
+    
+    // delete a timeline from Timelines collection
+    func deleteTimeline() async {
+        do {
+            try await db.collection("timelines").document(currTimelineID).delete()
+        } catch {
+            print("error deleting document: \(error)")
+        }
+    }
+    
+    // delete a timeline from users collection
+    func deleteTimelineFromUsers() async {
+        do {
+            let snapshot = try await db.collection("users").getDocuments()
+            
+            for document in snapshot.documents {
+                let userID = document.documentID
+                let data = document.data()
+
+                // check if user is creator for this timeline
+                if let timelines = data["timelines"] as? [String: Any],
+                   timelines.keys.contains(currTimelineID) {
+                    try await db.collection("users").document(userID).updateData([
+                        "timelines.\(currTimelineID)": FieldValue.delete()
+                    ])
+                }
+                
+//                if let invites = data["invites"] as? [[String: Any]] {
+//                    let filteredInvites = invites.filter { invite in
+//                        
+//                    }
+//                }
+            }
+        } catch {
+            print("error deleting document: \(error)")
+        }
+    }
+    
+//    func deleteTimelineFromInvites() async {
+//        do {
+//            
+//        } catch {
+//            print("error deleting document: \(error)")
+//        }
+//    }
+    
+    // to-do: update invite list when timeline name changed
 }
+
+

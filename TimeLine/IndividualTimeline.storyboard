@@ -350,20 +350,6 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WJ-t9-J9U">
-                                <rect key="frame" x="176" y="824" width="88" height="15"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Delete Timeline">
-                                        <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="cellTitle"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            <integer key="NSUnderline" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="emailOfUserToInvite" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-0k-00g">
                                 <rect key="frame" x="30" y="764" width="285" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -459,6 +445,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odx-A4-Yd3">
+                                <rect key="frame" x="176" y="875" width="88" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Delete Timeline"/>
+                                <connections>
+                                    <action selector="deleteTimelinePressed:" destination="geY-eW-jgn" eventType="touchUpInside" id="hoe-0V-qDO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nJK-gy-sJQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -471,7 +466,6 @@
                             <constraint firstItem="ady-oi-NTE" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="-3" id="Cym-b6-wy0"/>
                             <constraint firstItem="jBR-0k-00g" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="DFJ-oZ-2FH"/>
                             <constraint firstItem="ude-KL-MyA" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="Dwf-1p-y5W"/>
-                            <constraint firstItem="1WJ-t9-J9U" firstAttribute="centerX" secondItem="DTr-3p-6po" secondAttribute="centerX" id="Fgy-ve-ElW"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="eZa-Du-lPv" secondAttribute="trailing" constant="27" id="IYy-o5-WEA"/>
                             <constraint firstItem="S0k-cT-IQK" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="68" id="J2F-Rf-uC0"/>
                             <constraint firstItem="bDC-Lt-ZKv" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="68" id="Kj8-1B-wm4"/>
@@ -480,9 +474,10 @@
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="bottom" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="542" id="P0U-gw-tBY"/>
                             <constraint firstItem="jBR-0k-00g" firstAttribute="top" secondItem="T3E-pb-O5V" secondAttribute="bottom" constant="14" id="QKe-ih-PcG"/>
                             <constraint firstItem="cwX-vG-eM9" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="68" id="Rh6-Sh-B5Z"/>
-                            <constraint firstItem="1WJ-t9-J9U" firstAttribute="top" secondItem="jBR-0k-00g" secondAttribute="bottom" constant="26" id="Rhk-ge-1zg"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="bottom" secondItem="T3E-pb-O5V" secondAttribute="bottom" constant="172" id="Si6-7q-yFB"/>
+                            <constraint firstItem="Odx-A4-Yd3" firstAttribute="centerX" secondItem="DTr-3p-6po" secondAttribute="centerX" id="Wom-qs-fim"/>
                             <constraint firstItem="nJK-gy-sJQ" firstAttribute="trailing" secondItem="ady-oi-NTE" secondAttribute="trailing" constant="14" id="a1a-xh-MuV"/>
+                            <constraint firstItem="nJK-gy-sJQ" firstAttribute="bottom" secondItem="Odx-A4-Yd3" secondAttribute="bottom" constant="20" id="aGl-gi-YcI"/>
                             <constraint firstItem="XSE-dx-wM8" firstAttribute="top" secondItem="T3E-pb-O5V" secondAttribute="bottom" constant="14" id="eWu-xf-aaa"/>
                             <constraint firstItem="gQw-wk-HfP" firstAttribute="centerX" secondItem="DTr-3p-6po" secondAttribute="centerX" id="jYY-4O-7Hc"/>
                             <constraint firstItem="XSE-dx-wM8" firstAttribute="leading" secondItem="jBR-0k-00g" secondAttribute="trailing" constant="20" id="lvH-Hs-NUP"/>
