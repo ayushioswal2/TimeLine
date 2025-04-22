@@ -18,6 +18,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
     var currentDrawingColor: UIColor = .black
     var isDrawing: Bool = false
     var isShape: Bool = false
+    var isRect: Bool = false
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
@@ -95,6 +96,15 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    @IBAction func rectButtonPressed(_ sender: Any) {
+        isRect.toggle()
+        
+        if let button = sender as? UIButton {
+            button.tintColor = isRect ? .systemBlue : .label
+        }
+    }
+    
+    
     @IBAction func shapeButtonPressed(_ sender: Any) {
         isShape.toggle()
         if let button = sender as? UIButton {
@@ -139,6 +149,31 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
             canvasUIView.addSubview(circleView)
             makeElementInteractive(circleView)
 
+        }
+        
+        if isRect {
+            let defaultWidth: CGFloat = 150
+            let defaultHeight: CGFloat = 50
+            let centerPoint = CGPoint(x: tapLocation.x, y: tapLocation.y)
+
+            let rectView = UIView(frame: CGRect(
+                x: centerPoint.x - defaultWidth / 2,
+                y: centerPoint.y - defaultHeight / 2,
+                width: defaultWidth,
+                height: defaultHeight
+            ))
+
+            rectView.backgroundColor = currentDrawingColor
+            rectView.isUserInteractionEnabled = true
+
+            canvasUIView.addSubview(rectView)
+
+            // Add border to indicate it's interactive
+            rectView.layer.borderColor = UIColor.darkGray.cgColor
+            rectView.layer.borderWidth = 1
+
+            // Add pan, pinch, and rotate gestures
+            makeElementInteractive(rectView)
         }
         
         if isText {
