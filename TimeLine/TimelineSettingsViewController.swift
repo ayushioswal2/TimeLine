@@ -289,26 +289,14 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
                     ])
                 }
                 
-//                if let invites = data["invites"] as? [[String: Any]] {
-//                    let filteredInvites = invites.filter { invite in
-//                        
-//                    }
-//                }
+                // delete timeline from invites map for users invited to currTimeline
+                if var invites = data["invites"] as? [[String: Any]] {
+                    invites.removeAll { ($0["timelineID"] as? String) == currTimelineID }
+                    try await db.collection("users").document(userID).updateData(["invites": invites])
+                }
             }
         } catch {
             print("error deleting document: \(error)")
         }
     }
-    
-//    func deleteTimelineFromInvites() async {
-//        do {
-//            
-//        } catch {
-//            print("error deleting document: \(error)")
-//        }
-//    }
-    
-    // to-do: update invite list when timeline name changed
 }
-
-
