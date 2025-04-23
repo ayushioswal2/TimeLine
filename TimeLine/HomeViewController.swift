@@ -73,7 +73,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func createNewTimelinePressed(_ sender: Any) {
-//        performSegue(withIdentifier: "toTimelineCreationID", sender: sender)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        if let createTimelineVC = storyboard.instantiateViewController(withIdentifier: "CreateTimelineID") as? TimelineCreationViewController {
+
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(createTimelineVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
