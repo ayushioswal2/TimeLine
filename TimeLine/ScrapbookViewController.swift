@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
+class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UIColorPickerViewControllerDelegate {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
@@ -22,6 +22,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
+    var canvasElements: [[String: Any]] = []
 
 
     
@@ -54,11 +55,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
         drawingCanvasView.drawingPolicy = .anyInput
         canvasUIView.addSubview(drawingCanvasView)
         drawingCanvasView.isUserInteractionEnabled = isDrawing
-        
 
-        print ("viewDidLoad")
-        print ("\(isShape) - shape")
-        print ("\(isDrawing) - drawing")
     }
     
     override func viewDidLayoutSubviews() {
@@ -350,15 +347,74 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate {
             button.tintColor = isText ? .systemBlue : .label
         }
     }
-}
-
-extension ScrapbookViewController: UIColorPickerViewControllerDelegate {
+    
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         currentDrawingColor = viewController.selectedColor
 
-        // If the pen is currently active, update its color immediately
+        // If the pen is currently selected, update its color immediately
         if isDrawing {
             drawingCanvasView.tool = PKInkingTool(.pen, color: currentDrawingColor, width: 5)
         }
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        print("Save pressed")
+        for subview in canvasUIView.subviews {
+            let newElement: [String: Any] = createCanvasElement(subview: subview)
+            canvasElements.append(newElement)
+        }
+        print(canvasElements)
+    }
+    
+    func colorToHex(color: UIColor) -> String {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        let r = Int(red * 255)
+        let g = Int(green * 255)
+        let b = Int(blue * 255)
+        let a = Int(alpha * 255)
+
+        return String(format: "#%02X%02X%02X%02X", r, g, b, a)
+    }
+    
+    func createCanvasElement(subview: UIView) -> [String: Any] {
+        var type: String = ""
+        var newElement = [String: Any]()
+        
+        if subview == drawingCanvasView {
+            let drawingData = drawingCanvasView.drawing.dataRepresentation()
+            let base64 = drawingData.base64EncodedString()
+            newElement = [
+                "type": "drawing",
+                "base64": base64
+            ] as [String: Any]
+        } else if let label = subview as? UILabel {
+            type = "text"
+            newElement = [
+                "type": type,
+                "text": label.text ?? "",
+                "x": subview.frame.minX,
+                "y": subview.frame.minY,
+                "width": subview.frame.width,
+                "height": subview.frame.height,
+                "color": colorToHex(color: label.textColor)
+            ] as [String : Any]
+        } else {
+            type = subview.layer.cornerRadius > 0 ? "circle": "rect"
+            newElement = [
+                "type": type,
+                "x": subview.frame.minX,
+                "y": subview.frame.minY,
+                "width": subview.frame.width,
+                "height": subview.frame.height,
+                "color": colorToHex(color: subview.backgroundColor!)
+            ] as [String : Any]
+        }
+        
+        return newElement as [String: Any]
     }
 }
