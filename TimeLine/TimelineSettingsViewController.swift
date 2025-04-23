@@ -165,12 +165,8 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
                 "invites": FieldValue.arrayUnion([newInvite])
             ])
 
-            print("Invite sent to \(inviteeEmail)")
-
             // Update UI
             DispatchQueue.main.async {
-                self.creatorList.append(inviteeEmail)
-                self.creatorListTable.reloadData()
                 self.emailForInviteField.text = ""
             }
 
@@ -196,7 +192,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             style: .default)
                 {(action) in
             let newName = controller.textFields![0].text
-            print(newName!)
             
             // check that new name is given for sure
             currTimeline?.name = newName!
@@ -226,7 +221,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             try await document.reference.updateData([
                 "timelineName": newName
             ])
-            print("Timeline name updated")
         } catch {
             print("Firestore fetch error: \(error.localizedDescription)")
         }
@@ -237,7 +231,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             try await db.collection("users").document(userDocumentID!).updateData([
                 "timelines.\(currTimelineID)": newName
             ])
-            print("timelines updated to user")
         } catch {
             print("error adding document: \(error)")
         }
@@ -246,7 +239,6 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     @IBAction func deleteTimelinePressed(_ sender: Any) {
         let controller = UIAlertController(title: "Delete Timeline", message: "Are you sure you want to delete this timeline? This action will remove the timeline for all users.", preferredStyle: .alert)
         controller.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-            print("Deleting for real for real")
             Task {
                 await self.deleteTimeline()
             }
@@ -254,8 +246,10 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
                 await self.deleteTimelineFromUsers()
             }
             
-            deletionOccurred = true
-            self.navigationController?.popViewController(animated: true)
+            deletionOrLeaveOccurred = true
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
 
         }))
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -297,6 +291,62 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
             }
         } catch {
             print("error deleting document: \(error)")
+        }
+    }
+    
+    @IBAction func leaveTimelinePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Are you sure you want to leave this timeline?", message: nil, preferredStyle: .alert)
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { (action) in
+            Task {
+                await self.leaveTimeline()
+            }
+            
+            deletionOrLeaveOccurred = true
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }))
+        
+        present(controller, animated: true)
+    }
+    
+    func leaveTimeline() async {
+        do {
+            let snapshot = try await db.collection("timelines").document(currTimelineID).getDocument()
+            
+            guard let data = snapshot.data() else { return }
+            
+            var creators = data["creators"] as! [String]
+            
+            // check if only user in timeline -  if so let user know timeline will be deleted (also need to remove timeline in general)
+            if creators.count == 1 { // curr user is only creator
+                Task {
+                    await self.deleteTimeline()
+                }
+                Task {
+                    await self.deleteTimelineFromUsers()
+                }
+            } else { // multiple users - only remove this user
+                do {
+                    // remove user as a creator
+                    creators.removeAll(where: { $0 == self.currUserEmail })
+                    try await db.collection("timelines").document(currTimelineID).updateData([
+                        "creators": creators
+                    ])
+                    
+                    // remove the timeline from the user's document
+                    try await db.collection("users").document(userDocumentID!).updateData([
+                        "timelines.\(currTimelineID)": FieldValue.delete()
+                    ])
+                    
+                } catch {
+                    print("error leaving timeline: \(error)")
+                }
+            }
+        } catch {
+            print("error leaving timeline: \(error)")
         }
     }
 }

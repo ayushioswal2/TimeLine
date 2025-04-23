@@ -7,7 +7,7 @@
 
 import UIKit
 
-var deletionOccurred: Bool = false
+var deletionOrLeaveOccurred: Bool = false
 
 class TimelineMainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -50,9 +50,9 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
 
         datesTableView.reloadData()
         
-        if deletionOccurred {
+        if deletionOrLeaveOccurred {
             self.navigationController?.popViewController(animated: true)
-            deletionOccurred = false
+            deletionOrLeaveOccurred = false
         }
     }
     
