@@ -76,6 +76,8 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         
         imageBackground.backgroundColor = UIColor.appColorScheme(type: "primary")
+        
+        self.navigationItem.hidesBackButton = true
     }
     
     @objc func updateFont() {
@@ -88,8 +90,6 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     @IBAction func createTimelinePressed(_ sender: Any) {
         // To-Do: Add check for empty name field
         if timelineNameField.hasText {
-            self.performSegue(withIdentifier: "CreateTimelinetoDateSegue", sender:nil)
-            
             // create timeline in Firestore database
             Task {
                 await self.createTimeline(name: timelineNameField.text!)
@@ -100,6 +100,16 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
             self.present(alert, animated: true)
         }
         
+        self.navigationController?.popViewController(animated: true)
+        
+        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+        
+        // Instantiate the DateTimelineViewController directly
+        if let timelineMainVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
+            
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(timelineMainVC, animated: true)
+        }
     }
     
     func createTimeline(name: String) async {        
@@ -129,6 +139,8 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     
     @IBAction func cancelBtnClicked(_ sender: Any) {
         timelineNameField.text = ""
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func coverPhotoSelectPressed(_ sender: Any) {
