@@ -9,7 +9,6 @@ import UIKit
 
 class CreatorListViewCell: UITableViewCell {
 
-    @IBOutlet weak var deleteCreatorButton: UIImageView!
     @IBOutlet weak var creatorNameLabel: UILabel!
     @IBOutlet weak var profileIcon: UIImageView!
     
