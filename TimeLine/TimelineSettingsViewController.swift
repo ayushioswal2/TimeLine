@@ -19,13 +19,37 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     
     @IBOutlet weak var emailForInviteField: UITextField!
     @IBOutlet weak var creatorListTable: UITableView!
-    
-    var creatorList: [String] = []
-    
     @IBOutlet weak var dummyCoverPhotoView: UIView!
     
+    var creatorList: [String] = []
+    var db: Firestore!
+    var currUserEmail: String?
+    var userDocumentID: String?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
+        
+        let currUser = Auth.auth().currentUser
+        if let user = currUser {
+            currUserEmail = user.email
+            db.collection("users").whereField("email", isEqualTo: currUserEmail!).getDocuments() { (snapshot, error) in
+                if let error = error {
+                    print("error fetching document: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("no matching document found")
+                    return
+                }
+                
+                // update fields to reflect this user
+                let document = documents.first
+                self.userDocumentID = document?.documentID
+            }
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -141,12 +165,8 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
                 "invites": FieldValue.arrayUnion([newInvite])
             ])
 
-            print("Invite sent to \(inviteeEmail)")
-
             // Update UI
             DispatchQueue.main.async {
-                self.creatorList.append(inviteeEmail)
-                self.creatorListTable.reloadData()
                 self.emailForInviteField.text = ""
             }
 
@@ -157,5 +177,176 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     
     func fetchCreators() {
         self.creatorList = currTimeline?.creators ?? []
+    }
+    
+    @IBAction func editTimelineNamePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Edit Timeline Name", message: "", preferredStyle: .alert)
+        
+        controller.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(
+            title: "OK",
+            style: .default)
+                {(action) in
+            let newName = controller.textFields![0].text
+            
+            // check that new name is given for sure
+            currTimeline?.name = newName!
+            self.timelineNameField.text = newName
+            
+            Task {
+                await self.changeTimelineName(newName!)
+            }
+            
+            Task {
+                await self.updateUserTimelines(newName!)
+            }
+        })
+        
+        present(controller, animated: true)
+    }
+    
+    func changeTimelineName(_ newName: String) async {
+        do {
+            let document = try await db.collection("timelines").document(currTimelineID).getDocument()
+            
+            guard document.data() != nil else {
+                print("No data found in document")
+                return
+            }
+
+            try await document.reference.updateData([
+                "timelineName": newName
+            ])
+        } catch {
+            print("Firestore fetch error: \(error.localizedDescription)")
+        }
+    }
+    
+    func updateUserTimelines(_ newName: String) async {
+        do {
+            try await db.collection("users").document(userDocumentID!).updateData([
+                "timelines.\(currTimelineID)": newName
+            ])
+        } catch {
+            print("error adding document: \(error)")
+        }
+    }
+    
+    @IBAction func deleteTimelinePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Delete Timeline", message: "Are you sure you want to delete this timeline? This action will remove the timeline for all users.", preferredStyle: .alert)
+        controller.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            Task {
+                await self.deleteTimeline()
+            }
+            Task {
+                await self.deleteTimelineFromUsers()
+            }
+            
+            deletionOrLeaveOccurred = true
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+
+        }))
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(controller, animated: true)
+    }
+    
+    // delete a timeline from Timelines collection
+    func deleteTimeline() async {
+        do {
+            try await db.collection("timelines").document(currTimelineID).delete()
+        } catch {
+            print("error deleting document: \(error)")
+        }
+    }
+    
+    // delete a timeline from users collection
+    func deleteTimelineFromUsers() async {
+        do {
+            let snapshot = try await db.collection("users").getDocuments()
+            
+            for document in snapshot.documents {
+                let userID = document.documentID
+                let data = document.data()
+
+                // check if user is creator for this timeline
+                if let timelines = data["timelines"] as? [String: Any],
+                   timelines.keys.contains(currTimelineID) {
+                    try await db.collection("users").document(userID).updateData([
+                        "timelines.\(currTimelineID)": FieldValue.delete()
+                    ])
+                }
+                
+                // delete timeline from invites map for users invited to currTimeline
+                if var invites = data["invites"] as? [[String: Any]] {
+                    invites.removeAll { ($0["timelineID"] as? String) == currTimelineID }
+                    try await db.collection("users").document(userID).updateData(["invites": invites])
+                }
+            }
+        } catch {
+            print("error deleting document: \(error)")
+        }
+    }
+    
+    @IBAction func leaveTimelinePressed(_ sender: Any) {
+        let controller = UIAlertController(title: "Are you sure you want to leave this timeline?", message: nil, preferredStyle: .alert)
+        
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Leave", style: .destructive, handler: { (action) in
+            Task {
+                await self.leaveTimeline()
+            }
+            
+            deletionOrLeaveOccurred = true
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }))
+        
+        present(controller, animated: true)
+    }
+    
+    func leaveTimeline() async {
+        do {
+            let snapshot = try await db.collection("timelines").document(currTimelineID).getDocument()
+            
+            guard let data = snapshot.data() else { return }
+            
+            var creators = data["creators"] as! [String]
+            
+            // check if only user in timeline -  if so let user know timeline will be deleted (also need to remove timeline in general)
+            if creators.count == 1 { // curr user is only creator
+                Task {
+                    await self.deleteTimeline()
+                }
+                Task {
+                    await self.deleteTimelineFromUsers()
+                }
+            } else { // multiple users - only remove this user
+                do {
+                    // remove user as a creator
+                    creators.removeAll(where: { $0 == self.currUserEmail })
+                    try await db.collection("timelines").document(currTimelineID).updateData([
+                        "creators": creators
+                    ])
+                    
+                    // remove the timeline from the user's document
+                    try await db.collection("users").document(userDocumentID!).updateData([
+                        "timelines.\(currTimelineID)": FieldValue.delete()
+                    ])
+                    
+                } catch {
+                    print("error leaving timeline: \(error)")
+                }
+            }
+        } catch {
+            print("error leaving timeline: \(error)")
+        }
     }
 }

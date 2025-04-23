@@ -7,6 +7,8 @@
 
 import UIKit
 
+var deletionOrLeaveOccurred: Bool = false
+
 class TimelineMainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var datesTableView: UITableView!
@@ -44,7 +46,14 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         updateFont()
         updateColorScheme()
         
+        timelineTitleLabel.text = currTimeline?.name
+
         datesTableView.reloadData()
+        
+        if deletionOrLeaveOccurred {
+            self.navigationController?.popViewController(animated: true)
+            deletionOrLeaveOccurred = false
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

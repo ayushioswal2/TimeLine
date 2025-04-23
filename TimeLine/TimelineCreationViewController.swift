@@ -111,10 +111,16 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
             ])
             let newTimelineID = ref.documentID
             print("document \(newTimelineID) successfully added")
+            print("new name: \(name)")
+            print("currName: \(String(describing: currTimeline?.name))")
             userTimelines[newTimelineID] = name
+            currTimelineID = newTimelineID
+            currTimeline?.name = name
+            print("currName: \(String(describing: currTimeline?.name))")
             try await db.collection("users").document(userDocumentID!).updateData([
                 "timelines.\(newTimelineID)": name
             ])
+            
             print("timelines updated to user")
         } catch {
             print("error adding document: \(error)")
