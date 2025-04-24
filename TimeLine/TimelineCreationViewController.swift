@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class TimelineCreationViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -114,19 +115,27 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
     
     func createTimeline(name: String) async {        
         do {
-            let ref = try await db.collection("timelines").addDocument(data: [
+            let ref = db.collection("timelines").document()
+            
+            let newTimelineID = ref.documentID
+            userTimelines[newTimelineID] = name
+            currTimelineID = newTimelineID
+            currTimeline?.name = name
+            
+            if let image = self.coverPhotoImageView.image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                let storageRef = Storage.storage().reference()
+                let imageRef = storageRef.child("timeline_covers/\(newTimelineID).jpg")
+                
+                let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
+                timelineCoverPhotoURL = try await imageRef.downloadURL().absoluteString
+            }
+            
+            try await ref.setData([
                 "timelineName": name,
                 "coverPhotoURL": self.timelineCoverPhotoURL,
                 "creators": [self.currUserEmail]
             ])
-            let newTimelineID = ref.documentID
-            print("document \(newTimelineID) successfully added")
-            print("new name: \(name)")
-            print("currName: \(String(describing: currTimeline?.name))")
-            userTimelines[newTimelineID] = name
-            currTimelineID = newTimelineID
-            currTimeline?.name = name
-            print("currName: \(String(describing: currTimeline?.name))")
+           
             try await db.collection("users").document(userDocumentID!).updateData([
                 "timelines.\(newTimelineID)": name
             ])

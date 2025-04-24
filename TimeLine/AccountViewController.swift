@@ -64,7 +64,7 @@ class AccountViewController: UIViewController {
     @IBAction func onLogOutPressed(_ sender: Any) {
         logOut()
         
-        userTimelines = [:] // is this necessary?
+        userTimelines = [:]
     }
     
     @objc func updateFont() {

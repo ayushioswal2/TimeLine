@@ -54,8 +54,39 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: timelineCellIdentifier, for: indexPath) as! TimelineTableViewCell
         cell.timelineNameLabel.text = userTimelineNames[indexPath.row]
-
+        
+        let timelineID = userTimelineIDs[indexPath.row]
+        
+        Task {
+            if let imageURL = await getTimelineCoverPhotoURL(timelineID: timelineID) {
+                print("image url: \(imageURL.absoluteString)")
+                
+                let (data, _) = try await URLSession.shared.data(from: imageURL)
+                let image = UIImage(data: data)
+                
+                if let image = image {
+                    if let currentIndexPath = tableView.indexPath(for: cell), currentIndexPath == indexPath {
+                        DispatchQueue.main.async {
+                            cell.timelineCoverImageView.image = image
+                        }
+                    }
+                }
+            }
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currTimelineID = userTimelineIDs[indexPath.row]
+        
+        Task {
+            await getTimelineData()
+
+            let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+            if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
+                self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+            }
+        }
     }
     
     func setupUI() {
@@ -82,19 +113,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currTimelineID = userTimelineIDs[indexPath.row]
-        
-        Task {
-            await getTimelineData()
-
-            let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
-            if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
-                self.navigationController?.pushViewController(dateTimelineVC, animated: true)
-            }
-        }
-    }
-    
     @objc func updateColorScheme() {
         createTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         homeTitle.textColor = UIColor.appColorScheme(type: "primary")
@@ -117,6 +135,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             print("Firestore fetch error: \(error.localizedDescription)")
         }
+    }
+    
+    func getTimelineCoverPhotoURL(timelineID: String) async -> URL? {
+        do {
+            // Fetch the document from Firestore
+            let docRef = db.collection("timelines").document(timelineID)
+            let snapshot = try await docRef.getDocument()
+
+            // Extract the cover photo URL from the document
+            if let coverPhotoURLString = snapshot.get("coverPhotoURL") as? String,
+               let coverPhotoURL = URL(string: coverPhotoURLString) {
+                return coverPhotoURL
+            }
+        } catch {
+            print("Error fetching document: \(error)")
+        }
+        return nil
     }
     
     func fetchUserTimelines() {
@@ -146,31 +181,3 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 }
-
-// image stuff:
-// bug for office hours: cover images are populating irregularly for wrong timelines
-//        db.collection("timelines").whereField("timelineName", isEqualTo: timelines[indexPath.row]).getDocuments() { (snapshot, error) in
-//            if let error = error {
-//                print("error fetching document: \(error)")
-//                return
-//            }
-//
-//            guard let documents = snapshot?.documents, !documents.isEmpty else {
-//                print("no matching document found")
-//                return
-//            }
-//
-//            let document = documents.first
-//            let data = document?.data()
-//            let coverImageURL = data?["coverPhotoURL"] as? String
-//            guard let imageURL = URL(string: coverImageURL ?? "") else {
-//                print("invalid cover image URL for \(timelines[indexPath.row])")
-//                return
-//            }
-//            do {
-//                let imageData = try Data(contentsOf: imageURL)
-//                cell.timelineCoverImageView.image = UIImage(data: imageData)
-//            } catch {
-//                print ("error loading image: \(error)")
-//            }
-//        }

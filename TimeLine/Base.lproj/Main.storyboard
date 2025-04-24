@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="172" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-l0-Tpn">
-                                <rect key="frame" x="0.0" y="232" width="440" height="541"/>
+                                <rect key="frame" x="0.0" y="213" width="440" height="560"/>
                                 <color key="backgroundColor" red="1" green="0.95686274509803915" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timelineCellIdentifier" rowHeight="172" id="oq5-jV-fbf" customClass="TimelineTableViewCell" customModule="TimeLine" customModuleProvider="target">
@@ -53,9 +53,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="172"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.on.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-2n-zpm">
-                                                    <rect key="frame" x="60" y="31.666666666666671" width="320" height="80.333333333333343"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-2n-zpm">
+                                                    <rect key="frame" x="32" y="11" width="376" height="119"/>
                                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="380" id="Icf-h1-XmI"/>
+                                                        <constraint firstAttribute="height" constant="119" id="Jai-7J-Kfl"/>
+                                                    </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="15"/>
@@ -63,7 +67,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqe-q0-5O0">
-                                                    <rect key="frame" x="61" y="131" width="42" height="21"/>
+                                                    <rect key="frame" x="32" y="138" width="42" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="7bw-Kb-c8F"/>
                                                     </constraints>
@@ -74,13 +78,12 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstItem="DnL-2n-zpm" firstAttribute="top" secondItem="fLB-3c-hOj" secondAttribute="topMargin" constant="20" id="Oo3-fi-ubP"/>
-                                                <constraint firstItem="jqe-q0-5O0" firstAttribute="leading" secondItem="fLB-3c-hOj" secondAttribute="leadingMargin" constant="41" id="Vh0-lp-PGO"/>
-                                                <constraint firstItem="DnL-2n-zpm" firstAttribute="leading" secondItem="fLB-3c-hOj" secondAttribute="leadingMargin" constant="40" id="lGL-fb-yyc"/>
-                                                <constraint firstItem="jqe-q0-5O0" firstAttribute="top" secondItem="DnL-2n-zpm" secondAttribute="bottom" constant="20" id="tYN-UC-K3Y"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="DnL-2n-zpm" secondAttribute="trailing" constant="40" id="tif-a2-eZG"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jqe-q0-5O0" secondAttribute="bottom" constant="9" id="ttA-b7-iZj"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jqe-q0-5O0" secondAttribute="trailing" constant="20" symbolic="YES" id="yVO-3a-xoI"/>
+                                                <constraint firstItem="DnL-2n-zpm" firstAttribute="centerX" secondItem="fLB-3c-hOj" secondAttribute="centerX" id="0xN-oS-aqr"/>
+                                                <constraint firstItem="jqe-q0-5O0" firstAttribute="top" secondItem="DnL-2n-zpm" secondAttribute="bottom" constant="8" symbolic="YES" id="2If-Ru-FBx"/>
+                                                <constraint firstItem="DnL-2n-zpm" firstAttribute="top" secondItem="fLB-3c-hOj" secondAttribute="topMargin" id="9Ny-yR-T22"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jqe-q0-5O0" secondAttribute="trailing" constant="20" symbolic="YES" id="EsJ-Ca-ZVv"/>
+                                                <constraint firstItem="DnL-2n-zpm" firstAttribute="leading" secondItem="jqe-q0-5O0" secondAttribute="leading" id="Koh-uL-wp3"/>
+                                                <constraint firstItem="jqe-q0-5O0" firstAttribute="leading" secondItem="fLB-3c-hOj" secondAttribute="leadingMargin" constant="12" id="LZI-f9-8Vc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -101,7 +104,7 @@
                         <color key="backgroundColor" red="0.97647058959999999" green="0.94117647410000005" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uUi-l0-Tpn" secondAttribute="trailing" id="D9o-Ds-Wcv"/>
-                            <constraint firstItem="uUi-l0-Tpn" firstAttribute="top" secondItem="yx8-fw-rXX" secondAttribute="bottom" constant="49" id="R3V-nb-UoP"/>
+                            <constraint firstItem="uUi-l0-Tpn" firstAttribute="top" secondItem="yx8-fw-rXX" secondAttribute="bottom" constant="30" id="R3V-nb-UoP"/>
                             <constraint firstItem="yx8-fw-rXX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="S8q-5i-Wkl"/>
                             <constraint firstItem="BCW-BL-h21" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xjf-Ud-V0c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BCW-BL-h21" secondAttribute="bottom" constant="30" id="bfF-ju-mV7"/>
@@ -694,7 +697,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.on.rectangle.fill" catalog="system" width="128" height="103"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="envelope" catalog="system" width="128" height="85"/>
         <image name="envelope.fill" catalog="system" width="128" height="85"/>
