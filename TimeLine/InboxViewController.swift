@@ -61,7 +61,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
     func handleAccept(invite: Invite, at index: Int) {
         guard let user = Auth.auth().currentUser, let userEmail = user.email else { return }
         let db = Firestore.firestore()
-
+        
         db.collection("users")
             .whereField("email", isEqualTo: userEmail)
             .getDocuments { snapshot, error in
@@ -128,8 +128,10 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     func handleReject(invite: Invite, at index: Int) {
-        guard let userEmail = Auth.auth().currentUser?.email else { return }
+        guard let user = Auth.auth().currentUser, let userEmail = user.email else { return }
         let db = Firestore.firestore()
+        
+        print ("WE ARE IN REJECT")
 
         db.collection("users")
             .whereField("email", isEqualTo: userEmail)
@@ -145,28 +147,31 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
 
                 let userRef = userDoc.reference
+
                 let inviteDict: [String: Any] = [
                     "inviterName": invite.inviterName,
-                    "timelineName": invite.timelineName
+                    "timelineName": invite.timelineName,
+                    "status": invite.status,
+                    "timelineID": invite.timelineID
                 ]
 
                 userRef.updateData([
                     "invites": FieldValue.arrayRemove([inviteDict])
                 ]) { err in
                     if let err = err {
-                        print("Error removing invite: \(err)")
+                        print("Error updating user document: \(err)")
                         return
                     }
 
-                    print("Invite rejected and removed")
-
+                    print("User timelines updated and invite removed from user doc.")
+                    
                     DispatchQueue.main.async {
                         self.invites.remove(at: index)
                         self.emptyInboxCheck()
                         self.inviteTableView.reloadData()
                     }
                 }
-            }
+        }
     }
 
     @objc func updateFont() {
