@@ -64,7 +64,6 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell", for: indexPath) as! DateCell
         
         let formattedDate = formatter.string(from: dates[indexPath.row])
-        print(formattedDate)
         cell.dateLabel.text = formattedDate
         return cell
     }

@@ -7,6 +7,8 @@
 
 import UIKit
 import PhotosUI
+import FirebaseFirestore
+import FirebaseStorage
 
 class AddToTimelineViewController: UIViewController, PHPickerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -18,9 +20,18 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
         
     @IBOutlet weak var collectionView: UICollectionView!
     var selectedImages: [UIImage] = []
+    var imageURLs : [String] = []
+    
+    var db: Firestore!
+    
+    let formatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
+        
+        formatter.dateFormat = "MMMM d, yyyy"
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -79,9 +90,55 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
         } else {
             dates.append(datePicker.date)
             dates.sort()
+            
+            let formattedDate = formatter.string(from: datePicker.date)
+            
+            Task {
+                await storeImages(formattedDate: formattedDate)
+                await storeDayData()
+            }
         }
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    func storeImages(formattedDate: String) async {
+        for image in selectedImages {
+            // extract image url to store in firestore
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                let storageRef = Storage.storage().reference()
+                
+                let uniqueID = UUID().uuidString
+                let imageRef = storageRef.child("timelines/\(currTimelineID)/\(formattedDate)/\(uniqueID).jpg")
+                
+                do {
+                    // store in Firebase storage
+                    let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
+                    let imageURL = try await imageRef.downloadURL().absoluteString
+                    
+                    print("Image URL: \(imageURL)")
+                    
+                    self.imageURLs.append(imageURL)
+                } catch {
+                    printContent(error)
+                }
+            }
+        }
+    }
+    
+    func storeDayData() async {
+        do {
+            let timelineRef = db.collection("timelines").document(currTimelineID)
+            
+            let formattedDate = formatter.string(from: datePicker.date)
+            
+            try await timelineRef.collection("days").addDocument(data: [
+                "date": formattedDate,
+                "images": []
+            ])
+        } catch {
+            print("error storing day data: \(error)")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
