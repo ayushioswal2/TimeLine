@@ -382,6 +382,9 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     }
     
     func createCanvasElement(subview: UIView) -> [String: Any] {
+        let canvasWidth = canvasUIView.frame.width
+        let canvasHeight = canvasUIView.frame.height
+        
         var type: String = ""
         var newElement = [String: Any]()
         
@@ -391,30 +394,30 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             newElement = [
                 "type": "drawing",
                 "base64": base64
-            ] as [String: Any]
+            ]
         } else if let label = subview as? UILabel {
             type = "text"
             newElement = [
                 "type": type,
                 "text": label.text ?? "",
-                "x": subview.frame.minX,
-                "y": subview.frame.minY,
-                "width": subview.frame.width,
-                "height": subview.frame.height,
+                "x": subview.frame.minX / canvasWidth,
+                "y": subview.frame.minY / canvasHeight,
+                "width": subview.frame.width / canvasWidth,
+                "height": subview.frame.height / canvasHeight,
                 "color": colorToHex(color: label.textColor)
-            ] as [String : Any]
+            ]
         } else {
-            type = subview.layer.cornerRadius > 0 ? "circle": "rect"
+            type = subview.layer.cornerRadius > 0 ? "circle" : "rect"
             newElement = [
                 "type": type,
-                "x": subview.frame.minX,
-                "y": subview.frame.minY,
-                "width": subview.frame.width,
-                "height": subview.frame.height,
-                "color": colorToHex(color: subview.backgroundColor!)
-            ] as [String : Any]
+                "x": subview.frame.minX / canvasWidth,
+                "y": subview.frame.minY / canvasHeight,
+                "width": subview.frame.width / canvasWidth,
+                "height": subview.frame.height / canvasHeight,
+                "color": colorToHex(color: subview.backgroundColor ?? .black)
+            ]
         }
-        
-        return newElement as [String: Any]
+        return newElement
     }
+
 }
