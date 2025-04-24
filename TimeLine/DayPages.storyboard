@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdT-OM-Hxs">
-                                <rect key="frame" x="327.33333333333331" y="166" width="49.666666666666686" height="49.666666666666657"/>
+                                <rect key="frame" x="327.33333333333331" y="168.33333333333334" width="49.666666666666686" height="49.666666666666657"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OdT-OM-Hxs" secondAttribute="height" multiplier="1:1" id="lqR-vd-Xao"/>
                                 </constraints>
@@ -46,11 +46,11 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZD0-DC-xQ3">
-                                <rect key="frame" x="16" y="174" width="264.33333333333331" height="33.666666666666657"/>
+                                <rect key="frame" x="15.999999999999986" y="174" width="229.66666666666663" height="38.333333333333343"/>
                                 <attributedString key="attributedText">
                                     <fragment content="March 6th, 2024">
                                         <attributes>
-                                            <font key="NSFont" size="32" name="Refani"/>
+                                            <font key="NSFont" metaFont="system" size="32"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -69,26 +69,21 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipsis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uyp-f9-Odg">
-                                <rect key="frame" x="131.66666666666666" y="654" width="129.99999999999997" height="30"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Chz-KR-20v"/>
-                                    <constraint firstAttribute="width" constant="130" id="Ubp-1g-o4W"/>
-                                </constraints>
-                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lJi-1y-ZOx">
+                                <rect key="frame" x="186.66666666666666" y="646.33333333333337" width="20" height="20.333333333333371"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="lJi-1y-ZOx" firstAttribute="top" secondItem="KQV-aU-FMS" secondAttribute="bottom" constant="25.000000000000114" id="CIg-tK-4yq"/>
                             <constraint firstItem="OdT-OM-Hxs" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-16" id="DMp-Br-W2V"/>
-                            <constraint firstItem="uyp-f9-Odg" firstAttribute="top" secondItem="KQV-aU-FMS" secondAttribute="bottom" constant="25" id="Fyh-Zo-goH"/>
-                            <constraint firstItem="uyp-f9-Odg" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Nse-qW-K7M"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="OHz-9y-t86"/>
                             <constraint firstItem="WQc-wq-8Hk" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-16" id="REy-CQ-gcB"/>
                             <constraint firstItem="ZD0-DC-xQ3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="VZH-yH-xgN"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="ZOS-lW-cAR"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="leading" relation="lessThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="auU-oY-rg4"/>
+                            <constraint firstItem="lJi-1y-ZOx" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="cTA-0i-kNR"/>
                             <constraint firstItem="ZD0-DC-xQ3" firstAttribute="centerY" secondItem="OdT-OM-Hxs" secondAttribute="centerY" id="kA9-p8-WME"/>
                             <constraint firstItem="WQc-wq-8Hk" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="kWU-ml-eiC"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-25" id="qqX-pI-Hk3"/>
@@ -98,6 +93,8 @@
                     <navigationItem key="navigationItem" id="YK2-sy-m7P"/>
                     <connections>
                         <outlet property="dateLabel" destination="ZD0-DC-xQ3" id="a0Z-Tf-TkK"/>
+                        <outlet property="ellipsesStackView" destination="lJi-1y-ZOx" id="SpI-GA-OYG"/>
+                        <outlet property="imageView" destination="KQV-aU-FMS" id="ihz-We-lk5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -397,7 +394,6 @@
         <image name="arrow.down.left.and.arrow.up.right" catalog="system" width="128" height="115"/>
         <image name="character.textbox" catalog="system" width="128" height="89"/>
         <image name="circle" catalog="system" width="128" height="123"/>
-        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
         <image name="paintpalette" catalog="system" width="128" height="105"/>
         <image name="pencil.and.scribble" catalog="system" width="128" height="86"/>
