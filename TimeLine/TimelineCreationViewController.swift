@@ -112,7 +112,6 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
                     // Push onto the current navigation stack
                     self.navigationController?.pushViewController(timelineMainVC, animated: true)
                 }
-                
                 coverPhotoImageView.image = nil
             }
         }
@@ -126,6 +125,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
             userTimelines[newTimelineID] = name
             currTimelineID = newTimelineID
             currTimeline?.name = name
+            currTimelineCoverImage = coverPhotoImageView.image
             
             if let image = self.coverPhotoImageView.image, let imageData = image.jpegData(compressionQuality: 0.8) {
                 let storageRef = Storage.storage().reference()

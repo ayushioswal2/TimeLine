@@ -66,6 +66,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if let currentIndexPath = tableView.indexPath(for: cell), currentIndexPath == indexPath {
                         DispatchQueue.main.async {
                             cell.timelineCoverImageView.image = image
+                            currTimelineCoverImage = image
                         }
                     }
                 }

@@ -305,21 +305,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eZa-Du-lPv">
-                                <rect key="frame" x="27" y="128" width="386" height="252"/>
+                                <rect key="frame" x="27" y="143" width="386" height="237"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="photo.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LiW-fM-dO4">
-                                        <rect key="frame" x="155.66666666666666" y="90.333333333333314" width="77.666666666666657" height="74.666666666666657"/>
-                                        <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="bRd-FG-BEI"/>
-                                            <constraint firstAttribute="width" constant="75" id="boi-qZ-H7C"/>
-                                        </constraints>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="854-Ya-pPl">
+                                        <rect key="frame" x="0.0" y="0.0" width="386" height="237"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="LiW-fM-dO4" firstAttribute="centerX" secondItem="eZa-Du-lPv" secondAttribute="centerX" id="CRQ-eN-t5R"/>
-                                    <constraint firstItem="LiW-fM-dO4" firstAttribute="centerY" secondItem="eZa-Du-lPv" secondAttribute="centerY" id="Kbi-T8-d4M"/>
+                                    <constraint firstItem="854-Ya-pPl" firstAttribute="leading" secondItem="eZa-Du-lPv" secondAttribute="leading" id="1aL-DH-GGt"/>
+                                    <constraint firstItem="854-Ya-pPl" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="top" id="8sh-St-23d"/>
+                                    <constraint firstAttribute="trailing" secondItem="854-Ya-pPl" secondAttribute="trailing" id="FtK-1d-3P0"/>
+                                    <constraint firstAttribute="bottom" secondItem="854-Ya-pPl" secondAttribute="bottom" id="aQh-CU-kQa"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -458,7 +460,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="S0k-cT-IQK" firstAttribute="leading" secondItem="bDC-Lt-ZKv" secondAttribute="trailing" constant="8" id="0Pz-yn-zyA"/>
-                            <constraint firstItem="eZa-Du-lPv" firstAttribute="top" secondItem="gQw-wk-HfP" secondAttribute="bottom" constant="15" id="2H1-W3-aEa"/>
+                            <constraint firstItem="eZa-Du-lPv" firstAttribute="top" secondItem="gQw-wk-HfP" secondAttribute="bottom" constant="30" id="2H1-W3-aEa"/>
                             <constraint firstItem="gQw-wk-HfP" firstAttribute="top" secondItem="nJK-gy-sJQ" secondAttribute="top" constant="30" id="7aE-yg-vq0"/>
                             <constraint firstItem="T3E-pb-O5V" firstAttribute="leading" secondItem="nJK-gy-sJQ" secondAttribute="leading" constant="30" id="C3N-EA-FiW"/>
                             <constraint firstItem="ady-oi-NTE" firstAttribute="top" secondItem="eZa-Du-lPv" secondAttribute="bottom" constant="-3" id="Cym-b6-wy0"/>
@@ -492,6 +494,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Rc1-pB-ndB"/>
                     <connections>
+                        <outlet property="coverPhotoView" destination="854-Ya-pPl" id="Pli-Am-tVX"/>
                         <outlet property="creatorListTable" destination="Eyz-zW-164" id="X63-LF-rGv"/>
                         <outlet property="creatorsLabel" destination="ude-KL-MyA" id="r5w-pc-rKL"/>
                         <outlet property="dummyCoverPhotoView" destination="eZa-Du-lPv" id="Wco-Yg-LTw"/>
@@ -512,7 +515,6 @@
         <image name="inset.filled.circle" catalog="system" width="128" height="123"/>
         <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
-        <image name="photo.badge.plus" catalog="system" width="128" height="97"/>
         <image name="photo.badge.plus.fill" catalog="system" width="128" height="97"/>
         <image name="plus.app.fill" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">

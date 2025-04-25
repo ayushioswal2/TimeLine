@@ -20,6 +20,7 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var emailForInviteField: UITextField!
     @IBOutlet weak var creatorListTable: UITableView!
     @IBOutlet weak var dummyCoverPhotoView: UIView!
+    @IBOutlet weak var coverPhotoView: UIImageView!
     
     var creatorList: [String] = []
     var db: Firestore!
@@ -64,6 +65,7 @@ class TimelineSettingsViewController: UIViewController, UITableViewDataSource, U
 
         settingsTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         dummyCoverPhotoView.backgroundColor = UIColor.appColorScheme(type: "primary")
+        coverPhotoView.image = currTimelineCoverImage ?? UIImage(systemName: "photo.badge.plus")
         
         timelineNameField.text = currTimeline?.name
         

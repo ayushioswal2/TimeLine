@@ -12,6 +12,7 @@ var userTimelines: [String: String] = [:]
 
 var currTimelineID = ""
 var currTimeline: Timeline?
+var currTimelineCoverImage: UIImage?
 
 var days: [Day] = []
 
