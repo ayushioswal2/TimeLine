@@ -40,6 +40,13 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         
+        // set up background image
+//        backgroundImageView.frame = canvasUIView.bounds
+//        canvasUIView.insertSubview(backgroundImageView, at: 0)
+        // backgroundImageView.image = UIImage(named: "background") -> here set the UIImage
+
+        
+        
         // make canvas page noticable to the user
         canvasUIView.backgroundColor = .white
         canvasUIView.layer.shadowColor = UIColor.black.cgColor
@@ -366,24 +373,13 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         print(canvasElements)
     }
     
-    func colorToHex(color: UIColor) -> String {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-        let r = Int(red * 255)
-        let g = Int(green * 255)
-        let b = Int(blue * 255)
-        let a = Int(alpha * 255)
-
-        return String(format: "#%02X%02X%02X%02X", r, g, b, a)
-    }
+    
     
     func createCanvasElement(subview: UIView) -> [String: Any] {
         let canvasWidth = canvasUIView.frame.width
         let canvasHeight = canvasUIView.frame.height
+        let transform = subview.transform
+        let rotation = atan2(transform.b, transform.a)
         
         var type: String = ""
         var newElement = [String: Any]()
@@ -404,7 +400,8 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
                 "y": subview.frame.minY / canvasHeight,
                 "width": subview.frame.width / canvasWidth,
                 "height": subview.frame.height / canvasHeight,
-                "color": colorToHex(color: label.textColor)
+                "color": colorToHex(color: label.textColor),
+                "rotation": rotation
             ]
         } else {
             type = subview.layer.cornerRadius > 0 ? "circle" : "rect"
@@ -414,10 +411,54 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
                 "y": subview.frame.minY / canvasHeight,
                 "width": subview.frame.width / canvasWidth,
                 "height": subview.frame.height / canvasHeight,
-                "color": colorToHex(color: subview.backgroundColor ?? .black)
+                "color": colorToHex(color: subview.backgroundColor ?? .black),
+                "rotation": rotation
             ]
         }
         return newElement
     }
+    
+    func colorToHex(color: UIColor) -> String {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        let r = Int(red * 255)
+        let g = Int(green * 255)
+        let b = Int(blue * 255)
+        let a = Int(alpha * 255)
+
+        return String(format: "#%02X%02X%02X%02X", r, g, b, a)
+    }
+    
+//    func colorFromHex(_ hex: String) -> UIColor {
+//        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+//        
+//        if hexSanitized.hasPrefix("#") {
+//            hexSanitized.removeFirst()
+//        }
+//
+//        var rgb: UInt64 = 0
+//        Scanner(string: hexSanitized).scanHexInt64(&rgb)
+//
+//        let r, g, b, a: CGFloat
+//        if hexSanitized.count == 8 {
+//            r = CGFloat((rgb & 0xFF000000) >> 24) / 255
+//            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255
+//            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255
+//            a = CGFloat(rgb & 0x000000FF) / 255
+//        } else {
+//            // fallback for 6-digit hex (no alpha)
+//            r = CGFloat((rgb & 0xFF0000) >> 16) / 255
+//            g = CGFloat((rgb & 0x00FF00) >> 8) / 255
+//            b = CGFloat(rgb & 0x0000FF) / 255
+//            a = 1.0
+//        }
+//
+//        return UIColor(red: r, green: g, blue: b, alpha: a)
+//    }
+
 
 }
