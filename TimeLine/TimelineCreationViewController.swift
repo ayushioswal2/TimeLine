@@ -129,7 +129,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
             
             if let image = self.coverPhotoImageView.image, let imageData = image.jpegData(compressionQuality: 0.8) {
                 let storageRef = Storage.storage().reference()
-                let imageRef = storageRef.child("timeline_covers/\(newTimelineID).jpg")
+                let imageRef = storageRef.child("timelines/\(newTimelineID)/\(newTimelineID)-cover.jpg")
                 
                 let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
                 timelineCoverPhotoURL = try await imageRef.downloadURL().absoluteString
@@ -140,7 +140,7 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
                 "coverPhotoURL": self.timelineCoverPhotoURL,
                 "creators": [self.currUserEmail]
             ])
-           
+                       
             try await db.collection("users").document(userDocumentID!).updateData([
                 "timelines.\(newTimelineID)": name
             ])

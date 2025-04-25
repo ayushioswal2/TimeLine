@@ -67,6 +67,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjD-dg-2N0">
                                                     <rect key="frame" x="54" y="32" width="212" height="245"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-TA-n3I">
+                                                            <rect key="frame" x="0.0" y="0.0" width="212" height="245"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="photo.badge.plus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WDs-Lk-hn5">
                                                             <rect key="frame" x="56.000000000000007" y="74.333333333333343" width="102.66666666666669" height="99.666666666666686"/>
                                                             <color key="tintColor" red="1" green="0.95686274510000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,9 +87,13 @@
                                                     <color key="backgroundColor" red="0.29411764709999999" green="0.14117647059999999" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="WDs-Lk-hn5" firstAttribute="centerX" secondItem="qjD-dg-2N0" secondAttribute="centerX" id="7K7-EY-xEb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="YAz-TA-n3I" secondAttribute="trailing" id="TDO-PN-YiL"/>
                                                         <constraint firstItem="WDs-Lk-hn5" firstAttribute="centerY" secondItem="qjD-dg-2N0" secondAttribute="centerY" id="YPp-Mt-g9G"/>
+                                                        <constraint firstItem="YAz-TA-n3I" firstAttribute="leading" secondItem="qjD-dg-2N0" secondAttribute="leading" id="fxL-BD-NWr"/>
                                                         <constraint firstAttribute="height" constant="245" id="ibB-QC-akB"/>
                                                         <constraint firstAttribute="width" constant="165" id="mQA-0M-f3N"/>
+                                                        <constraint firstItem="YAz-TA-n3I" firstAttribute="top" secondItem="qjD-dg-2N0" secondAttribute="top" id="wPv-WX-TH8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="YAz-TA-n3I" secondAttribute="bottom" id="xVd-rX-JUA"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -118,9 +130,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addToDayIcon" destination="WDs-Lk-hn5" id="mQP-Eh-PoE"/>
                                             <outlet property="dateCellSideCircle" destination="eCc-fa-EW0" id="n9N-EU-Zt4"/>
                                             <outlet property="dateCellSideLine" destination="iHP-zA-qx7" id="DjI-rs-7jv"/>
                                             <outlet property="dateLabel" destination="2bg-cq-2Gy" id="Qre-4x-5lx"/>
+                                            <outlet property="dayCoverImage" destination="YAz-TA-n3I" id="t5x-UH-Aee"/>
                                             <outlet property="dummyCoverPhotoView" destination="qjD-dg-2N0" id="Ezd-cU-NSg"/>
                                         </connections>
                                     </tableViewCell>
@@ -163,7 +177,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="wPy-VS-rl0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="983.18181818181824" y="-2.510460251046025"/>
         </scene>
         <!--Add To Timeline View Controller-->
         <scene sceneID="byu-JP-HMT">
