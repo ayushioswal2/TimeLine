@@ -126,6 +126,48 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
+            guard let self = self else {
+                completionHandler(false)
+                return
+            }
+
+            let dayToDelete = days[indexPath.row]
+
+            db.collection("timelines")
+                .document(currTimelineID)
+                .collection("days")
+                .whereField("date", isEqualTo: dayToDelete.date)
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error finding day: \(error)")
+                        completionHandler(false)
+                        return
+                    }
+
+                    guard let doc = snapshot?.documents.first else {
+                        print("No matching day found to delete")
+                        completionHandler(false)
+                        return
+                    }
+
+                    doc.reference.delete { error in
+                        if let error = error {
+                            print("Error deleting day: \(error)")
+                            completionHandler(false)
+                        } else {
+                            days.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                            completionHandler(true)
+                        }
+                    }
+                }
+        }
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
     func retrieveDaysData() async {
         var fetchedDays: [Day] = []
 
