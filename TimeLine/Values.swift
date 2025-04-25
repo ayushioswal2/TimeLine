@@ -14,5 +14,6 @@ var currTimelineID = ""
 var currTimeline: Timeline?
 
 var days: [Day] = []
+
 var currDay: Day?
 var currDayImages: [UIImage] = []

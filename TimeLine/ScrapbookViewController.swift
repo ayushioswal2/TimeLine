@@ -13,6 +13,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
     
+    // TODO add back in outlet for imageView that we need to readd (call backgroundImageView)
     @IBOutlet weak var canvasUIView: UIView!
     var drawingCanvasView: PKCanvasView!
     var currentDrawingColor: UIColor = .black
@@ -22,7 +23,8 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
-    var canvasElements: [[String: Any]] = []
+    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
+    // var backgroundImageURL = "" -> pulled from segue, in values.swift
 
 
     
@@ -36,9 +38,17 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
 
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        // TODO need to update the date label with the actual date (or we can just replace it with "Edit" LOL
 
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        
+        // set up background image
+//        backgroundImageView.frame = canvasUIView.bounds
+//        canvasUIView.insertSubview(backgroundImageView, at: 0)
+        // backgroundImageView.image = UIImage(named: "background") -> here set the UIImage
+
+        
         
         // make canvas page noticable to the user
         canvasUIView.backgroundColor = .white
@@ -133,7 +143,6 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             circleView.layer.cornerRadius = circleSize / 2
             circleView.clipsToBounds = true
             
-            // make it resizable, deletable, etc. later
             circleView.isUserInteractionEnabled = true
             
             canvasUIView.addSubview(circleView)
@@ -337,6 +346,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         present(colorPicker, animated: true, completion: nil)
     }
     
+    // might remove
     @IBAction func addImageButtonPressed(_ sender: Any) {
     }
     
@@ -363,27 +373,35 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             let newElement: [String: Any] = createCanvasElement(subview: subview)
             canvasElements.append(newElement)
         }
+        
+        if let snapshotImage = renderCanvasAsImage() {
+            let snapshotImageView = UIImageView(image: snapshotImage)
+            
+            // store snapshotImageView in firestore (replace the current image URL with this new one)
+
+            print("canvas captured")
+        } else {
+            print("failed to get snapshot")
+        }
+        
+        // add all elements to firestore here (append to existing array of canvasElements
         print(canvasElements)
     }
     
-    func colorToHex(color: UIColor) -> String {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-        let r = Int(red * 255)
-        let g = Int(green * 255)
-        let b = Int(blue * 255)
-        let a = Int(alpha * 255)
-
-        return String(format: "#%02X%02X%02X%02X", r, g, b, a)
+    // this is to save newly created page as an image to use on other storyboards
+    func renderCanvasAsImage() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(bounds: canvasUIView.bounds)
+        return renderer.image { context in
+            canvasUIView.layer.render(in: context.cgContext)
+        }
     }
     
+    // save canvas elements so that we can re-edit again
     func createCanvasElement(subview: UIView) -> [String: Any] {
         let canvasWidth = canvasUIView.frame.width
         let canvasHeight = canvasUIView.frame.height
+        let transform = subview.transform
+        let rotation = atan2(transform.b, transform.a)
         
         var type: String = ""
         var newElement = [String: Any]()
@@ -404,7 +422,8 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
                 "y": subview.frame.minY / canvasHeight,
                 "width": subview.frame.width / canvasWidth,
                 "height": subview.frame.height / canvasHeight,
-                "color": colorToHex(color: label.textColor)
+                "color": colorToHex(color: label.textColor),
+                "rotation": rotation
             ]
         } else {
             type = subview.layer.cornerRadius > 0 ? "circle" : "rect"
@@ -414,10 +433,59 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
                 "y": subview.frame.minY / canvasHeight,
                 "width": subview.frame.width / canvasWidth,
                 "height": subview.frame.height / canvasHeight,
-                "color": colorToHex(color: subview.backgroundColor ?? .black)
+                "color": colorToHex(color: subview.backgroundColor ?? .black),
+                "rotation": rotation
             ]
         }
+        
+        // TODO delete - for debugging right now
+        print(newElement)
+        
         return newElement
     }
+    
+    func colorToHex(color: UIColor) -> String {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        let r = Int(red * 255)
+        let g = Int(green * 255)
+        let b = Int(blue * 255)
+        let a = Int(alpha * 255)
+
+        return String(format: "#%02X%02X%02X%02X", r, g, b, a)
+    }
+    
+    // migght have to to put the loadScrapbookPageFunction back in here WHOOPS
+//    func colorFromHex(_ hex: String) -> UIColor {
+//        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+//        
+//        if hexSanitized.hasPrefix("#") {
+//            hexSanitized.removeFirst()
+//        }
+//
+//        var rgb: UInt64 = 0
+//        Scanner(string: hexSanitized).scanHexInt64(&rgb)
+//
+//        let r, g, b, a: CGFloat
+//        if hexSanitized.count == 8 {
+//            r = CGFloat((rgb & 0xFF000000) >> 24) / 255
+//            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255
+//            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255
+//            a = CGFloat(rgb & 0x000000FF) / 255
+//        } else {
+//            // fallback for 6-digit hex (no alpha)
+//            r = CGFloat((rgb & 0xFF0000) >> 16) / 255
+//            g = CGFloat((rgb & 0x00FF00) >> 8) / 255
+//            b = CGFloat(rgb & 0x0000FF) / 255
+//            a = 1.0
+//        }
+//
+//        return UIColor(red: r, green: g, blue: b, alpha: a)
+//    }
+
 
 }
