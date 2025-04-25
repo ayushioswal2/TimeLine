@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 var userTimelines: [String: String] = [:]
 
@@ -14,4 +15,5 @@ var currTimeline: Timeline?
 
 var days: [Day] = []
 
-// have current day
+var currDay: Day?
+var currDayImages: [UIImage] = []

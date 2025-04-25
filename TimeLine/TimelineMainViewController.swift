@@ -73,14 +73,14 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell", for: indexPath) as! DateCell
                 
-        let currDay = days[indexPath.row]
-        cell.dateLabel.text = currDay.date
+        let thisDay = days[indexPath.row]
+        cell.dateLabel.text = thisDay.date
         cell.dayCoverImage.image = nil
         cell.addToDayIcon.isHidden = false
         
-        if let firstImageURLString = currDay.images.first, let url = URL(string: firstImageURLString) {
+        if let firstImageURLString = thisDay.images.first, let url = URL(string: firstImageURLString) {
             Task {
-                let dayCoverImageURL = URL(string: currDay.images[0])!
+                let dayCoverImageURL = URL(string: thisDay.images[0])!
                 let (data, _) = try await URLSession.shared.data(from: dayCoverImageURL)
                 let image = UIImage(data: data)
                 
@@ -99,14 +99,30 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Load the other storyboard
-        let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
-        
-        // Instantiate the DateTimelineViewController directly
-        if let daySlideshowVC = storyboard.instantiateViewController(withIdentifier: "DayPageID") as? DaySlideshowViewController {
+        // Select this Day as currDay for easier loading in other VCs
+        currDay = days[indexPath.row]
+        var selectedDayImages = [] as [UIImage]
+        Task {
+            for imageURLString in currDay!.images {
+                let imageURL = URL(string: imageURLString)
+                let (data, _) = try await URLSession.shared.data(from: imageURL!)
+                let image = UIImage(data: data)
+                
+                if let image = image {
+                    selectedDayImages.append(image)
+                }
+            }
+            currDayImages = selectedDayImages            
             
-            // Push onto the current navigation stack
-            self.navigationController?.pushViewController(daySlideshowVC, animated: true)
+            // Load the other storyboard
+            let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
+            
+            // Instantiate the DateTimelineViewController directly
+            if let daySlideshowVC = storyboard.instantiateViewController(withIdentifier: "DayPageID") as? DaySlideshowViewController {
+                
+                // Push onto the current navigation stack
+                self.navigationController?.pushViewController(daySlideshowVC, animated: true)
+            }
         }
     }
     
