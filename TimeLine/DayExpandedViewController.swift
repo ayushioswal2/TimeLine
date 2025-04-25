@@ -183,6 +183,9 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // select currImage
+        currImage = currDayImages[indexPath.item]
+        
         let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
         
         // Instantiate the DateTimelineViewController directly

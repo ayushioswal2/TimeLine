@@ -23,10 +23,8 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
-    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
-    // var backgroundImageURL = "" -> pulled from segue, in values.swift
-
-
+//    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
+    var backgroundImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +42,17 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
         
         // set up background image
-//        backgroundImageView.frame = canvasUIView.bounds
-//        canvasUIView.insertSubview(backgroundImageView, at: 0)
-        // backgroundImageView.image = UIImage(named: "background") -> here set the UIImage
-
-        
+        backgroundImageView = UIImageView()
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.image = currImage
+        backgroundImageView.layer.shadowRadius = 8
+        backgroundImageView.layer.cornerRadius = 12
+        backgroundImageView.layer.masksToBounds = true
+        backgroundImageView.isUserInteractionEnabled = false
+        self.view.insertSubview(backgroundImageView, at: 0)
         
         // make canvas page noticable to the user
-        canvasUIView.backgroundColor = .white
+        canvasUIView.backgroundColor = .clear
         canvasUIView.layer.shadowColor = UIColor.black.cgColor
         canvasUIView.layer.shadowOpacity = 0.2
         canvasUIView.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -70,6 +71,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        backgroundImageView.frame = canvasUIView.convert(canvasUIView.bounds, to: view)
         drawingCanvasView.frame = canvasUIView.bounds
     }
     

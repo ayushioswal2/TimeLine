@@ -17,3 +17,5 @@ var days: [Day] = []
 
 var currDay: Day?
 var currDayImages: [UIImage] = []
+
+var currImage: UIImage?
