@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var myAccountTitleLabel: UILabel!
     @IBOutlet weak var accountNameLabel: UILabel!
@@ -20,8 +22,11 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var deleteAccountButton: UIButton!
     @IBOutlet weak var profilePicImageView: UIImageView!
     
+    var profilePicURL: String = ""
+    
     var db: Firestore!
     var currUser: User?
+    var userDocID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,9 @@ class AccountViewController: UIViewController {
         
         logOutButton.backgroundColor = UIColor.appColorScheme(type: "primary")
         profilePicImageView.tintColor = UIColor.appColorScheme(type: "primary")
+        profilePicImageView.contentMode = .scaleAspectFill
+        profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
+        profilePicImageView.clipsToBounds = true
         myAccountTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         
         // fetch info from Firebase
@@ -52,10 +60,21 @@ class AccountViewController: UIViewController {
                         print("error getting document data: \(error)")
                         return
                     }
+                    self.userDocID = docRef.documentID
                     let data = documentSnapshot?.data()
                     let username = data?["username"] as? String ?? "no username found"
                     self.accountUserNameLabel.text = username
                     self.accountUserEmailLabel.text = currUserEmail
+                    if let profilePicString = data?["profilePicURL"] as? String, let url = URL(string: profilePicString) {
+                        Task {
+                            let (picData, _) = try await URLSession.shared.data(from: url)
+                            let image = UIImage(data: picData)
+                            
+                            if let image = image {
+                                self.profilePicImageView.image = image
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -82,6 +101,105 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func onEditProfilePicturePressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Select Photo", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        // camera option
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
+                self.presentPhotoPicker(sourceType: .camera)
+            })
+        }
+        
+        // photo library option
+        alert.addAction(UIAlertAction(title: "Choose from Library", style: .default) { _ in
+            self.presentPhotoPicker(sourceType: .photoLibrary)
+        })
+        
+        // cancel image selection
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
+        let picker = UIImagePickerController()
+        picker.sourceType = sourceType
+        picker.delegate = self
+        picker.allowsEditing = false
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let image = info[.originalImage] as? UIImage {
+            profilePicImageView.image = image
+            
+            if let imageURL = info[.imageURL] as? URL {
+                // image chosen from camera library
+                profilePicURL = imageURL.absoluteString
+            } else {
+                // Image was taken with camera – save it temporarily to get a URL
+                if let tempURL = saveImageToTemporaryDirectory(image) {
+                    profilePicURL = tempURL.absoluteString
+                } else {
+                    print("Failed to save camera image to temp directory")
+                }
+            }
+        }
+        
+        Task {
+            await uploadProfilePicToStorage()
+        }
+    }
+    
+    func uploadProfilePicToStorage() async {
+        guard let user = currUser else { return }
+        let currUserEmail = user.email!
+        do {
+            if let image = self.profilePicImageView.image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                let storageRef = Storage.storage().reference()
+                let imageRef = storageRef.child("users/\(userDocID)-profile-pic.jpg")
+                
+                let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
+                profilePicURL = try await imageRef.downloadURL().absoluteString
+            }
+        } catch {
+            printContent(error)
+        }
+        
+        getUserDoc(currUserEmail: currUserEmail) { docRef in
+            if let docRef = docRef {
+                docRef.updateData(["profilePicURL": self.profilePicURL]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("user has updated their profile picture")
+                        
+                    }
+                }
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveImageToTemporaryDirectory(_ image: UIImage) -> URL? {
+        guard let data = image.jpegData(compressionQuality: 0.9) else { return nil }
+        
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let filename = UUID().uuidString + ".jpg"
+        let fileURL = tempDirectory.appendingPathComponent(filename)
+
+        do {
+            try data.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Error saving image: \(error)")
+            return nil
+        }
     }
     
     @IBAction func onEditNamePressed(_ sender: Any) {

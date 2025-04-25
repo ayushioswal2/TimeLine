@@ -58,9 +58,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let timelineID = userTimelineIDs[indexPath.row]
         
         Task {
-            if let imageURL = await getTimelineCoverPhotoURL(timelineID: timelineID) {
-                print("image url: \(imageURL.absoluteString)")
-                
+            if let imageURL = await getTimelineCoverPhotoURL(timelineID: timelineID) {                
                 let (data, _) = try await URLSession.shared.data(from: imageURL)
                 let image = UIImage(data: data)
                 

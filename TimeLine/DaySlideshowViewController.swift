@@ -13,9 +13,8 @@ class DaySlideshowViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var ellipsesStackView: UIStackView!
     
-    let allImageNames = ["photo.artframe", "person.crop.circle.fill", "pencil.line"]
     var currImageIndex = 0
-    var numImages = 3 // will populate this in viewDidLoad when we can pull images
+    var numImages = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +26,13 @@ class DaySlideshowViewController: UIViewController {
         
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        dateLabel.text = currDay?.date
         
+        numImages = currDayImages.count
+        
+        // style each photo cell in collection view
         imageView.layer.cornerRadius = 10
+        
         ellipsesStackView.setContentHuggingPriority(.required, for: .horizontal)
         ellipsesStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
@@ -40,24 +44,24 @@ class DaySlideshowViewController: UIViewController {
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recognizeLeftSwipeGesture(recognizer:)))
         swipeLeftRecognizer.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeftRecognizer)
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(recognizeTapGesture(recognizer:)))
-        
-        for index in 1...numImages {
-            let ellipseView = UIImageView(image: UIImage(systemName: "circle"))
-            let width = (self.view.frame.width / 3 * 2) / (CGFloat(numImages) * 2)
-            NSLayoutConstraint.activate([ellipseView.widthAnchor.constraint(equalToConstant: width),
-                                         ellipseView.heightAnchor.constraint(equalToConstant: 20)])
-            ellipseView.tintColor = UIColor(red: 70/255.0, green: 38/255.0, blue: 27/255.0, alpha: 1.0)
-            ellipseView.contentMode = .scaleAspectFit
-            ellipseView.layer.setValue(index, forKey: "ellipseIndex") // keep track which one's being tapped for later
-            ellipseView.isUserInteractionEnabled = true
-            ellipseView.addGestureRecognizer(tapRecognizer)
-            ellipsesStackView.addArrangedSubview(ellipseView)
+                
+        if numImages > 0 {
+            for _ in 1...numImages {
+                let ellipseView = UIImageView(image: UIImage(systemName: "circle"))
+                let width = (self.view.frame.width / 3 * 2) / (CGFloat(numImages) * 2)
+                NSLayoutConstraint.activate([ellipseView.widthAnchor.constraint(equalToConstant: width),
+                                             ellipseView.heightAnchor.constraint(equalToConstant: 20)])
+                ellipseView.tintColor = UIColor(red: 70/255.0, green: 38/255.0, blue: 27/255.0, alpha: 1.0)
+                ellipseView.contentMode = .scaleAspectFit
+                ellipsesStackView.addArrangedSubview(ellipseView)
+            }
+            
+            fillEllipse()
+            
+            showImage()
         }
-        
-        fillEllipse()
     }
+    
     
     func fillEllipse() {
         if let imageView = ellipsesStackView.subviews[currImageIndex] as? UIImageView {
@@ -68,20 +72,6 @@ class DaySlideshowViewController: UIViewController {
     func unfillEllipse() {
         if let imageView = ellipsesStackView.subviews[currImageIndex] as? UIImageView {
             imageView.image = UIImage(systemName: "circle")
-        }
-    }
-    
-    @IBAction func recognizeTapGesture(recognizer: UITapGestureRecognizer) {
-        unfillEllipse()
-        let oldIndex = currImageIndex
-        guard let title = recognizer.view?.layer.value(forKey: "ellipseIndex") as? String else { return }
-        let newIndex:Int? = Int(title)
-        currImageIndex = newIndex!
-        
-        if oldIndex > currImageIndex {
-            slideLeft()
-        } else {
-            slideRight()
         }
     }
     
@@ -180,6 +170,6 @@ class DaySlideshowViewController: UIViewController {
     }
     
     func showImage() {
-        imageView.image = UIImage(systemName: allImageNames[currImageIndex])
+        imageView.image = currDayImages[currImageIndex]
     }
 }
