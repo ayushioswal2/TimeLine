@@ -15,7 +15,7 @@ class DaySlideshowViewController: UIViewController {
     
     let allImageNames = ["photo.artframe", "person.crop.circle.fill", "pencil.line"]
     var currImageIndex = 0
-    var numImages = 6 // will populate this in viewDidLoad when we can pull images
+    var numImages = 3 // will populate this in viewDidLoad when we can pull images
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,10 @@ class DaySlideshowViewController: UIViewController {
         
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        
+        imageView.layer.cornerRadius = 10
+        ellipsesStackView.setContentHuggingPriority(.required, for: .horizontal)
+        ellipsesStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         // swiping for slideshow
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(recognizeRightSwipeGesture(recognizer:)))
