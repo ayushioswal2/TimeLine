@@ -26,11 +26,13 @@ class DaySlideshowViewController: UIViewController {
         
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        dateLabel.text = currDay?.date
         
         numImages = currDayImages.count
         
         // style each photo cell in collection view
         imageView.layer.cornerRadius = 10
+        
         ellipsesStackView.setContentHuggingPriority(.required, for: .horizontal)
         ellipsesStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
@@ -59,6 +61,7 @@ class DaySlideshowViewController: UIViewController {
             showImage()
         }
     }
+    
     
     func fillEllipse() {
         if let imageView = ellipsesStackView.subviews[currImageIndex] as? UIImageView {

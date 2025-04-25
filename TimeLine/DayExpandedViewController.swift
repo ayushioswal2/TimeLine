@@ -32,6 +32,7 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        dateLabel.text = currDay?.date
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -44,7 +45,7 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         Task {
             await updateCurrDayImages()
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.collectionView.reloadData() // Reload after images are updated
             }
         }
     }
@@ -66,12 +67,17 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         photopicker.delegate = self
         
         present(photopicker, animated: true)
+        
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
+        let dispatchGroup = DispatchGroup()
+        
         for result in results {
+            
+            dispatchGroup.enter()
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     if let image = image as? UIImage {
@@ -80,70 +86,71 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
                             self.selectedImages.append(image)
                         }
                     }
+                    dispatchGroup.leave()
                 }
+            } else {
+                dispatchGroup.leave()
             }
         }
         
-        Task {
-            await storeImages(formattedDate: currDay!.date)
+        dispatchGroup.notify(queue: .main) {
+            print("images selected")
+            print("selected count: \(self.selectedImages.count)")
+            Task {
+                await self.storeImages()
+                await self.updateDayData()
+                await self.updateCurrDayImages()
+                self.collectionView.reloadData()
+                self.selectedImages.removeAll()
+            }
         }
     }
     
-    func storeImages(formattedDate: String) async {
-        var selectedImageURLs: [String] = []
-        for image in selectedImages {
-            // extract image url to store in firestore
-            if let imageData = image.jpegData(compressionQuality: 0.8) {
-                let storageRef = Storage.storage().reference()
-                
-                let uniqueID = UUID().uuidString
-                let imageRef = storageRef.child("timelines/\(currTimelineID)/\(formattedDate)/\(uniqueID).jpg")
-                
-                do {
-                    // store in Firebase storage
+    func storeImages() async {
+        print("in store images")
+        print (selectedImages.count)
+        do {
+            for image in selectedImages {
+                print("for loop")
+                if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    let storageRef = Storage.storage().reference()
+                    
+                    let uniqueID = UUID().uuidString
+                    let imageRef = storageRef.child("timelines/\(currTimelineID)/\(currDay!.date)/\(uniqueID).jpg")
+    
                     let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
                     let imageURL = try await imageRef.downloadURL().absoluteString
-                                        
-                    // store to local copy of this day's imageURL array
-                    currDay!.images.append(imageURL)
+
                     selectedImageURLs.append(imageURL)
-                } catch {
-                    printContent(error)
-                }
-            }
-        }
-        
-        // update documents in Firestore
-        db.collection("timelines").document(currTimelineID).collection("days").whereField("date", isEqualTo: formattedDate).getDocuments() { (snapshot, error) in
-            if let error = error {
-                print("error fetching document: \(error)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents, !documents.isEmpty else {
-                print("no matching document found")
-                return
-            }
-            
-            let docRef = documents[0].reference
-//            docRef.updateData(["images": FieldValue.arrayUnion(selectedImageURLs)])
-            docRef.updateData(["images": currDay!.images])
-        }
-    }
-    
-    func updateCurrDayImages() async {
-        do {
-            for imageURLString in selectedImageURLs {
-                let imageURL = URL(string: imageURLString)
-                let (data, _) = try await URLSession.shared.data(from: imageURL!)
-                let image = UIImage(data: data)
-                
-                if let image = image {
-                    currDayImages.append(image)
                 }
             }
         } catch {
-            printContent(error)
+            print("error storing images: \(error)")
+        }
+        
+    }
+    
+    func updateDayData() async {
+        do {
+            let snapshot = try await db.collection("timelines")
+                .document(currTimelineID)
+                .collection("days")
+                .whereField("date", isEqualTo: currDay!.date)
+                .getDocuments()
+            
+            guard let document = snapshot.documents.first else {
+                print("No matching document found for date \(currDay!.date)")
+                return
+            }
+            
+            let dayRef = document.reference
+            
+            try await dayRef.updateData([
+                "images": FieldValue.arrayUnion(selectedImageURLs)
+            ])
+            
+        } catch {
+            print("error updating day data: \(error)")
         }
     }
     
@@ -190,4 +197,22 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.collectionViewLayout = layout
     }
+    
+    func updateCurrDayImages() async {
+        do {
+            for imageURLString in selectedImageURLs {
+                let imageURL = URL(string: imageURLString)
+                let (data, _) = try await URLSession.shared.data(from: imageURL!)
+                let image = UIImage(data: data)
+
+                if let image = image {
+                    currDayImages.append(image)
+                }
+            }
+        } catch {
+            print("Error loading images: \(error)")
+        }
+    }
 }
+    
+
