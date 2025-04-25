@@ -50,6 +50,13 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        selectedImages.removeAll()
+        selectedImageURLs.removeAll()
+    }
+    
     @objc func updateFont() {
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
     }
@@ -102,6 +109,7 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
                 await self.updateCurrDayImages()
                 self.collectionView.reloadData()
                 self.selectedImages.removeAll()
+                self.selectedImageURLs.removeAll()
             }
         }
     }
