@@ -23,7 +23,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
-//    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
+    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
     var backgroundImageView: UIImageView!
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
 
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
-        // TODO need to update the date label with the actual date (or we can just replace it with "Edit" LOL
+        dateLabel.text = currDay!.date
 
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
