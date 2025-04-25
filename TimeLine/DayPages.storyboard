@@ -22,18 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQc-wq-8Hk">
-                                <rect key="frame" x="319.66666666666669" y="726.66666666666663" width="57.333333333333314" height="57.333333333333371"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="WQc-wq-8Hk" secondAttribute="height" multiplier="1:1" id="2ut-UO-PHN"/>
-                                </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="pencil.and.scribble" catalog="system"/>
-                                <connections>
-                                    <action selector="editButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="VOd-rO-Dc8"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdT-OM-Hxs">
                                 <rect key="frame" x="327.33333333333331" y="168.33333333333334" width="49.666666666666686" height="49.666666666666657"/>
                                 <constraints>
@@ -57,9 +45,8 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KQV-aU-FMS">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KQV-aU-FMS">
                                 <rect key="frame" x="50" y="239.00000000000003" width="293" height="447.66666666666663"/>
-                                <color key="backgroundColor" systemColor="systemBrownColor"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="KQV-aU-FMS" secondAttribute="height" multiplier="13:20" id="cri-Hw-h8S"/>
@@ -83,12 +70,10 @@
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="top" secondItem="ZD0-DC-xQ3" secondAttribute="bottom" constant="25" id="2pv-IK-n0N"/>
                             <constraint firstItem="OdT-OM-Hxs" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-16" id="DMp-Br-W2V"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="OHz-9y-t86"/>
-                            <constraint firstItem="WQc-wq-8Hk" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-16" id="REy-CQ-gcB"/>
                             <constraint firstItem="ZD0-DC-xQ3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="VZH-yH-xgN"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="leading" relation="lessThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="auU-oY-rg4"/>
                             <constraint firstItem="lJi-1y-ZOx" firstAttribute="top" secondItem="KQV-aU-FMS" secondAttribute="bottom" constant="20" id="dGc-kr-94M"/>
                             <constraint firstItem="ZD0-DC-xQ3" firstAttribute="centerY" secondItem="OdT-OM-Hxs" secondAttribute="centerY" id="kA9-p8-WME"/>
-                            <constraint firstItem="WQc-wq-8Hk" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="kWU-ml-eiC"/>
                             <constraint firstItem="KQV-aU-FMS" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-25" id="qqX-pI-Hk3"/>
                             <constraint firstItem="ZD0-DC-xQ3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="56" id="tkZ-EU-Dby"/>
                             <constraint firstItem="lJi-1y-ZOx" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="uKO-BB-qqd"/>
@@ -114,7 +99,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAC-42-pJw">
-                                <rect key="frame" x="330" y="167.33333333333334" width="47" height="47"/>
+                                <rect key="frame" x="330" y="169.33333333333334" width="47" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fAC-42-pJw" secondAttribute="height" multiplier="1:1" id="aNq-cH-Fzk"/>
                                     <constraint firstAttribute="width" secondItem="fAC-42-pJw" secondAttribute="height" multiplier="1:1" id="e6k-E9-p71"/>
@@ -127,13 +112,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 6th, 2024" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGZ-5m-GIy">
-                                <rect key="frame" x="16" y="174" width="264.33333333333331" height="33.666666666666657"/>
+                                <rect key="frame" x="15.999999999999986" y="174" width="233.66666666666663" height="37.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DGD-v8-86Y">
-                                <rect key="frame" x="16" y="223.66666666666669" width="361" height="544.33333333333326"/>
+                                <rect key="frame" x="16" y="227.33333333333331" width="361" height="540.66666666666674"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Dxv-Mr-0i5">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -184,7 +169,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 6th, 2024" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgB-Mb-ylu">
-                                <rect key="frame" x="64.333333333333343" y="174" width="264.33333333333326" height="33.666666666666657"/>
+                                <rect key="frame" x="79.666666666666671" y="174" width="233.66666666666657" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Refani" family="Refani" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -363,7 +348,6 @@
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
         <image name="paintpalette" catalog="system" width="128" height="105"/>
-        <image name="pencil.and.scribble" catalog="system" width="128" height="86"/>
         <image name="pencil.tip" catalog="system" width="99" height="128"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="photo.badge.plus" catalog="system" width="128" height="97"/>
@@ -374,9 +358,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

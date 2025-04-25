@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 var userTimelines: [String: String] = [:]
 
@@ -13,3 +14,5 @@ var currTimelineID = ""
 var currTimeline: Timeline?
 
 var days: [Day] = []
+var currDay: Day?
+var currDayImages: [UIImage] = []

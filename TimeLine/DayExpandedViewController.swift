@@ -7,6 +7,8 @@
 
 import UIKit
 import PhotosUI
+import FirebaseFirestore
+import FirebaseStorage
 
 class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -14,9 +16,14 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
     @IBOutlet weak var dateLabel: UILabel!
     
     var selectedImages: [UIImage] = []
+    var selectedImageURLs: [String] = []
+    
+    var db: Firestore!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -30,6 +37,16 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         collectionView.dataSource = self
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "expandedImageCell")
         collectionView.backgroundColor = .clear
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await updateCurrDayImages()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     @objc func updateFont() {
@@ -61,16 +78,77 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
                         DispatchQueue.main.async {
                             print("Got image: \(image)")
                             self.selectedImages.append(image)
-                            self.collectionView.reloadData()
                         }
                     }
                 }
             }
         }
+        
+        Task {
+            await storeImages(formattedDate: currDay!.date)
+        }
+    }
+    
+    func storeImages(formattedDate: String) async {
+        var selectedImageURLs: [String] = []
+        for image in selectedImages {
+            // extract image url to store in firestore
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                let storageRef = Storage.storage().reference()
+                
+                let uniqueID = UUID().uuidString
+                let imageRef = storageRef.child("timelines/\(currTimelineID)/\(formattedDate)/\(uniqueID).jpg")
+                
+                do {
+                    // store in Firebase storage
+                    let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
+                    let imageURL = try await imageRef.downloadURL().absoluteString
+                                        
+                    // store to local copy of this day's imageURL array
+                    currDay!.images.append(imageURL)
+                    selectedImageURLs.append(imageURL)
+                } catch {
+                    printContent(error)
+                }
+            }
+        }
+        
+        // update documents in Firestore
+        db.collection("timelines").document(currTimelineID).collection("days").whereField("date", isEqualTo: formattedDate).getDocuments() { (snapshot, error) in
+            if let error = error {
+                print("error fetching document: \(error)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents, !documents.isEmpty else {
+                print("no matching document found")
+                return
+            }
+            
+            let docRef = documents[0].reference
+//            docRef.updateData(["images": FieldValue.arrayUnion(selectedImageURLs)])
+            docRef.updateData(["images": currDay!.images])
+        }
+    }
+    
+    func updateCurrDayImages() async {
+        do {
+            for imageURLString in selectedImageURLs {
+                let imageURL = URL(string: imageURLString)
+                let (data, _) = try await URLSession.shared.data(from: imageURL!)
+                let image = UIImage(data: data)
+                
+                if let image = image {
+                    currDayImages.append(image)
+                }
+            }
+        } catch {
+            printContent(error)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedImages.count
+        return currDayImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,7 +157,7 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
 
         let imageView = UIImageView(frame: cell.contentView.bounds)
-        imageView.image = selectedImages[indexPath.item]
+        imageView.image = currDayImages[indexPath.item]
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         cell.contentView.addSubview(imageView)
