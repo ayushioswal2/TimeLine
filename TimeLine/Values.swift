@@ -13,3 +13,5 @@ var currTimelineID = ""
 var currTimeline: Timeline?
 
 var days: [Day] = []
+
+// have current day

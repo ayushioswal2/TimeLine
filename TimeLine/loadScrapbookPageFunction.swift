@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func loadScrapbookPageFunction() async throws {
+func loadScrapbookPageFunction() async throws { // -> figure out paramters and returns
     
     // need to get the current day image
     // need to take in canvas elements as well
@@ -19,6 +19,7 @@ func loadScrapbookPageFunction() async throws {
     /*
      
      view.transform = CGAffineTransform(rotationAngle: rotation)
+     multiple x, y, width, and height by parentView.bounds.height or width depending on what it is
      
      need to remember to multiple everything by the canvas size because rn x, y, width, and height are stored as percentages
      for element in canvasElements {
@@ -31,10 +32,53 @@ func loadScrapbookPageFunction() async throws {
              }
         } else if element.type == "text" {
             // create label (can call on function)
+             let label = UILabel()
+             label.text = element["text"]
+             label.textColor = colorFromHex(element["color"])
+             label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+     
+             label.frame = CGRect(
+               x: element["x"]*parentView.bounds.width - label.frame.width / 2,
+               y: element["y"]*parentView.bounds.height - label.frame.height / 2,
+               width: element["x"]*parentView.bounds.width,
+               height: element["y"]*parentView.bounds.height
+             )
+             label.sizeToFit()
+             label.frame.origin = CGPoint(
+                 x: element["x"]*parentView.bounds.width - label.frame.width / 2,
+                 y: element["y"]*parentView.bounds.height - label.frame.height / 2
+             )
+             if let rotation = data.rotation {
+                 label.transform = CGAffineTransform(rotationAngle: rotation)
+             }
+     
+            canvasUIView.addSubview(label)
         } else if element.type == "circle" {
             // create circle
+     let circleView = UIView(frame: CGRect(
+         x: element["x"]*parentView.bounds.width - element["width"]*parentView.bounds.width / 2,
+         y: element["y"]*parentView.bounds.height - element["height"]*parentView.bounds.height / 2,
+         width: element["width"]*parentView.bounds.width,
+         height: element["height"]*parentView.bounds.height
+     ))
+     
+     circleView.backgroundColor = colorFromHex(element["color"])
+     circleView.layer.cornerRadius = element["height"]*parentView.bounds.height / 2
+     
+     canvasUIView.addSubview(circleView)
         } else if element.type == "rect" {
             // create rect
+     let centerPoint = CGPoint(x: element["x"]*parentView.bounds.width, y: element["y"]*parentView.bounds.height)
+
+     let rectView = UIView(frame: CGRect(
+         x: centerPoint.x - element["width"]*parentView.bounds.width / 2,
+         y: centerPoint.y - element["height"]*parentView.bounds.height / 2,
+         width: element["width"]*parentView.bounds.width,
+         height: element["height"]*parentView.bounds.height
+     ))
+
+     rectView.backgroundColor = colorFromHex(element["color"])
+     parentView.addSubview(rectView)
         }
      
     }

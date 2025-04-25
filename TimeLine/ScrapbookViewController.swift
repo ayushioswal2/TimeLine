@@ -13,6 +13,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
     
+    // TODO add back in outlet for imageView that we need to readd (call backgroundImageView)
     @IBOutlet weak var canvasUIView: UIView!
     var drawingCanvasView: PKCanvasView!
     var currentDrawingColor: UIColor = .black
@@ -22,7 +23,8 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     var isText: Bool = false
     var isErasing: Bool = false
     var selectedElement: UIView?
-    var canvasElements: [[String: Any]] = []
+    var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
+    // var backgroundImageURL = "" -> pulled from segue, in values.swift
 
 
     
@@ -36,6 +38,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
 
         dateLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         dateLabel.textColor = UIColor.appColorScheme(type: "primary")
+        // TODO need to update the date label with the actual date (or we can just replace it with "Edit" LOL
 
         saveButton.titleLabel?.font = UIFont.appFont(forTextStyle: .body, weight: .regular)
         saveButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
@@ -140,7 +143,6 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             circleView.layer.cornerRadius = circleSize / 2
             circleView.clipsToBounds = true
             
-            // make it resizable, deletable, etc. later
             circleView.isUserInteractionEnabled = true
             
             canvasUIView.addSubview(circleView)
@@ -344,6 +346,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         present(colorPicker, animated: true, completion: nil)
     }
     
+    // might remove
     @IBAction func addImageButtonPressed(_ sender: Any) {
     }
     
@@ -370,11 +373,30 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             let newElement: [String: Any] = createCanvasElement(subview: subview)
             canvasElements.append(newElement)
         }
+        
+        if let snapshotImage = renderCanvasAsImage() {
+            let snapshotImageView = UIImageView(image: snapshotImage)
+            
+            // store snapshotImageView in firestore (replace the current image URL with this new one)
+
+            print("canvas captured")
+        } else {
+            print("failed to get snapshot")
+        }
+        
+        // add all elements to firestore here (append to existing array of canvasElements
         print(canvasElements)
     }
     
+    // this is to save newly created page as an image to use on other storyboards
+    func renderCanvasAsImage() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(bounds: canvasUIView.bounds)
+        return renderer.image { context in
+            canvasUIView.layer.render(in: context.cgContext)
+        }
+    }
     
-    
+    // save canvas elements so that we can re-edit again
     func createCanvasElement(subview: UIView) -> [String: Any] {
         let canvasWidth = canvasUIView.frame.width
         let canvasHeight = canvasUIView.frame.height
@@ -415,6 +437,10 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
                 "rotation": rotation
             ]
         }
+        
+        // TODO delete - for debugging right now
+        print(newElement)
+        
         return newElement
     }
     
@@ -433,6 +459,7 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
         return String(format: "#%02X%02X%02X%02X", r, g, b, a)
     }
     
+    // migght have to to put the loadScrapbookPageFunction back in here WHOOPS
 //    func colorFromHex(_ hex: String) -> UIColor {
 //        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 //        
