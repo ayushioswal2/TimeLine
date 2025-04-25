@@ -10,8 +10,9 @@ import UIKit
 class DateCell: UITableViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var dummyCoverPhotoView: UIView!
+    @IBOutlet weak var dayCoverImage: UIImageView!
+    @IBOutlet weak var addToDayIcon: UIImageView!
     
     @IBOutlet weak var dateCellSideLine: UIView!
     @IBOutlet weak var dateCellSideCircle: UIImageView!

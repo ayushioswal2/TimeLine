@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseStorage
 
 var deletionOrLeaveOccurred: Bool = false
 
@@ -17,9 +19,12 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var timelineSettingsButton: UIButton!
     
     let formatter = DateFormatter()
+    var db: Firestore!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -48,7 +53,12 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         
         timelineTitleLabel.text = currTimeline?.name
 
-        datesTableView.reloadData()
+        Task {
+            await retrieveDaysData()
+            DispatchQueue.main.async {
+                self.datesTableView.reloadData()
+            }
+        }
         
         if deletionOrLeaveOccurred {
             self.navigationController?.popViewController(animated: true)
@@ -57,31 +67,35 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dates.count
+        return days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell", for: indexPath) as! DateCell
+                
+        let currDay = days[indexPath.row]
+        cell.dateLabel.text = currDay.date
+        cell.dayCoverImage.image = nil
+        cell.addToDayIcon.isHidden = false
         
-        let formattedDate = formatter.string(from: dates[indexPath.row])
-        cell.dateLabel.text = formattedDate
-        return cell
-    }
-    
-    @objc func updateFont() {
-        timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
-    }
-    
-    @IBAction func settingsButtonPressed(_ sender: Any) {
-        // Load the other storyboard
-        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
-
-        // Instantiate the DateTimelineViewController directly
-        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "SettingsDateTimelineId") as? TimelineSettingsViewController {
-
-            // Push onto the current navigation stack
-            self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+        if let firstImageURLString = currDay.images.first, let url = URL(string: firstImageURLString) {
+            Task {
+                let dayCoverImageURL = URL(string: currDay.images[0])!
+                let (data, _) = try await URLSession.shared.data(from: dayCoverImageURL)
+                let image = UIImage(data: data)
+                
+                if let image = image {
+                    if let currentIndexPath = tableView.indexPath(for: cell), currentIndexPath == indexPath {
+                        DispatchQueue.main.async {
+                            cell.dayCoverImage.image = image
+                            cell.addToDayIcon.isHidden = true
+                        }
+                    }
+                }
+            }
         }
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -96,10 +110,44 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    @objc func updateColorScheme() {
-        timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
-        addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
-        timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
+    func retrieveDaysData() async {
+        var fetchedDays: [Day] = []
+
+        do {
+            let daysRef = db.collection("timelines").document(currTimelineID).collection("days")
+            let snapshot = try await daysRef.getDocuments()
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                let date = data["date"] as? String ?? "Unknown Date"
+                let images = data["images"] as? [String] ?? []
+                
+                let day = Day(date: date, images: images)
+                fetchedDays.append(day)
+            }
+        } catch {
+            print("Error fetching days: \(error)")
+        }
+
+        fetchedDays.sort { lhs, rhs in
+            guard let lhsDate = formatter.date(from: lhs.date),
+                  let rhsDate = formatter.date(from: rhs.date) else { return false }
+            return lhsDate < rhsDate
+        }
+        
+        days = fetchedDays
+    }
+        
+    @IBAction func settingsButtonPressed(_ sender: Any) {
+        // Load the other storyboard
+        let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
+
+        // Instantiate the DateTimelineViewController directly
+        if let dateTimelineVC = storyboard.instantiateViewController(withIdentifier: "SettingsDateTimelineId") as? TimelineSettingsViewController {
+
+            // Push onto the current navigation stack
+            self.navigationController?.pushViewController(dateTimelineVC, animated: true)
+        }
     }
     
     @IBAction func addToTimelinePressed(_ sender: Any) {
@@ -112,4 +160,15 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
             self.navigationController?.pushViewController(addToTimelineVC, animated: true)
         }
     }
+    
+    @objc func updateColorScheme() {
+        timelineTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
+        addToTimelineButton.backgroundColor = UIColor.appColorScheme(type: "secondary")
+        timelineSettingsButton.tintColor = UIColor.appColorScheme(type: "secondary")
+    }
+    
+    @objc func updateFont() {
+        timelineTitleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
+    }
 }
+

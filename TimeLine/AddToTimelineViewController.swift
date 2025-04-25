@@ -44,6 +44,12 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        imageURLs.removeAll(keepingCapacity: false)
+    }
+    
     @objc func updateFont() {
         titleLabel.font = UIFont.appFont(forTextStyle: .title1, weight: .bold)
         selectDateLabel.font = UIFont.appFont(forTextStyle: .body)
@@ -85,21 +91,31 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
     }
     
     @IBAction func doneBtnPressed(_ sender: Any) {
-        if dates.contains(datePicker.date) {
+        let formattedDate = formatter.string(from: datePicker.date)
+        
+        if days.contains(where: { $0.date == formattedDate }) {
             print("Entry already exists")
-        } else {
-            dates.append(datePicker.date)
-            dates.sort()
+            let controller = UIAlertController(title: "Error", message: "This date has already been added to the timeline", preferredStyle: .alert)
             
-            let formattedDate = formatter.string(from: datePicker.date)
+            let action = UIAlertAction(title: "OK", style: .default) { _ in }
+            controller.addAction(action)
+            present(controller, animated: true)
+            
+        } else {
             
             Task {
                 await storeImages(formattedDate: formattedDate)
                 await storeDayData()
+                
+                let newDay = Day(
+                    date: formattedDate,
+                    images: imageURLs)
+                
+                days.append(newDay)
+                
+                navigationController?.popViewController(animated: true)
             }
         }
-        
-        navigationController?.popViewController(animated: true)
     }
     
     func storeImages(formattedDate: String) async {
@@ -115,9 +131,7 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
                     // store in Firebase storage
                     let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
                     let imageURL = try await imageRef.downloadURL().absoluteString
-                    
-                    print("Image URL: \(imageURL)")
-                    
+                                        
                     self.imageURLs.append(imageURL)
                 } catch {
                     printContent(error)
@@ -134,7 +148,7 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
             
             try await timelineRef.collection("days").addDocument(data: [
                 "date": formattedDate,
-                "images": []
+                "images": imageURLs
             ])
         } catch {
             print("error storing day data: \(error)")

@@ -21,6 +21,6 @@ struct Timeline {
 }
 
 struct Day {
-    var date: Date
-    var images: [URL] = []
+    var date: String
+    var images: [String] = []
 }
