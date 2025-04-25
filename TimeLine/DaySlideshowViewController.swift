@@ -47,21 +47,34 @@ class DaySlideshowViewController: UIViewController {
                 
         if numImages > 0 {
             for _ in 1...numImages {
-                let ellipseView = UIImageView(image: UIImage(systemName: "circle"))
-                let width = (self.view.frame.width / 3 * 2) / (CGFloat(numImages) * 2)
-                NSLayoutConstraint.activate([ellipseView.widthAnchor.constraint(equalToConstant: width),
-                                             ellipseView.heightAnchor.constraint(equalToConstant: 20)])
-                ellipseView.tintColor = UIColor(red: 70/255.0, green: 38/255.0, blue: 27/255.0, alpha: 1.0)
-                ellipseView.contentMode = .scaleAspectFit
-                ellipsesStackView.addArrangedSubview(ellipseView)
+                addEllipses()
             }
             
             fillEllipse()
-            
             showImage()
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        numImages = currDayImages.count
+        let numAddedImages = numImages - ellipsesStackView.subviews.count
+        
+        if numAddedImages > 0 {
+            for _ in 1...numAddedImages {
+                addEllipses()
+            }
+        }
+    }
+    
+    func addEllipses() {
+        let ellipseView = UIImageView(image: UIImage(systemName: "circle"))
+        let width = (self.view.frame.width / 3 * 2) / (CGFloat(numImages) * 2)
+        NSLayoutConstraint.activate([ellipseView.widthAnchor.constraint(equalToConstant: width),
+                                     ellipseView.heightAnchor.constraint(equalToConstant: 20)])
+        ellipseView.tintColor = UIColor(red: 70/255.0, green: 38/255.0, blue: 27/255.0, alpha: 1.0)
+        ellipseView.contentMode = .scaleAspectFit
+        ellipsesStackView.addArrangedSubview(ellipseView)
+    }
     
     func fillEllipse() {
         if let imageView = ellipsesStackView.subviews[currImageIndex] as? UIImageView {
