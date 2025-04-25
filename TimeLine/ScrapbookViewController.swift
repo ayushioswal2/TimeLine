@@ -7,6 +7,8 @@
 
 import UIKit
 import PencilKit
+import FirebaseFirestore
+import FirebaseStorage
 
 class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UIColorPickerViewControllerDelegate {
 
@@ -26,8 +28,15 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
     var canvasElements: [[String: Any]] = [] // need to pull this from firebase (that way can add more elements on top if someone re-redits)
     var backgroundImageView: UIImageView!
     
+    var newImageURL: String = ""
+    var newImagesList: [String] = []
+    
+    var db: Firestore!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db = Firestore.firestore()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
@@ -376,18 +385,109 @@ class ScrapbookViewController: UIViewController, UIGestureRecognizerDelegate, UI
             canvasElements.append(newElement)
         }
         
-        if let snapshotImage = renderCanvasAsImage() {
-            let snapshotImageView = UIImageView(image: snapshotImage)
-            
-            // store snapshotImageView in firestore (replace the current image URL with this new one)
-
-            print("canvas captured")
-        } else {
-            print("failed to get snapshot")
+        Task {
+            await self.saveNewImage()
+            await self.updateDayData()
+            await self.updateLocalVariables()
         }
         
         // add all elements to firestore here (append to existing array of canvasElements
         print(canvasElements)
+    }
+    
+    func mergeCanvasAndBackground() -> UIImage? {
+        let size = canvasUIView.bounds.size
+            
+        guard let backgroundImage = backgroundImageView.image else { return nil }
+        guard let canvasImage = renderCanvasAsImage() else { return nil }
+        
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        let finalImage = renderer.image { context in
+            // Draw the background image first
+            backgroundImage.draw(in: CGRect(origin: .zero, size: size))
+            
+            // Draw the canvas contents on top
+            canvasImage.draw(in: CGRect(origin: .zero, size: size))
+        }
+        
+        return finalImage
+    }
+    
+    func saveNewImage() async {
+        print("in SaveNewImage")
+        if let snapshotImage = mergeCanvasAndBackground() {
+            // store snapshotImageView in firestore (replace the current image URL with this new one)
+            do {
+                if let imageData = snapshotImage.jpegData(compressionQuality: 0.8) {
+                    let storageRef = Storage.storage().reference()
+                    
+                    let uniqueID = UUID().uuidString
+                    let imageRef = storageRef.child("timelines/\(currTimelineID)/\(currDay!.date)/\(uniqueID).jpg")
+                    
+                    
+                    let _ = try await imageRef.putDataAsync(imageData, metadata: nil)
+                    newImageURL = try await imageRef.downloadURL().absoluteString
+                }
+            } catch {
+                printContent(error)
+            }
+            print("canvas captured")
+        } else {
+            print("failed to get snapshot")
+        }
+    }
+    
+    func updateDayData() async {
+        print("in updateDayData")
+        do {
+            let snapshot = try await db.collection("timelines")
+                .document(currTimelineID)
+                .collection("days")
+                .whereField("date", isEqualTo: currDay!.date)
+                .getDocuments()
+            
+            guard let document = snapshot.documents.first else {
+                print("No matching document found for date \(currDay!.date)")
+                return
+            }
+            
+            let dayRef = document.reference
+    
+            newImagesList = try await dayRef.getDocument().data()!["images"] as! [String]
+            newImagesList[currDayImageIndex!] = newImageURL
+            
+            dayRef.updateData(["images": newImagesList]) { error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated!")
+                }
+            }
+            
+        } catch {
+            print("error updating day data: \(error)")
+        }
+    }
+    
+    func updateLocalVariables() async {
+        // update days (update currDay then update days[currDayIndex])
+        if var day = days.first(where: {$0.date == currDay!.date}) {
+            day.images[currDayImageIndex!] = newImageURL
+        }
+        
+        // update currDay (stores ImageURLs as Strings)
+        currDay!.images[currDayImageIndex!] = newImageURL
+        
+        // update currDayImages (stores UIImages)
+        do {
+            let imageURL = URL(string: newImageURL)
+            let (data, _) = try await URLSession.shared.data(from: imageURL!)
+            let image = UIImage(data: data)
+            currDayImages[currDayImageIndex!] = image!
+        } catch {
+            printContent(error)
+        }
     }
     
     // this is to save newly created page as an image to use on other storyboards

@@ -185,6 +185,7 @@ class DayExpandedViewController: UIViewController, PHPickerViewControllerDelegat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // select currImage
         currImage = currDayImages[indexPath.item]
+        currDayImageIndex = indexPath.item
         
         let storyboard = UIStoryboard(name: "DayPages", bundle: nil)
         

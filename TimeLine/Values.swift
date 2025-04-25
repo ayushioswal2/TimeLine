@@ -19,3 +19,4 @@ var currDay: Day?
 var currDayImages: [UIImage] = []
 
 var currImage: UIImage?
+var currDayImageIndex: Int? // keep track of which image in this day's image list we are currently editing
