@@ -48,6 +48,9 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        currDayImages = []
+        days = []
+        
         updateFont()
         updateColorScheme()
         
@@ -75,7 +78,6 @@ class TimelineMainViewController: UIViewController, UITableViewDataSource, UITab
                 
         let thisDay = days[indexPath.row]
         cell.dateLabel.text = thisDay.date
-        cell.dayCoverImage.image = nil
         cell.addToDayIcon.isHidden = false
         
         if let firstImageURLString = thisDay.images.first, let url = URL(string: firstImageURLString) {

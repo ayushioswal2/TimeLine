@@ -22,6 +22,8 @@ class DateCell: UITableViewCell {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFont), name: NSNotification.Name("FontChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateColorScheme), name: NSNotification.Name("ColorSchemeChanged"), object: nil)
+
+        dayCoverImage.image = nil
                 
         // Initially set the font and colors
         updateFont()

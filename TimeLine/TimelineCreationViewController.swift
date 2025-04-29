@@ -104,15 +104,6 @@ class TimelineCreationViewController: UIViewController, UIImagePickerControllerD
                 
                 self.navigationController?.popViewController(animated: true)
                 
-                let storyboard = UIStoryboard(name: "IndividualTimeline", bundle: nil)
-                
-                // Instantiate the DateTimelineViewController directly
-                if let timelineMainVC = storyboard.instantiateViewController(withIdentifier: "DateTimelineStoryboard") as? TimelineMainViewController {
-                    
-                    // Push onto the current navigation stack
-                    self.navigationController?.pushViewController(timelineMainVC, animated: true)
-                }
-                
                 coverPhotoImageView.image = nil
             }
         }

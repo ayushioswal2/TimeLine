@@ -48,6 +48,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate, 
         profilePicImageView.contentMode = .scaleAspectFill
         profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
         profilePicImageView.clipsToBounds = true
+        profilePicImageView.image = nil
         myAccountTitleLabel.textColor = UIColor.appColorScheme(type: "primary")
         
         // fetch info from Firebase
@@ -358,7 +359,6 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
         
-    
     func logOut() {
         do {
             try Auth.auth().signOut()

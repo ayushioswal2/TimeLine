@@ -132,7 +132,6 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         let db = Firestore.firestore()
         
         print ("WE ARE IN REJECT")
-
         db.collection("users")
             .whereField("email", isEqualTo: userEmail)
             .getDocuments { snapshot, error in

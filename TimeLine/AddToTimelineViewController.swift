@@ -102,7 +102,6 @@ class AddToTimelineViewController: UIViewController, PHPickerViewControllerDeleg
             present(controller, animated: true)
             
         } else {
-            
             Task {
                 await storeImages(formattedDate: formattedDate)
                 await storeDayData()
